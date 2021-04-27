@@ -23,7 +23,7 @@ def save_json(path: str, f: object) -> None:
             json_path,
         )
 
-def load_json(path: str) -> dict:
+def load_json(path: str, encoding='utf-8') -> dict:
     with open(path, "r") as json_file:
         output = json.load(json_file)
     return output
