@@ -14,11 +14,11 @@ from tqdm import tqdm
 
 @dataclass
 class OntologyDSTFeature:
-    guid: str
-    input_ids: List[int]
-    segment_ids: List[int]
-    num_turn: int
-    target_ids: Optional[List[int]]
+    guid: str # dialogue_idx
+    input_ids: List[int] # tokenized dialogue idx [[r_1, u_1], ..., [r_T, u_T]]
+    segment_ids: List[int] # token_type_ids
+    num_turn: int # 해당 대화의 총 턴 길이
+    target_ids: Optional[List[int]]  # (대화별 총 턴 길이) * (총 슬릇 메타 수)
 
 
 @dataclass
