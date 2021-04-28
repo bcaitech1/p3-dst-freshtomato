@@ -164,6 +164,7 @@ def build_slot_meta(data):
 
 
 def convert_state_dict(state):
+    
     dic = {}
     for slot in state:
         s, v = split_slot(slot, get_domain_slot=True)
@@ -174,11 +175,11 @@ def convert_state_dict(state):
 @dataclass
 class DSTInputExample:
     """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
-    - guid: dialogue_idx + turn_idx 형태의 인덱스
-    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
-    - current_turn: 현재 turn에서의 시스템/유저의 발화.
-                    (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
-    - label: Turn t에서의 dialogue state(=B_{t})
+        - guid: dialogue_idx + turn_idx 형태의 인덱스
+        - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
+        - current_turn: 현재 turn에서의 시스템/유저의 발화.
+                        (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
+        - label: Turn t에서의 dialogue state(=B_{t})
     """
 
     guid: str
@@ -221,12 +222,9 @@ def get_examples_from_dialogue(
 
                 {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
                 'domains': ['관광', '식당'],
-                'dialogue': [{'role': 'user',
-                ...
-                }
+                'dialogue': [{'role': 'user',...}, ...]}
 
-        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태.
-                Defaults to False.
+        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태. Defaults to False.
     Returns:
         List[DSTInputExample]: 단일 Dialogue 데이터로부터 추출된 DSTInputExample 리스트
     """
@@ -266,17 +264,29 @@ def get_examples_from_dialogue(
 
 
 def get_examples_from_dialogues(
-    data: list, user_firstL: bool = False, dialogue_level: bool = False
+    data: list, user_first: bool = False, dialogue_level: bool = False
 ) -> List[DSTInputExample]:
-    """다중 발화 데이터로부터 DSTInputExample을 생성
+    """다중 발화 데이터로부터 DSTInputExample 리스트를 생성
 
     Args:
-        data ([type]): [description]
-        user_first (bool, optional): [description]. Defaults to False.
-        dialogue_level (bool, optional): [description]. Defaults to False.
+        data ([type]): 다음과 같은 다중 Dialogue data
+            [
+                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
+                'domains': ['관광', '식당'],
+                'dialogue': [{'role': 'user',...}, ...]},
+
+                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
+                'domains': ['관광', '식당'],
+                'dialogue': [{'role': 'user',...}, ...]},
+                ...
+            ]
+        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태. Defaults to False.
+        dialogue_level (bool, optional): True시 데이터 샘플이 dialogue 단위로 분리됨. Defaults to False.
+            - True: [1번째 dialogue에 대한 DSTInputExample list, 2번째 dialogue에 대한 DSTInputExample list, ...]
+            - False: [1번쟤 DSTInputExample, 2번째 DSTInputExample, ...]
 
     Returns:
-        List[DSTInputExample]: [description]
+        List[DSTInputExample]: DSTInputExample 리스트
     """
     examples = []
     for d in tqdm(data):
@@ -324,7 +334,9 @@ class DSTPreprocessor:
         raise NotImplementedError
 
     def convert_examples_to_features(self):
+        """DSTInputExample을 InputFeature 형태로 변경"""
         raise NotImplementedError
 
     def recover_state(self):
+        """모델의 출력을 prediction 포맷에 맞게 변경"""        
         raise NotImplementedError
