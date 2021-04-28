@@ -1,6 +1,10 @@
 # data
 input/**
 
+# MoonJaeHoon
+README_MJH.md
+models_mjh/**
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
