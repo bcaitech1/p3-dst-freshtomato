@@ -24,10 +24,6 @@ class TRADEPreprocessor(DSTPreprocessor):
         dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
 
         input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
-#         max_length = self.max_seq_length - 2
-#         if len(input_id) > max_length:
-#             gap = len(input_id) - max_length
-#             input_id = input_id[gap:]
 
         input_id = (
             [self.src_tokenizer.cls_token_id]

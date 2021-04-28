@@ -9,40 +9,63 @@ from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
 from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup
 
-from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
-from eval_utils import DSTEvaluator
-from evaluation import _evaluation
-from inference import inference
-from model import TRADE, masked_cross_entropy_for_value
-from preprocessor import TRADEPreprocessor
-from config import CFG
+from .data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
+from .eval_utils import DSTEvaluator
+from .evaluation import _evaluation
+from .inference import inference
+from .model import TRADE, masked_cross_entropy_for_value
+from .preprocessor import TRADEPreprocessor
+from .config import CFG
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(
-    data_dir: str,
-    model_dir: str,
-    train_batch_size: int,
-    eval_batch_size: int,
-    learning_rate: float,
-    adam_epsilon: float,
-    num_train_epochs: int,
-    warmup_ratio: float,
-    random_seed: int,
-    model_name_or_path: str,
-    hidden_size: int,
-    vocab_size: int,
-    hidden_dropout_ratio: float,
-    proj_dim: int,
-    teacher_forcing_ration: float,
-):
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_dir", type=str, default="data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="results")
+    parser.add_argument("--train_batch_size", type=int, default=16)
+    parser.add_argument("--eval_batch_size", type=int, default=32)
+    parser.add_argument("--learning_rate", type=float, default=1e-4)
+    parser.add_argument("--adam_epsilon", type=float, default=1e-8)
+    parser.add_argument("--max_grad_norm", type=float, default=1.0)
+    parser.add_argument("--num_train_epochs", type=int, default=30)
+    parser.add_argument("--warmup_ratio", type=int, default=0.1)
+    parser.add_argument("--random_seed", type=int, default=42)
+    parser.add_argument(
+        "--model_name_or_path",
+        type=str,
+        help="Subword Vocab만을 위한 huggingface model",
+        default="monologg/koelectra-base-v3-discriminator",
+    )
+
+    # Model Specific Argument
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
+    parser.add_argument(
+        "--vocab_size",
+        type=int,
+        help="vocab size, subword vocab tokenizer에 의해 특정된다",
+        default=None,
+    )
+    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
+    parser.add_argument(
+        "--proj_dim",
+        type=int,
+        help="만약 지정되면 기존의 hidden_size는 embedding dimension으로 취급되고, proj_dim이 GRU의 hidden_size로 사용됨. hidden_size보다 작아야 함.",
+        default=None,
+    )
+    parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
+    args = parser.parse_args()
+
+    args.data_dir = os.environ["SM_CHANNEL_TRAIN"]
+    args.model_dir = os.environ["SM_MODEL_DIR"]
+
     # random seed 고정
-    set_seed(random_seed)
+    set_seed(args.random_seed)
 
     # Data Loading
-    train_data_file = f"{data_dir}/train_dials.json"
-    slot_meta = json.load(open(f"{data_dir}/slot_meta.json"))
+    train_data_file = f"{args.data_dir}/train_dials.json"
+    slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
     train_examples = get_examples_from_dialogues(
@@ -53,8 +76,8 @@ def train(
     )
 
     # Define Preprocessor
-    tokenizer = BertTokenizer.from_pretrained(model_name_or_path)
-    processor = TRADEPreprocessor(slot_meta=slot_meta, src_tokenizer=tokenizer)
+    tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
+    processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
 
@@ -71,7 +94,7 @@ def train(
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
-    model.set_subword_embedding(model_name_or_path)  # Subword Embedding 초기화
+    model.set_subword_embedding(args.model_name_or_path)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
     model.to(device)
     print("Model is initialized")
@@ -182,43 +205,3 @@ def train(
 
         torch.save(model.state_dict(), f"{args.model_dir}/model-{epoch}.bin")
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
-
-    return
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", type=str, default="data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="results")
-    parser.add_argument("--train_batch_size", type=int, default=16)
-    parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument("--learning_rate", type=float, default=1e-4)
-    parser.add_argument("--adam_epsilon", type=float, default=1e-8)
-    parser.add_argument("--max_grad_norm", type=float, default=1.0)
-    parser.add_argument("--num_train_epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=int, default=0.1)
-    parser.add_argument("--random_seed", type=int, default=42)
-    parser.add_argument(
-        "--model_name_or_path",
-        type=str,
-        help="Subword Vocab만을 위한 huggingface model",
-        default="monologg/koelectra-base-v3-discriminator",
-    )
-
-    # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
-    parser.add_argument(
-        "--vocab_size",
-        type=int,
-        help="vocab size, subword vocab tokenizer에 의해 특정된다",
-        default=None,
-    )
-    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
-    parser.add_argument(
-        "--proj_dim",
-        type=int,
-        help="만약 지정되면 기존의 hidden_size는 embedding dimension으로 취급되고, proj_dim이 GRU의 hidden_size로 사용됨. hidden_size보다 작아야 함.",
-        default=None,
-    )
-    parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
-    args = parser.parse_args()
