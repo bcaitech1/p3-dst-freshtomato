@@ -4,7 +4,7 @@ import random
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Tuple
 
 import numpy as np
 import torch
@@ -42,7 +42,48 @@ class WOSDataset(Dataset):
         return self.features[idx]
 
 
-def load_dataset(dataset_path, dev_split=0.1):
+def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
+    """Dialogue 데이터 경로를 입력 받아 train/valid/groun truth 데이터를 리턴
+
+    Args:
+        dataset_path (str): 학습에 활용할 Dialogue 데이터 경로
+        dev_split (float, optional): 데이터 중 검증용 데이터에 활용할 비율. Defaults to 0.1.
+
+    Returns:
+        train_data, dev_data, dev_labels: 학습용 데이터와 검증용 데이터를 리턴하며, 각각 다음의 형태를 가짐
+        - train_data: dialogue_idx, domains, dialogue의 key를 지닌 딕셔너리 형태
+            [
+                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
+                'domains': ['관광', '식당'],
+                'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]},
+
+                {'dialogue_idx': 'polished-poetry-0057:관광_9',
+                'domains': ['관광', '식당'],
+                'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]}
+
+                ...
+
+            ]
+        - dev_data: 'dialogue' 내 'state'가 존재하지 않음
+            [
+                {'dialogue_idx': 'steep-limit-4198:식당_34',
+                'domains': ['식당'],
+                'dialogue': [{'role': ?, 'text': ?}, ... ]},
+
+                {'dialogue_idx': 'soft-sunset-3395:식당_35',
+                'domains': ['식당'],
+                'dialogue': [{'role': ?, 'text': ?}, ... ]}
+
+                ...
+
+            ]
+        - dev_label: dev_data의 각 turn별 state(label)이 나열
+            {
+                'steep-limit-4198:식당_34-0': ['식당-예약 명수-8'] # 'steep-limit-4198:식당_34' dialogue의 첫 user turn
+                'steep-limit-4198:식당_34-1': [...],
+                ...
+            }
+    """
     data = json.load(open(dataset_path))
     num_data = len(data)
     num_dev = int(num_data * dev_split)
@@ -53,6 +94,7 @@ def load_dataset(dataset_path, dev_split=0.1):
     for d in data:
         dom_mapper[len(d["domains"])].append(d["dialogue_idx"])
 
+    # Dialogue별 Domain은 최소 1개부터 3개까지
     num_per_domain_trainsition = int(num_dev / 3)
     dev_idx = []
     for v in dom_mapper.values():
@@ -131,6 +173,14 @@ def convert_state_dict(state):
 
 @dataclass
 class DSTInputExample:
+    """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
+    - guid: dialogue_idx + turn_idx 형태의 인덱스
+    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
+    - current_turn: 현재 turn에서의 시스템/유저의 발화.
+                    (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
+    - label: Turn t에서의 dialogue state(=B_{t})
+    """
+
     guid: str
     context_turns: List[str]
     current_turn: List[str]
@@ -161,7 +211,25 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
             tokens_b.pop()
 
 
-def get_examples_from_dialogue(dialogue, user_first=False):
+def get_examples_from_dialogue(
+    dialogue: dict, user_first: bool = False
+) -> List[DSTInputExample]:
+    """단일의 발화 데이터로부터 DSTInputExample을 생성
+
+    Args:
+        dialogue (dict): 다음과 같은 단일 Dialogue data
+
+                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
+                'domains': ['관광', '식당'],
+                'dialogue': [{'role': 'user',
+                ...
+                }
+
+        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태.
+                Defaults to False.
+    Returns:
+        List[DSTInputExample]: 단일 Dialogue 데이터로부터 추출된 DSTInputExample 리스트
+    """
     guid = dialogue["dialogue_idx"]
     examples = []
     history = []
@@ -193,10 +261,23 @@ def get_examples_from_dialogue(dialogue, user_first=False):
         history.append(sys_utter)
         history.append(user_utter)
         d_idx += 1
+
     return examples
 
 
-def get_examples_from_dialogues(data, user_first=False, dialogue_level=False):
+def get_examples_from_dialogues(
+    data: list, user_firstL: bool = False, dialogue_level: bool = False
+) -> List[DSTInputExample]:
+    """다중 발화 데이터로부터 DSTInputExample을 생성
+
+    Args:
+        data ([type]): [description]
+        user_first (bool, optional): [description]. Defaults to False.
+        dialogue_level (bool, optional): [description]. Defaults to False.
+
+    Returns:
+        List[DSTInputExample]: [description]
+    """
     examples = []
     for d in tqdm(data):
         example = get_examples_from_dialogue(d, user_first=user_first)
