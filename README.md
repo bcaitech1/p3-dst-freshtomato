@@ -26,3 +26,30 @@ Best Checkpoint Path가 학습 마지막에 표기됩니다.<br>
 ### 4. 제출하기
 
 3번 스텝 `inference.py`에서 `SM_OUTPUT_DATA_DIR`에 저장된 `predictions.json`을 제출합니다.
+
+
+### wandb 적용하기
+1. train.py파일을 수행하면 다음과 같은 화면에서 2번 선택
+
+  ![image](https://user-images.githubusercontent.com/46676700/116401727-89628d80-a866-11eb-9069-5c7a947741ab.png)
+
+
+2. API key를 받을 수 있는 링크로 들어가 (그림 2번째 줄) 공유 계정으로 로그인
+
+  ![image](https://user-images.githubusercontent.com/46676700/116401752-91223200-a866-11eb-80e7-78af8acb2049.png)
+
+3. 아래와 같이 key값을 terminal 창에 복사 붙여 넣기
+
+
+    <img src="https://user-images.githubusercontent.com/46676700/116401797-9f704e00-a866-11eb-91b3-1cb509c19c88.png" width="40%">
+
+    - 다음과 같이 수행됨
+  
+    ![image](https://user-images.githubusercontent.com/46676700/116401807-a26b3e80-a866-11eb-93ee-7a7e0b510a8b.png)
+
+
+4. wandb 홈페이지에서 다음과 같이 만들어진 project를 확인할 수 있음
+
+  ![image](https://user-images.githubusercontent.com/46676700/116401826-a6975c00-a866-11eb-806b-21e6cc6c5492.png)
+
+  ![image](https://user-images.githubusercontent.com/46676700/116401835-a9924c80-a866-11eb-9b67-a918fb258b52.png)
