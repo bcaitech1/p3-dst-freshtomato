@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import random
+import wandb
 
 import torch
 import torch.nn as nn
@@ -22,6 +23,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--project_name", type=str, required=True, help='wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)')
     parser.add_argument("--data_dir", type=str, default="data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="results")
     parser.add_argument("--train_batch_size", type=int, default=16)
@@ -55,6 +57,11 @@ if __name__ == "__main__":
     
     args.data_dir = os.environ['SM_CHANNEL_TRAIN']
     args.model_dir = os.environ['SM_MODEL_DIR']
+
+    # wandb init
+    wandb.init(project=args.project_name)
+    wandb.run.name = f'{args.model_name_or_path}'
+    wandb.config.update(args)
 
     # random seed 고정
     set_seed(args.random_seed)
@@ -188,6 +195,12 @@ if __name__ == "__main__":
                 print(
                     f"[{epoch}/{n_epochs}] [{step}/{len(train_loader)}] loss: {loss.item()} gen: {loss_1.item()} gate: {loss_2.item()}"
                 )
+                wandb.log({
+                    "epoch": epoch, 
+                    "Train epoch loss": loss.item(),
+                    "Train epoch gen loss": loss_1.item(),
+                    "Train epoch gate loss": loss_2.item()})
+            
 
         predictions = inference(model, dev_loader, processor, device)
         eval_result = _evaluation(predictions, dev_labels, slot_meta)
@@ -198,6 +211,10 @@ if __name__ == "__main__":
             print("Update Best checkpoint!")
             best_score = eval_result['joint_goal_accuracy']
             best_checkpoint = epoch
+
+            wandb.log({
+                    "epoch": epoch, 
+                    "Best joint goal accuracy": best_score})
 
         torch.save(model.state_dict(), f"{args.model_dir}/model-{epoch}.bin")
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
