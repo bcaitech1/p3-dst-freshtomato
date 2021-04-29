@@ -46,7 +46,10 @@ def train(args):
     dev_features = processor.convert_examples_to_features(dev_examples)
 
     # Slot Meta tokenizing for the decoder initial inputs
-    tokenized_slot_meta = [tokenizer.encode(s.replace("-", " "), add_special_tokens=False) for s in slot_meta]
+    tokenized_slot_meta = [
+        tokenizer.encode(s.replace("-", " "), add_special_tokens=False)
+        for s in slot_meta
+    ]
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
@@ -103,7 +106,7 @@ def train(args):
     best_score, best_checkpoint = 0, 0
     for epoch in range(n_epochs):
         model.train()
-        for step, batch in tqdm(enumerate(train_loader), desc='Train Step'):
+        for step, batch in tqdm(enumerate(train_loader), desc="Train Step"):
             input_ids, segment_ids, input_masks, gating_ids, target_ids, guids = [
                 b.to(device) if not isinstance(b, list) else b for b in batch
             ]
@@ -160,9 +163,8 @@ def train(args):
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
 
 
-
 if __name__ == "__main__":
-    LOAD_STATE_DICT = './results/model-22.bin'
+    LOAD_STATE_DICT = "./results/model-22.bin"
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="results")
@@ -205,6 +207,5 @@ if __name__ == "__main__":
         indent=2,
         ensure_ascii=False,
     )
-    
+
     train(args)
-    

@@ -23,8 +23,7 @@ class TRADEPreprocessor(DSTPreprocessor):
 
     def _convert_example_to_feature(self, example: DSTInputExample) -> OpenVocabDSTFeature:
         """List[DSTInputExample]를 feature로 변형하는 데 사용되는 nested 함수. 다음과 같이 사용
-            
-            # examples: List[DSTInputExample]
+        Examples:
             processor = TRADEPreprocessor(slot_meta, tokenizer)
             features = processor.convert_examples_to_features(examples)
 
