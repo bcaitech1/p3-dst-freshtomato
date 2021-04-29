@@ -1,6 +1,7 @@
 # data
 input/**
 sketches/**
+code/results/**
 *.csv
 
 # MoonJaeHoon
