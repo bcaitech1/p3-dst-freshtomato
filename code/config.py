@@ -7,7 +7,7 @@ class CFG:
     TrainOntology: str = "../input/data/train_dataset/ontology.json"
     TrainDials: str = "../input/data/train_dataset/train_dials.json"
 
-    Test: srt= "../input/data/eval_dataset"
+    Test: str= "../input/data/eval_dataset"
     EvalSlotMeta: str = "../input/data/eval_dataset/slot_meta.json"
     EvalDials: str = "../input/data/eval_dataset/train_dials.json"
 
