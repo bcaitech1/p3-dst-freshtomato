@@ -1,7 +1,12 @@
 from typing import List
 from tqdm import tqdm
 import torch
-from data_utils import DSTPreprocessor, OpenVocabDSTFeature, convert_state_dict, DSTInputExample
+from data_utils import (
+    DSTPreprocessor,
+    OpenVocabDSTFeature,
+    convert_state_dict,
+    DSTInputExample,
+)
 
 
 class TRADEPreprocessor(DSTPreprocessor):
@@ -21,7 +26,9 @@ class TRADEPreprocessor(DSTPreprocessor):
         self.id2gating = {v: k for k, v in self.gating2id.items()}
         self.max_seq_length = max_seq_length
 
-    def _convert_example_to_feature(self, example: DSTInputExample) -> OpenVocabDSTFeature:
+    def _convert_example_to_feature(
+        self, example: DSTInputExample
+    ) -> OpenVocabDSTFeature:
         """List[DSTInputExample]를 feature로 변형하는 데 사용되는 nested 함수. 다음과 같이 사용
         Examples:
             processor = TRADEPreprocessor(slot_meta, tokenizer)
@@ -32,7 +39,7 @@ class TRADEPreprocessor(DSTPreprocessor):
 
         Returns:
             [OpenVocabDSTFeature]: feature 데이터
-        """        
+        """
         dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
 
         input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
@@ -62,7 +69,9 @@ class TRADEPreprocessor(DSTPreprocessor):
             example.guid, input_id, segment_id, gating_id, target_ids
         )
 
-    def convert_examples_to_features(self, examples: List[DSTInputExample]) -> List[OpenVocabDSTFeature]:
+    def convert_examples_to_features(
+        self, examples: List[DSTInputExample]
+    ) -> List[OpenVocabDSTFeature]:
         """복수의 DSTInputExmple 각각을 feature로 변형하는 함수
 
         Args:
@@ -71,7 +80,10 @@ class TRADEPreprocessor(DSTPreprocessor):
         Returns:
             List[OpenVocabDSTFeature]: feature로 변형된 데이터의 리스트
         """
-        features = [self._convert_example_to_feature(e) for e in tqdm(examples, desc='[Examples → Features]')]
+        features = [
+            self._convert_example_to_feature(e)
+            for e in tqdm(examples, desc="[Conversion: Examples > Features]")
+        ]
         return features
 
     def recover_state(self, gate_list, gen_list):
