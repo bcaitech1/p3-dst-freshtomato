@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
-from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup
+from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup, AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
 from eval_utils import DSTEvaluator
@@ -37,14 +37,14 @@ def train(args):
     )
 
     # Define Preprocessor
-    tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
 
     # Extracting Featrues
-    train_features = processor.convert_examples_to_features(train_examples)
-    dev_features = processor.convert_examples_to_features(dev_examples)
+    # train_features = processor.convert_examples_to_features(train_examples)
+    # dev_features = processor.convert_examples_to_features(dev_examples)
 
     # Slot Meta tokenizing for the decoder initial inputs
     tokenized_slot_meta = []

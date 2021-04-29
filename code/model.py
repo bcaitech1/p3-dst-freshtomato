@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from transformers import ElectraModel
+from transformers import ElectraModel, ElectraConfig
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
@@ -42,7 +42,9 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     def set_subword_embedding(self, model_name_or_path):
-        model = ElectraModel.from_pretrained(model_name_or_path)
+        config = ElectraConfig.from_pretrained(model_name_or_path)
+        config.hidden_size = 384
+        model = ElectraModel.from_pretrained(config)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
