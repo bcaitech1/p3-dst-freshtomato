@@ -5,7 +5,7 @@ import json
 import torch
 from torch.utils.data import DataLoader, SequentialSampler
 from tqdm import tqdm
-from transformers import BertTokenizer
+from transformers import AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues
 from model import TRADE
@@ -46,22 +46,27 @@ def inference(model, eval_loader, processor, device):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", type=str, default=CFG.Train)
-    parser.add_argument("--model_dir", type=str, default=None)
+    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
+    parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
+
+    parser.add_argument("--data_dir", type=str, default=CFG.Test)
+    parser.add_argument("--model_dir", type=str, default='./models')
     parser.add_argument("--output_dir", type=str, default=CFG.Output)
     parser.add_argument("--eval_batch_size", type=int, default=32)
+    parser.add_argument(
+        "--model_name_or_path",
+        type=str,
+        help="Subword Vocab만을 위한 huggingface model",
+        default="monologg/koelectra-base-v3-discriminator",
+    )
     args = parser.parse_args()
-    # args.data_dir = os.environ['SM_CHANNEL_EVAL']
-    # args.model_dir = os.environ['SM_CHANNEL_MODEL']
-    # args.output_dir = os.environ['SM_OUTPUT_DATA_DIR']
 
-    model_dir_path = os.path.dirname(args.model_dir)
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
-    config = json.load(open(f"{model_dir_path}/exp_config.json", "r"))
+    config = json.load(open(f"{args.model_dir}/exp_config.json", "r"))
     config = argparse.Namespace(**config)
-    slot_meta = json.load(open(f"{model_dir_path}/slot_meta.json", "r"))
+    slot_meta = json.load(open(f"{args.model_dir}/slot_meta.json", "r"))
 
-    tokenizer = BertTokenizer.from_pretrained(config.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
     eval_examples = get_examples_from_dialogues(
@@ -96,10 +101,12 @@ if __name__ == "__main__":
 
     if not os.path.exists(args.output_dir):
         os.mkdir(args.output_dir)
+    
+    os.makedirs(args.output_dir, exist_ok=True)
 
     json.dump(
         predictions,
-        open(f"{args.output_dir}/predictions.csv", "w"),
+        open(f"{args.output_dir}/{args.model_fold}-predictions.csv", "w"),
         indent=2,
         ensure_ascii=False,
     )

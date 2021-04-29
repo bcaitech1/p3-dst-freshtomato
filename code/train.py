@@ -92,8 +92,7 @@ def train(args):
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
     loss_fnc_2 = nn.CrossEntropyLoss()  # gating
 
-    if not os.path.exists(args.model_dir):
-        os.mkdir(args.model_dir)
+    os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
     json.dump(
         vars(args),
@@ -174,7 +173,7 @@ def train(args):
 
             wandb.log({"epoch": epoch, "Best joint goal accuracy": best_score})
 
-        torch.save(model.state_dict(), f"{args.model_dir}/model-{epoch}.bin")
+        torch.save(model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin")
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
 
 
@@ -186,8 +185,9 @@ if __name__ == "__main__":
         required=True,
         help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
     )
+    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
     parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="./results")
+    parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--learning_rate", type=float, default=1e-4)
@@ -223,7 +223,7 @@ if __name__ == "__main__":
 
     # wandb init
     wandb.init(project=args.project_name)
-    wandb.run.name = f"{args.model_name_or_path}"
+    wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)
 
     train(args)

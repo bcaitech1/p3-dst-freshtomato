@@ -6,12 +6,12 @@
 ## Command Line Interface
 ### Train Phase
 ```python
->>> python code/train.py --project_name [PROJECT_NAME]
+>>> python code/train.py --project_name [PROJECT_NAME] --model_fold [MODEL_FOLD_NAME]
 ```
 
 ### Inference Phase
 ```python
-SM_CHANNEL_EVAL=data/eval_dataset/public SM_CHANNEL_MODEL=[Model Checkpoint Path] SM_OUTPUT_DATA_DIR=[Output path] python inference.py
+>>> python code/inference.py --model_fold [MODEL_FOLD_NAME] --chkpt_idx [CHECKPOINT INDEX]
 ```
 
 ### Application: wandb
@@ -41,4 +41,4 @@ SM_CHANNEL_EVAL=data/eval_dataset/public SM_CHANNEL_MODEL=[Model Checkpoint Path
   ![image](https://user-images.githubusercontent.com/46676700/116401835-a9924c80-a866-11eb-9b67-a918fb258b52.png)
 
 ## TEAM FreshTomato🍅
-- [고지형](https://github.com/iloveslowfood), [김진현](https://github.com/KimJinHye0n), [배아라](https://github.com/arabae), [문재훈](https://github.com/MoonJaeHoon), [최유라](https://github.com/Yuuraa), [최준구](https://github.com/soupbab)
+- [고지형](https://github.com/iloveslowfood), [김진현](https://github.com/KimJinHye0n), [배아라](https://github.com/arabae), [손재훈](https://github.com/MoonJaeHoon), [최유라](https://github.com/Yuuraa), [최준구](https://github.com/soupbab)
