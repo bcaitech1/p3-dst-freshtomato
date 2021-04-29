@@ -40,7 +40,7 @@ def train(args):
     tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
-    args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
+    args.n_gate = len(processor.gating2id)  # gating     갯수 none, dontcare, ptr
 
     # Feature Extraction
     train_features = processor.convert_examples_to_features(train_examples)
@@ -55,6 +55,9 @@ def train(args):
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
+    if args.load_state_dict is not None:
+        model.load_state_dict(torch.load(args.load_state_dict))
+
     model.set_subword_embedding(args.model_name_or_path)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
     model.to(device)
@@ -96,12 +99,6 @@ def train(args):
         os.mkdir(args.model_dir)
 
     json.dump(
-        vars(args),
-        open(f"{args.model_dir}/exp_config.json", "w"),
-        indent=2,
-        ensure_ascii=False,
-    )
-    json.dump(
         slot_meta,
         open(f"{args.model_dir}/slot_meta.json", "w"),
         indent=2,
@@ -111,7 +108,7 @@ def train(args):
     best_score, best_checkpoint = 0, 0
     for epoch in range(n_epochs):
         model.train()
-        for step, batch in tqdm(enumerate(train_loader), desc='Train Step'):
+        for step, batch in tqdm(enumerate(train_loader), desc="Train Step"):
             input_ids, segment_ids, input_masks, gating_ids, target_ids, guids = [
                 b.to(device) if not isinstance(b, list) else b for b in batch
             ]
@@ -168,11 +165,12 @@ def train(args):
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
 
 
-
 if __name__ == "__main__":
+    LOAD_STATE_DICT = "./results/model-22.bin"
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="results")
+    parser.add_argument("--load_state_dict", type=str, default=LOAD_STATE_DICT)
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--learning_rate", type=float, default=1e-4)
@@ -193,7 +191,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--vocab_size",
         type=int,
-        help="vocab size, subword vocab tokenizer에 의해 특정된다",
         default=None,
     )
     parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
@@ -205,5 +202,12 @@ if __name__ == "__main__":
     )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     args = parser.parse_args()
+
+    json.dump(
+        vars(args),
+        open(f"{args.model_dir}/exp_config.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+
     train(args)
-    

@@ -164,7 +164,7 @@ def build_slot_meta(data):
 
 
 def convert_state_dict(state):
-    
+
     dic = {}
     for slot in state:
         s, v = split_slot(slot, get_domain_slot=True)
@@ -175,11 +175,11 @@ def convert_state_dict(state):
 @dataclass
 class DSTInputExample:
     """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
-        - guid: dialogue_idx + turn_idx 형태의 인덱스
-        - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
-        - current_turn: 현재 turn에서의 시스템/유저의 발화.
-                        (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
-        - label: Turn t에서의 dialogue state(=B_{t})
+    - guid: dialogue_idx + turn_idx 형태의 인덱스
+    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
+    - current_turn: 현재 turn에서의 시스템/유저의 발화.
+                    (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
+    - label: Turn t에서의 dialogue state(=B_{t})
     """
 
     guid: str
@@ -338,5 +338,5 @@ class DSTPreprocessor:
         raise NotImplementedError
 
     def recover_state(self):
-        """모델의 출력을 prediction 포맷에 맞게 변경"""        
+        """모델의 출력을 prediction 포맷에 맞게 변경"""
         raise NotImplementedError
