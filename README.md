@@ -36,3 +36,6 @@ SM_CHANNEL_EVAL=data/eval_dataset/public SM_CHANNEL_MODEL=[Model Checkpoint Path
   ![image](https://user-images.githubusercontent.com/46676700/116401826-a6975c00-a866-11eb-806b-21e6cc6c5492.png)
 
   ![image](https://user-images.githubusercontent.com/46676700/116401835-a9924c80-a866-11eb-9b67-a918fb258b52.png)
+
+## 🍅*FreshTomato*
+- [고지형](https://github.com/iloveslowfood), [김진현](https://github.com/KimJinHye0n), [배아라](https://github.com/arabae), [손재훈](https://github.com/MoonJaeHoon), [최유라](https://github.com/Yuuraa), [최준구](https://github.com/soupbab)
