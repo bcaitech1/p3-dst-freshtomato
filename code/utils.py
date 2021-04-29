@@ -23,10 +23,12 @@ def save_json(path: str, f: object) -> None:
             json_path,
         )
 
+
 def load_json(path: str) -> dict:
-    with open(path, "r", encoding='utf-8') as json_file:
+    with open(path, "r", encoding="utf-8") as json_file:
         output = json.load(json_file)
     return output
+
 
 def set_seed(seed: int = 42, contain_cuda: bool = False):
     random.seed(seed)

@@ -5,11 +5,13 @@ import json
 import torch
 from torch.utils.data import DataLoader, SequentialSampler
 from tqdm import tqdm
-from transformers import BertTokenizer
+from transformers import BertTokenizer, AutoTokenizer
 
 from data_utils import (WOSDataset, get_examples_from_dialogues)
 from model import TRADE
 from preprocessor import TRADEPreprocessor
+
+from pathlib import Path
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -45,14 +47,14 @@ def inference(model, eval_loader, processor, device):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", type=str, default=None)
+    parser.add_argument("--data_dir", type=str, default='/opt/ml/input/data/eval_dataset')
     parser.add_argument("--model_dir", type=str, default=None)
-    parser.add_argument("--output_dir", type=str, default=None)
+    parser.add_argument("--output_dir", type=str, default='./prediction')
     parser.add_argument("--eval_batch_size", type=int, default=32)
     args = parser.parse_args()
-    args.data_dir = os.environ['SM_CHANNEL_EVAL']
-    args.model_dir = os.environ['SM_CHANNEL_MODEL']
-    args.output_dir = os.environ['SM_OUTPUT_DATA_DIR']
+    # args.data_dir = os.environ['SM_CHANNEL_EVAL']
+    # args.model_dir = os.environ['SM_CHANNEL_MODEL']
+    # args.output_dir = os.environ['SM_OUTPUT_DATA_DIR']
     
     model_dir_path = os.path.dirname(args.model_dir)
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
@@ -60,7 +62,8 @@ if __name__ == "__main__":
     config = argparse.Namespace(**config)
     slot_meta = json.load(open(f"{model_dir_path}/slot_meta.json", "r"))
 
-    tokenizer = BertTokenizer.from_pretrained(config.model_name_or_path)
+    # tokenizer = BertTokenizer.from_pretrained(config.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
     eval_examples = get_examples_from_dialogues(
@@ -96,9 +99,11 @@ if __name__ == "__main__":
     if not os.path.exists(args.output_dir):
         os.mkdir(args.output_dir)
     
+    model_exp = Path(model_dir_path).stem
+    trained_model =  Path(args.model_dir).stem.split('.')[0]  # model-**
     json.dump(
         predictions,
-        open(f"{args.output_dir}/predictions.csv", "w"),
+        open(f"{args.output_dir}/{model_exp}_{trained_model}.csv", "w"),
         indent=2,
         ensure_ascii=False,
     )

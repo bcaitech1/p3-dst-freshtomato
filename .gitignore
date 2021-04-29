@@ -1,5 +1,11 @@
+# wandb
+wandb/**
+
 # data
 input/**
+sketches/**
+code/results/**
+*.csv
 
 # MoonJaeHoon
 README_MJH.md

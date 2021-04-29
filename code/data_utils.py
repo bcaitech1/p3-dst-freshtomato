@@ -43,22 +43,38 @@ class WOSDataset(Dataset):
 
 
 def load_dataset(dataset_path, dev_split=0.1):
+    """[summary]
+
+    Args:
+        dataset_path (str): Path to train data
+        dev_split (float, optional): Validation set ratio. Defaults to 0.1.
+
+    Returns:
+        [type]: [description]
+        train_data: 
+        dev_data:
+        dev_labels:
+    """
     data = json.load(open(dataset_path))
     num_data = len(data)
     num_dev = int(num_data * dev_split)
     if not num_dev:
         return data, []  # no dev dataset
 
+    # 사용 이유: domain의 갯수 별로 데이터를 나누기 위함. 한 dialogue가 가질 수 있는 도메인 수가 3가지여서 3으로 나눈 뒤 dev set을 만든 것?
+    # 나누는 방식 완전 이상한듯... 바꾸자
     dom_mapper = defaultdict(list)
     for d in data:
         dom_mapper[len(d["domains"])].append(d["dialogue_idx"])
 
-    num_per_domain_trainsition = int(num_dev / 3)
+    # num_per_domain_transition = int(num_dev / 3)
+    num_per_domain_transition = int(num_dev / len(dom_mapper.keys()))
     dev_idx = []
     for v in dom_mapper.values():
-        idx = random.sample(v, num_per_domain_trainsition)
+        idx = random.sample(v, num_per_domain_transition)
         dev_idx.extend(idx)
 
+    # 학습셋-검증셋 분리 by 도메인 라벨 갯수
     train_data, dev_data = [], []
     for d in data:
         if d["dialogue_idx"] in dev_idx:
@@ -93,6 +109,15 @@ def set_seed(seed):
 
 
 def split_slot(dom_slot_value, get_domain_slot=False):
+    """[summary]
+
+    Args:
+        dom_slot_value (str): "[domain]-[slot]-[value]" 형태의 state label
+        get_domain_slot (bool, optional): "[domain]-[slot]", "[value]" 형태를 반환할지, "[domain]", "[slot]", "[value]"를 반환할지 결정. Defaults to False.
+
+    Returns:
+        "[domain]-[slot]", "[value]" if get_domain_slot=True else "[domain]", "[slot]", "[value]"
+    """
     try:
         dom, slot, value = dom_slot_value.split("-")
     except ValueError:
@@ -122,6 +147,14 @@ def build_slot_meta(data):
 
 
 def convert_state_dict(state):
+    """[summary]
+
+    Args:
+        state (str): "[domain]-[slot]-[value]" 형태의 state label
+
+    Returns:
+        dic (dictionary): key="[domain]-[slot]", value="[value]" 인 딕셔너리
+    """
     dic = {}
     for slot in state:
         s, v = split_slot(slot, get_domain_slot=True)
@@ -131,6 +164,17 @@ def convert_state_dict(state):
 
 @dataclass
 class DSTInputExample:
+    """[summary]
+
+    Variables:
+        - guid: 대화의 아이디(한 dialogue 묶음 내 한 대화의 인덱스)
+        - context_turns: 해당 발화 이전까지의 대화를 담은 context_turns
+        - current_turn: 현재 발화 (시스템-유저 대화 쌍)
+        - label: slot의 값들, state
+
+    Returns:
+        위 variable 들을 묶은 인스턴스
+    """
     guid: str
     context_turns: List[str]
     current_turn: List[str]
@@ -178,6 +222,7 @@ def get_examples_from_dialogue(dialogue, user_first=False):
         user_utter = turn["text"]
         state = turn.get("state")
         context = deepcopy(history)
+        # TODO: 이해 안감.. 왜 user_first라고 순서가 바뀌는지..?????????? 일단 False가 들어가니 스킵
         if user_first:
             current_turn = [user_utter, sys_utter]
         else:
@@ -190,6 +235,7 @@ def get_examples_from_dialogue(dialogue, user_first=False):
                 label=state,
             )
         )
+        # TODO: 사실 user_first=True라면 이 부분도 수정되어야 하는 것 아닌지??
         history.append(sys_utter)
         history.append(user_utter)
         d_idx += 1

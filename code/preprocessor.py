@@ -4,6 +4,14 @@ from data_utils import DSTPreprocessor, OpenVocabDSTFeature, convert_state_dict
 
 
 class TRADEPreprocessor(DSTPreprocessor):
+    """[summary]
+    Superclass:
+        DSTPreprocessor ([type]): data_utils에 정의되어 있음
+    
+    Args:
+        slot_meta ([type]): string
+
+    """
     def __init__(
         self,
         slot_meta,
@@ -21,13 +29,18 @@ class TRADEPreprocessor(DSTPreprocessor):
         self.max_seq_length = max_seq_length
 
     def _convert_example_to_feature(self, example):
+        """[summary]
+
+        Args:
+            example (DSTInputExample): guid, context_turns, current_turn, label을 갖고 있는 클래스 인스턴스
+
+        Returns:
+            [type]: [description]
+        """
+        # 현재까지의 dialogue context를 담고 있음
         dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
 
-        input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
-#         max_length = self.max_seq_length - 2
-#         if len(input_id) > max_length:
-#             gap = len(input_id) - max_length
-#             input_id = input_id[gap:]
+        input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False, max_length = self.max_seq_length - 2, truncation=True)
 
         input_id = (
             [self.src_tokenizer.cls_token_id]

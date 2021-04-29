@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from transformers import ElectraModel
+from transformers import ElectraModel, AutoModel
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
@@ -42,7 +42,8 @@ class TRADE(nn.Module):
         self.tie_weight()
         
     def set_subword_embedding(self, model_name_or_path):
-        model = ElectraModel.from_pretrained(model_name_or_path)
+        # model = ElectraModel.from_pretrained(model_name_or_path)
+        model = AutoModel.from_pretrained(model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
@@ -129,6 +130,10 @@ class SlotGenerator(nn.Module):
         self.w_gate = nn.Linear(self.hidden_size, n_gate)
 
     def set_slot_idx(self, slot_vocab_idx):
+        """
+        Receive tokenized slot_meta indices & Make the same length & Save to self.slot_embed_idx
+        - input: List of tokenized slot_meta vocabulary indices
+        """
         whole = []
         max_length = max(map(len, slot_vocab_idx))
         for idx in slot_vocab_idx:
