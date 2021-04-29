@@ -13,7 +13,7 @@ for dialogue in dataset:
     for tern in dialogue["dialogue"]:
         if not tern.get("state"):
             continue
-        
+
         for data in tern["state"]:
             state_count[data] += 1
 
@@ -21,7 +21,7 @@ data_list = []
 for key, value in state_count.items():
     d, s, v = key.split("-")
     data_list.append([d, s, v, value])
-    
+
 
 # DataFrame으로 변환
 column_names = ["domain", "slot", "value", "count"]
