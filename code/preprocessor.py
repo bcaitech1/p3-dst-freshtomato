@@ -72,7 +72,7 @@ class TRADEPreprocessor(DSTPreprocessor):
         Returns:
             List[OpenVocabDSTFeature]: feature로 변형된 데이터의 리스트
         """
-        features = [self._convert_example_to_feature(e) for e in examples]
+        features = [self._convert_example_to_feature(e) for e in tqdm(examples)]
         return features
 
     def recover_state(self, gate_list, gen_list):
