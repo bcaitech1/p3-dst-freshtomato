@@ -186,8 +186,8 @@ if __name__ == "__main__":
         required=True,
         help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
     )
-    parser.add_argument("--data_dir", type=str, default="data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="results")
+    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="./results")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--learning_rate", type=float, default=1e-4)
@@ -221,10 +221,9 @@ if __name__ == "__main__":
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     args = parser.parse_args()
 
-    args.data_dir = os.environ["SM_CHANNEL_TRAIN"]
-    args.model_dir = os.environ["SM_MODEL_DIR"]
-
     # wandb init
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_name_or_path}"
     wandb.config.update(args)
+
+    train(args)
