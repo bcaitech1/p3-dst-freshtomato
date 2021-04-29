@@ -57,12 +57,7 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
                 'domains': ['관광', '식당'],
                 'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]},
 
-                {'dialogue_idx': 'polished-poetry-0057:관광_9',
-                'domains': ['관광', '식당'],
-                'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]}
-
                 ...
-
             ]
         - dev_data: 'dialogue' 내 'state'가 존재하지 않음
             [
@@ -70,16 +65,11 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
                 'domains': ['식당'],
                 'dialogue': [{'role': ?, 'text': ?}, ... ]},
 
-                {'dialogue_idx': 'soft-sunset-3395:식당_35',
-                'domains': ['식당'],
-                'dialogue': [{'role': ?, 'text': ?}, ... ]}
-
                 ...
-
             ]
         - dev_label: dev_data의 각 turn별 state(label)이 나열
             {
-                'steep-limit-4198:식당_34-0': ['식당-예약 명수-8'] # 'steep-limit-4198:식당_34' dialogue의 첫 user turn
+                'steep-limit-4198:식당_34-0': ['식당-예약 명수-8'], # 'steep-limit-4198:식당_34' dialogue의 첫 user turn
                 'steep-limit-4198:식당_34-1': [...],
                 ...
             }
