@@ -1,15 +1,17 @@
-from typing import List
-from tqdm import tqdm
 import torch
-from data_utils import (
-    DSTPreprocessor,
-    OpenVocabDSTFeature,
-    convert_state_dict,
-    DSTInputExample,
-)
+
+from data_utils import DSTPreprocessor, OpenVocabDSTFeature, convert_state_dict
 
 
 class TRADEPreprocessor(DSTPreprocessor):
+    """[summary]
+    Superclass:
+        DSTPreprocessor ([type]): data_utils에 정의되어 있음
+    
+    Args:
+        slot_meta ([type]): string
+
+    """
     def __init__(
         self,
         slot_meta,
@@ -26,23 +28,19 @@ class TRADEPreprocessor(DSTPreprocessor):
         self.id2gating = {v: k for k, v in self.gating2id.items()}
         self.max_seq_length = max_seq_length
 
-    def _convert_example_to_feature(
-        self, example: DSTInputExample
-    ) -> OpenVocabDSTFeature:
-        """List[DSTInputExample]를 feature로 변형하는 데 사용되는 nested 함수. 다음과 같이 사용
-        Examples:
-            processor = TRADEPreprocessor(slot_meta, tokenizer)
-            features = processor.convert_examples_to_features(examples)
+    def _convert_example_to_feature(self, example):
+        """[summary]
 
         Args:
-            example (DSTInputExample)
+            example (DSTInputExample): guid, context_turns, current_turn, label을 갖고 있는 클래스 인스턴스
 
         Returns:
-            [OpenVocabDSTFeature]: feature 데이터
+            [type]: [description]
         """
+        # 현재까지의 dialogue context를 담고 있음
         dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
 
-        input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
+        input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False, max_length = self.max_seq_length - 2, truncation=True)
 
         input_id = (
             [self.src_tokenizer.cls_token_id]
@@ -69,22 +67,8 @@ class TRADEPreprocessor(DSTPreprocessor):
             example.guid, input_id, segment_id, gating_id, target_ids
         )
 
-    def convert_examples_to_features(
-        self, examples: List[DSTInputExample]
-    ) -> List[OpenVocabDSTFeature]:
-        """복수의 DSTInputExmple 각각을 feature로 변형하는 함수
-
-        Args:
-            examples (List[DSTInputExample]): DSTInputExample로 구성된 리스트
-
-        Returns:
-            List[OpenVocabDSTFeature]: feature로 변형된 데이터의 리스트
-        """
-        features = [
-            self._convert_example_to_feature(e)
-            for e in tqdm(examples, desc="[Conversion: Examples > Features]")
-        ]
-        return features
+    def convert_examples_to_features(self, examples):
+        return list(map(self._convert_example_to_feature, examples))
 
     def recover_state(self, gate_list, gen_list):
         assert len(gate_list) == len(self.slot_meta)

@@ -4,7 +4,7 @@ import random
 from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import List, Optional, Union, Tuple
+from typing import List, Optional, Union
 
 import numpy as np
 import torch
@@ -42,35 +42,18 @@ class WOSDataset(Dataset):
         return self.features[idx]
 
 
-def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
-    """Dialogue 데이터 경로를 입력 받아 train/valid/groun truth 데이터를 리턴
+def load_dataset(dataset_path, dev_split=0.1):
+    """[summary]
 
     Args:
-        dataset_path (str): 학습에 활용할 Dialogue 데이터 경로
-        dev_split (float, optional): 데이터 중 검증용 데이터에 활용할 비율. Defaults to 0.1.
+        dataset_path (str): Path to train data
+        dev_split (float, optional): Validation set ratio. Defaults to 0.1.
 
     Returns:
-        train_data, dev_data, dev_labels: 학습용 데이터와 검증용 데이터를 리턴하며, 각각 다음의 형태를 가짐
-        - train_data: dialogue_idx, domains, dialogue의 key를 지닌 딕셔너리 형태
-            [
-                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
-                'domains': ['관광', '식당'],
-                'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]},
-                ...
-            ]
-        - dev_data: 'dialogue' 내 'state'가 존재하지 않음
-            [
-                {'dialogue_idx': 'steep-limit-4198:식당_34',
-                'domains': ['식당'],
-                'dialogue': [{'role': ?, 'text': ?}, ... ]},
-                ...
-            ]
-        - dev_label: dev_data의 각 turn별 state(label)이 나열
-            {
-                'steep-limit-4198:식당_34-0': ['식당-예약 명수-8'], # 'steep-limit-4198:식당_34' dialogue의 첫 user turn
-                'steep-limit-4198:식당_34-1': [...],
-                ...
-            }
+        [type]: [description]
+        train_data: 
+        dev_data:
+        dev_labels:
     """
     data = json.load(open(dataset_path))
     num_data = len(data)
@@ -78,17 +61,20 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
     if not num_dev:
         return data, []  # no dev dataset
 
+    # 사용 이유: domain의 갯수 별로 데이터를 나누기 위함. 한 dialogue가 가질 수 있는 도메인 수가 3가지여서 3으로 나눈 뒤 dev set을 만든 것?
+    # 나누는 방식 완전 이상한듯... 바꾸자
     dom_mapper = defaultdict(list)
     for d in data:
         dom_mapper[len(d["domains"])].append(d["dialogue_idx"])
 
-    # Dialogue별 Domain은 최소 1개부터 3개까지
-    num_per_domain_trainsition = int(num_dev / 3)
+    # num_per_domain_transition = int(num_dev / 3)
+    num_per_domain_transition = int(num_dev / len(dom_mapper.keys()))
     dev_idx = []
     for v in dom_mapper.values():
-        idx = random.sample(v, num_per_domain_trainsition)
+        idx = random.sample(v, num_per_domain_transition)
         dev_idx.extend(idx)
 
+    # 학습셋-검증셋 분리 by 도메인 라벨 갯수
     train_data, dev_data = [], []
     for d in data:
         if d["dialogue_idx"] in dev_idx:
@@ -123,6 +109,15 @@ def set_seed(seed):
 
 
 def split_slot(dom_slot_value, get_domain_slot=False):
+    """[summary]
+
+    Args:
+        dom_slot_value (str): "[domain]-[slot]-[value]" 형태의 state label
+        get_domain_slot (bool, optional): "[domain]-[slot]", "[value]" 형태를 반환할지, "[domain]", "[slot]", "[value]"를 반환할지 결정. Defaults to False.
+
+    Returns:
+        "[domain]-[slot]", "[value]" if get_domain_slot=True else "[domain]", "[slot]", "[value]"
+    """
     try:
         dom, slot, value = dom_slot_value.split("-")
     except ValueError:
@@ -152,7 +147,14 @@ def build_slot_meta(data):
 
 
 def convert_state_dict(state):
+    """[summary]
 
+    Args:
+        state (str): "[domain]-[slot]-[value]" 형태의 state label
+
+    Returns:
+        dic (dictionary): key="[domain]-[slot]", value="[value]" 인 딕셔너리
+    """
     dic = {}
     for slot in state:
         s, v = split_slot(slot, get_domain_slot=True)
@@ -162,14 +164,17 @@ def convert_state_dict(state):
 
 @dataclass
 class DSTInputExample:
-    """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
-    - guid: dialogue_idx + turn_idx 형태의 인덱스
-    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
-    - current_turn: 현재 turn에서의 시스템/유저의 발화.
-                    (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
-    - label: Turn t에서의 dialogue state(=B_{t})
-    """
+    """[summary]
 
+    Variables:
+        - guid: 대화의 아이디(한 dialogue 묶음 내 한 대화의 인덱스)
+        - context_turns: 해당 발화 이전까지의 대화를 담은 context_turns
+        - current_turn: 현재 발화 (시스템-유저 대화 쌍)
+        - label: slot의 값들, state
+
+    Returns:
+        위 variable 들을 묶은 인스턴스
+    """
     guid: str
     context_turns: List[str]
     current_turn: List[str]
@@ -200,22 +205,7 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
             tokens_b.pop()
 
 
-def get_examples_from_dialogue(
-    dialogue: dict, user_first: bool = False
-) -> List[DSTInputExample]:
-    """단일의 발화 데이터로부터 DSTInputExample을 생성
-
-    Args:
-        dialogue (dict): 다음과 같은 단일 Dialogue data
-
-                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
-                'domains': ['관광', '식당'],
-                'dialogue': [{'role': 'user',...}, ...]}
-
-        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태. Defaults to False.
-    Returns:
-        List[DSTInputExample]: 단일 Dialogue 데이터로부터 추출된 DSTInputExample 리스트
-    """
+def get_examples_from_dialogue(dialogue, user_first=False):
     guid = dialogue["dialogue_idx"]
     examples = []
     history = []
@@ -232,6 +222,7 @@ def get_examples_from_dialogue(
         user_utter = turn["text"]
         state = turn.get("state")
         context = deepcopy(history)
+        # TODO: 이해 안감.. 왜 user_first라고 순서가 바뀌는지..?????????? 일단 False가 들어가니 스킵
         if user_first:
             current_turn = [user_utter, sys_utter]
         else:
@@ -244,37 +235,14 @@ def get_examples_from_dialogue(
                 label=state,
             )
         )
+        # TODO: 사실 user_first=True라면 이 부분도 수정되어야 하는 것 아닌지??
         history.append(sys_utter)
         history.append(user_utter)
         d_idx += 1
-
     return examples
 
 
-def get_examples_from_dialogues(
-    data: list, user_first: bool = False, dialogue_level: bool = False
-) -> List[DSTInputExample]:
-    """다중 발화 데이터로부터 DSTInputExample 리스트를 생성
-
-    Args:
-        data ([type]): 다음과 같은 다중 Dialogue data
-            [
-                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
-                'domains': ['관광', '식당'],
-                'dialogue': [{'role': 'user',...}, ...]},
-                {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
-                'domains': ['관광', '식당'],
-                'dialogue': [{'role': 'user',...}, ...]},
-                ...
-            ]
-        user_first (bool, optional): True시 context_turns와 current_turn이 (u_{t}, r_{t}) 형태. Defaults to False.
-        dialogue_level (bool, optional): True시 데이터 샘플이 dialogue 단위로 분리됨. Defaults to False.
-            - True: [1번째 dialogue에 대한 DSTInputExample list, 2번째 dialogue에 대한 DSTInputExample list, ...]
-            - False: [1번쟤 DSTInputExample, 2번째 DSTInputExample, ...]
-
-    Returns:
-        List[DSTInputExample]: DSTInputExample 리스트
-    """
+def get_examples_from_dialogues(data, user_first=False, dialogue_level=False):
     examples = []
     for d in tqdm(data):
         example = get_examples_from_dialogue(d, user_first=user_first)
@@ -321,9 +289,7 @@ class DSTPreprocessor:
         raise NotImplementedError
 
     def convert_examples_to_features(self):
-        """DSTInputExample을 InputFeature 형태로 변경"""
         raise NotImplementedError
 
     def recover_state(self):
-        """모델의 출력을 prediction 포맷에 맞게 변경"""
         raise NotImplementedError

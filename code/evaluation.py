@@ -3,7 +3,7 @@ import argparse
 from eval_utils import DSTEvaluator
 
 
-SLOT_META_PATH = "data/train_dataset/slot_meta.json"
+SLOT_META_PATH = 'data/train_dataset/slot_meta.json'
 
 
 def _evaluation(preds, labels, slot_meta):
@@ -33,7 +33,7 @@ def evaluation(gt_path, pred_path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gt_path", type=str, required=True)
-    parser.add_argument("--pred_path", type=str, required=True)
+    parser.add_argument('--gt_path', type=str, required=True)
+    parser.add_argument('--pred_path', type=str, required=True)
     args = parser.parse_args()
     eval_result = evaluation(args.gt_path, args.pred_path)
