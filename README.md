@@ -1,6 +1,9 @@
 # 💋Dialogue State Tracking
+## Task Description
+- Task: 주어진 목적 지향형 대화의 Dialogue State를 예측합니다.
+- Metric: Joint Goal Accuracy, Slot Accuracy, Slot F1 Score
 
-## Commanda Line Interface
+## Command Line Interface
 ### Train Phase
 ```python
 >>> python code/train.py --project_name [PROJECT_NAME]
