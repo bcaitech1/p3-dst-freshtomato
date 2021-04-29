@@ -189,6 +189,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--vocab_size",
         type=int,
+        help="vocab size, subword vocab tokenizer에 의해 특정된다",
         default=None,
     )
     parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
