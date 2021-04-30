@@ -24,6 +24,11 @@ def stratified_subsample(args):
     ['1-1', '1-2', '1-3', '2-1' , '2-2', '2-3', '3-1', '3-2', '3-3'] # num_turns 범주 - domain 개수
 
     부여한 9개 범주를 고려하여 층화추출을 통해 서브샘플링
+
+    - Example
+        >>> python code/sampling.py --split_size 0.4 --save_dir './input' --seed 42
+        [Extract Meta Info]: 100%|█████████| 7000/7000 [00:00<00:00, 418312.91it/s]
+        'train_subsampled_0.4.json' saved in './input'! Size of subsample: 2800
     """
     set_seed(args.seed)
 
