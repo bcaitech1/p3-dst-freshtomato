@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
-from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup
+from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup, AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
 from eval_utils import DSTEvaluator
@@ -37,7 +37,7 @@ def train(args):
     )
 
     # Define Preprocessor
-    tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=384)
     parser.add_argument(
         "--vocab_size",
         type=int,
