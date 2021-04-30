@@ -21,6 +21,8 @@ def save_json(path: str, f: object) -> None:
         json.dump(
             f,
             json_path,
+            indent=2,
+            ensure_ascii=False
         )
 
 

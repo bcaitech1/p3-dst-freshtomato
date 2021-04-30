@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
-from transformers import AdamW, AutoTokenizer, get_linear_schedule_with_warmup
+from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup, AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
 from eval_utils import DSTEvaluator
@@ -22,7 +22,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def train(args):
     # random seed 고정
-    set_seed(args.random_seed)
+    set_seed(args.seed)
 
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
@@ -83,10 +83,10 @@ def train(args):
     print("# dev:", len(dev_data))
 
     # Optimizer 및 Scheduler 선언
-    n_epochs = args.num_train_epochs
+    n_epochs = args.epochs
     t_total = len(train_loader) * n_epochs
     warmup_steps = int(t_total * args.warmup_ratio)
-    optimizer = AdamW(model.parameters(), lr=args.learning_rate, eps=args.adam_epsilon)
+    optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon)
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=warmup_steps, num_training_steps=t_total
     )
@@ -179,6 +179,8 @@ def train(args):
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
 
 
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -192,12 +194,12 @@ if __name__ == "__main__":
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument("--learning_rate", type=float, default=1e-4)
+    parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
-    parser.add_argument("--num_train_epochs", type=int, default=30)
+    parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--warmup_ratio", type=int, default=0.1)
-    parser.add_argument("--random_seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--model_name_or_path",
         type=str,
@@ -229,3 +231,4 @@ if __name__ == "__main__":
     wandb.config.update(args)
 
     train(args)
+    
