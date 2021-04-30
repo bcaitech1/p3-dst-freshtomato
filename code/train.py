@@ -18,7 +18,6 @@ from model import TRADE, masked_cross_entropy_for_value
 from preprocessor import TRADEPreprocessor
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-scaler = torch.cuda.amp.GradScaler()
 
 
 def train(args):
