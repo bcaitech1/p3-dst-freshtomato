@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import ElectraModel, ElectraConfig, AutoTokenizer
-from importlib import import_module
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
@@ -44,9 +43,7 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     def set_subword_embedding(self, model_name_or_path):
-        model_module = getattr(import_module("transformers"), f'{config.model_name}Model')
-        model = model_module.from_pretrained(model_name_or_path)
-        # model = ElectraModel.from_pretrained(model_name_or_path)
+        model = ElectraModel.from_pretrained(model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
