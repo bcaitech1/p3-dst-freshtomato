@@ -20,6 +20,7 @@ code/results/**
 # MoonJaeHoon
 README_MJH.md
 models_mjh/**
+train_mjh.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
