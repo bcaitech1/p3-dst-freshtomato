@@ -4,6 +4,12 @@ wandb/**
 # AraBae
 sketch/*
 models/**
+code/train_custom.py
+code/loss.py
+code/run.sh
+code/command_file.txt
+code/wandb/**
+
 
 # data
 input/**
