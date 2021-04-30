@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0,'CustomizedModule')
 import argparse
 import json
 import os
