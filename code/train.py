@@ -206,7 +206,7 @@ if __name__ == "__main__":
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=384)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
     parser.add_argument(
         "--vocab_size",
         type=int,
