@@ -190,12 +190,12 @@ if __name__ == "__main__":
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument("--learning_rate", type=float, default=1e-4)
+    parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
-    parser.add_argument("--num_train_epochs", type=int, default=30)
+    parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--warmup_ratio", type=int, default=0.1)
-    parser.add_argument("--random_seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--model_name_or_path",
         type=str,
