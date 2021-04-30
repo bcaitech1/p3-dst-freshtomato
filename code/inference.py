@@ -50,7 +50,7 @@ if __name__ == "__main__":
     parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
 
     parser.add_argument("--data_dir", type=str, default=CFG.Test)
-    parser.add_argument("--model_dir", type=str, default='./models')
+    parser.add_argument("--model_dir", type=str, default='../models')
     parser.add_argument("--output_dir", type=str, default=CFG.Output)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument(
@@ -92,16 +92,13 @@ if __name__ == "__main__":
         )
 
     model = TRADE(config, tokenized_slot_meta)
-    ckpt = torch.load(args.model_dir, map_location="cpu")
+    ckpt = torch.load(f'{args.model_dir}/{args.model_fold}/model-{args.chkpt_idx}.bin', map_location="cpu")
     model.load_state_dict(ckpt)
     model.to(device)
     print("Model is loaded")
 
     predictions = inference(model, eval_loader, processor, device)
 
-    if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
-    
     os.makedirs(args.output_dir, exist_ok=True)
 
     json.dump(

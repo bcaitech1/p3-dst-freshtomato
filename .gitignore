@@ -1,6 +1,10 @@
 # wandb
 wandb/**
 
+# AraBae
+sketch/*
+models/**
+
 # data
 input/**
 sketches/**

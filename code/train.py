@@ -66,6 +66,7 @@ def train(args):
         train_data,
         batch_size=args.train_batch_size,
         sampler=train_sampler,
+        num_workers=4,
         collate_fn=processor.collate_fn,
     )
     print("# train:", len(train_data))
@@ -76,6 +77,7 @@ def train(args):
         dev_data,
         batch_size=args.eval_batch_size,
         sampler=dev_sampler,
+        num_workers=4,
         collate_fn=processor.collate_fn,
     )
     print("# dev:", len(dev_data))
