@@ -1,8 +1,9 @@
-import numpy as np
+import argparse
+import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from transformers import ElectraModel, ElectraConfig
+from transformers import ElectraModel, ElectraConfig, AutoTokenizer
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
@@ -42,7 +43,7 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     def set_subword_embedding(self, model_name_or_path):
-        config = ElectraConfig.from_pretrained(model_name_or_path)
+        config = ElectraConfig.from_pretrained("monologg/koelectra-base-v3-discriminator")
         config.hidden_size = 384
         model = ElectraModel.from_pretrained(config)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
@@ -213,3 +214,26 @@ class SlotGenerator(nn.Module):
             all_point_outputs[:, :, k, :] = p_final.view(batch_size, J, self.vocab_size)
 
         return all_point_outputs, all_gate_outputs
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--hidden_size", type=int, default=384)
+    parser.add_argument("--vocab_size", type=int, default=384)
+    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
+    parser.add_argument("--proj_dim", type=int, default=None, )
+    parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
+    args = parser.parse_args()
+
+    slot_meta = json.load(open(f"./input/data/train_dataset/slot_meta.json"))
+    tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
+    args.vocab_size = len(tokenizer)
+    args.n_gate = 3 # gating 개수
+
+    tokenized_slot_meta = []
+    for slot in slot_meta:
+        tokenized_slot_meta.append(
+            tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
+        )
+    
+    TRADE(args, tokenized_slot_meta)

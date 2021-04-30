@@ -43,8 +43,8 @@ def train(args):
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
 
     # Extracting Featrues
-    # train_features = processor.convert_examples_to_features(train_examples)
-    # dev_features = processor.convert_examples_to_features(dev_examples)
+    train_features = processor.convert_examples_to_features(train_examples)
+    dev_features = processor.convert_examples_to_features(dev_examples)
 
     # Slot Meta tokenizing for the decoder initial inputs
     tokenized_slot_meta = []
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=384)
     parser.add_argument(
         "--vocab_size",
         type=int,
