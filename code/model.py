@@ -43,9 +43,7 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     def set_subword_embedding(self, model_name_or_path):
-        config = ElectraConfig.from_pretrained("monologg/koelectra-base-v3-discriminator")
-        config.hidden_size = 384
-        model = ElectraModel.from_pretrained(config)
+        model = ElectraModel.from_pretrained(model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
