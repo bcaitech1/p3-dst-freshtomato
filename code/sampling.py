@@ -67,7 +67,7 @@ def stratified_subsample(args):
 
     fname = f"train_subsampled_{args.split_size}.json"
     save_json(os.path.join(args.save_dir, fname), subsampled_data)
-    print()
+    print(f"'{fname}' saved in '{args.save_dir}'! Size of subsampled data: {len(subsampled_data)}")
 
 
 if __name__ == "__main__":
