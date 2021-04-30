@@ -22,7 +22,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def train(args):
     # random seed 고정
-    set_seed(args.random_seed)
+    set_seed(args.seed)
 
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
@@ -81,10 +81,10 @@ def train(args):
     print("# dev:", len(dev_data))
 
     # Optimizer 및 Scheduler 선언
-    n_epochs = args.num_train_epochs
+    n_epochs = args.epochs
     t_total = len(train_loader) * n_epochs
     warmup_steps = int(t_total * args.warmup_ratio)
-    optimizer = AdamW(model.parameters(), lr=args.learning_rate, eps=args.adam_epsilon)
+    optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon)
     scheduler = get_linear_schedule_with_warmup(
         optimizer, num_warmup_steps=warmup_steps, num_training_steps=t_total
     )
@@ -177,6 +177,8 @@ def train(args):
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
 
 
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -227,3 +229,4 @@ if __name__ == "__main__":
     wandb.config.update(args)
 
     train(args)
+    
