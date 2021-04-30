@@ -8,7 +8,7 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
-from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup
+from transformers import AdamW, AutoTokenizer, get_linear_schedule_with_warmup
 
 from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
 from eval_utils import DSTEvaluator
@@ -37,7 +37,7 @@ def train(args):
     )
 
     # Define Preprocessor
-    tokenizer = BertTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
@@ -66,6 +66,7 @@ def train(args):
         train_data,
         batch_size=args.train_batch_size,
         sampler=train_sampler,
+        num_workers=4,
         collate_fn=processor.collate_fn,
     )
     print("# train:", len(train_data))
@@ -76,6 +77,7 @@ def train(args):
         dev_data,
         batch_size=args.eval_batch_size,
         sampler=dev_sampler,
+        num_workers=4,
         collate_fn=processor.collate_fn,
     )
     print("# dev:", len(dev_data))
