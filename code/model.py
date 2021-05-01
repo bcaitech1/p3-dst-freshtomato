@@ -45,8 +45,6 @@ class TRADE(nn.Module):
 
     # def set_subword_embedding(self, model_name_or_path):
     def set_subword_embedding(self, config):
-        # model = ElectraModel.from_pretrained(model_name_or_path)
-        # model = AutoModel.from_pretrained(model_name_or_path)
         model_module = getattr(import_module("transformers"), f'{config.model_name}Model')
         model = model_module.from_pretrained(config.model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
