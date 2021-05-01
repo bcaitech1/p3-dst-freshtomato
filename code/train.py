@@ -1,7 +1,5 @@
 import sys
-
 sys.path.insert(0, "CustomizedModule")
-from CustomizedScheduler import CustomizedCosineAnnealingWarmRestarts
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 import argparse
@@ -244,13 +242,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--scheduler_gamma",
         type=float,
-        help="Determine max_lr of Next Cycle Sequentially, When Using Customized Scheduler",
+        help="Determine max_lr of Next Cycle Sequentially, When Using CustomizedCosineScheduler",
         default=0.9,
     )
     parser.add_argument(
         "--first_cycle_ratio",
         type=float,
-        help="Determine Num of First Cycle Epoch When Using Customized Scheduler (first_cycle = t_total * first_cycle_ratio)",
+        help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
         default=0.05,
     )
 
