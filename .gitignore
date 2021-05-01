@@ -21,7 +21,7 @@ code/results/**
 README_MJH.md
 models_mjh/**
 train_mjh.py
-CustomizedModule/**
+# CustomizedModule/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
