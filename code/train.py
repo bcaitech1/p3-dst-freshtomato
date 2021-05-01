@@ -57,7 +57,8 @@ def train(args):
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
-    model.set_subword_embedding(args.model_name_or_path)  # Subword Embedding 초기화
+    # model.set_subword_embedding(args.model_name_or_path)  # Subword Embedding 초기화
+    model.set_subword_embedding(args)  # args 자체를 input으로 받는 메소드로 바꾸었습니다..!
     print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
     model.to(device)
     print("Model is initialized")
