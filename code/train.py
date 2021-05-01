@@ -201,7 +201,7 @@ if __name__ == "__main__":
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=int, default=0.1)
+    parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--model_name_or_path",
