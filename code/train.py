@@ -1,4 +1,5 @@
 import sys
+
 sys.path.insert(0, "CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
@@ -106,7 +107,9 @@ def train(args):
     # warmup_steps = int(t_total * args.warmup_ratio)
     optimizer = get_optimizer(model, args)  # get optimizer (Adam, sgd, AdamP, ..)
 
-    scheduler = get_scheduler(optimizer, t_total, args) # get scheduler (custom, linear, cosine, ..)
+    scheduler = get_scheduler(
+        optimizer, t_total, args
+    )  # get scheduler (custom, linear, cosine, ..)
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
     loss_fnc_2 = nn.CrossEntropyLoss()  # gating
