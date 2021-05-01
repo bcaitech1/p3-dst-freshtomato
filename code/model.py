@@ -224,10 +224,16 @@ if __name__ == '__main__':
     parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
     parser.add_argument("--proj_dim", type=int, default=None, )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
+    ############### getattr 사용을 위해 추가된 부분 ####################
+    parser.add_argument("--tokenizer_name", type=str, default='Bert')
+    parser.add_argument("--model_name_or_path", type=str, default='monologg/kobert')
+    ##################################################################
     args = parser.parse_args()
 
     slot_meta = json.load(open(f"./input/data/train_dataset/slot_meta.json"))
-    tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
+    tokenizer_module = getattr(import_module("transformers"), f'{args.tokenizer_name}Tokenizer')
+    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
+    # tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
     args.vocab_size = len(tokenizer)
     args.n_gate = 3 # gating 개수
 
