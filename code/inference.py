@@ -62,9 +62,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
-    config = json.load(open(f"{args.model_dir}/exp_config.json", "r"))
+    config = json.load(open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "r"))
     config = argparse.Namespace(**config)
-    slot_meta = json.load(open(f"{args.model_dir}/slot_meta.json", "r"))
+    slot_meta = json.load(open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "r"))
 
     tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
