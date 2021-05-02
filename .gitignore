@@ -1,6 +1,16 @@
 # wandb
 wandb/**
 
+# AraBae
+sketch/*
+models/**
+code/train_custom.py
+code/loss.py
+code/run.sh
+code/command_file.txt
+code/wandb/**
+
+
 # data
 input/**
 sketches/**
@@ -10,6 +20,8 @@ code/results/**
 # MoonJaeHoon
 README_MJH.md
 models_mjh/**
+train_mjh.py
+# CustomizedModule/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -50,7 +50,7 @@ if __name__ == "__main__":
     parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
 
     parser.add_argument("--data_dir", type=str, default=CFG.Test)
-    parser.add_argument("--model_dir", type=str, default='./models')
+    parser.add_argument("--model_dir", type=str, default='../models')
     parser.add_argument("--output_dir", type=str, default=CFG.Output)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument(
@@ -62,9 +62,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
-    config = json.load(open(f"{args.model_dir}/exp_config.json", "r"))
+    config = json.load(open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "r"))
     config = argparse.Namespace(**config)
-    slot_meta = json.load(open(f"{args.model_dir}/slot_meta.json", "r"))
+    slot_meta = json.load(open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "r"))
 
     tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
@@ -92,16 +92,13 @@ if __name__ == "__main__":
         )
 
     model = TRADE(config, tokenized_slot_meta)
-    ckpt = torch.load(args.model_dir, map_location="cpu")
+    ckpt = torch.load(f'{args.model_dir}/{args.model_fold}/model-{args.chkpt_idx}.bin', map_location="cpu")
     model.load_state_dict(ckpt)
     model.to(device)
     print("Model is loaded")
 
     predictions = inference(model, eval_loader, processor, device)
 
-    if not os.path.exists(args.output_dir):
-        os.mkdir(args.output_dir)
-    
     os.makedirs(args.output_dir, exist_ok=True)
 
     json.dump(
