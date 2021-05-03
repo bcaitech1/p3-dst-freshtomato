@@ -228,7 +228,7 @@ if __name__ == "__main__":
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=float, default=0.3)
+    parser.add_argument("--warmup_ratio", type=float, default=0.2)
     parser.add_argument("--weight_decay", type=float, default=0.01)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
@@ -241,7 +241,7 @@ if __name__ == "__main__":
         "--scheduler",
         type=str,
         help="Name of Scheduler (Ex. linear, custom, cosine, plateau ...)",
-        default="linear",
+        default="custom",
     )
     parser.add_argument(
         "--scheduler_gamma",
@@ -253,7 +253,7 @@ if __name__ == "__main__":
         "--first_cycle_ratio",
         type=float,
         help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
-        default=0.3,
+        default=0.2,
     )
 
     parser.add_argument(
@@ -289,7 +289,7 @@ if __name__ == "__main__":
         help="vocab size, subword vocab tokenizer에 의해 특정된다",
         default=None,
     )
-    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
+    parser.add_argument("--hidden_dropout_prob", type=float, default=0.0)
     parser.add_argument(
         "--proj_dim",
         type=int,
@@ -298,7 +298,10 @@ if __name__ == "__main__":
     )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     args = parser.parse_args()
+
+    print('='*100)
     print(args)
+    print('='*100)
 
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"

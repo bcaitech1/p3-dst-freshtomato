@@ -6,6 +6,7 @@ from data_utils import (
     OpenVocabDSTFeature,
     convert_state_dict,
     DSTInputExample,
+    OntologyDSTFeature
 )
 
 
@@ -157,7 +158,9 @@ class SUMBTPreprocessor(DSTPreprocessor):
         self.max_seq_length = max_seq_length
         self.max_turn_length = max_turn_length
 
-    def _convert_example_to_feature(self, example: List[DSTInputExample]) -> OntologyDSTFeature:
+    def _convert_example_to_feature(
+        self, example: List[DSTInputExample]
+    ) -> OntologyDSTFeature:
         """Dialogue 단위 내 각 turn별 DSTInputExmple을 feature로 변형하는 함수
 
         Args:
@@ -173,10 +176,13 @@ class SUMBTPreprocessor(DSTPreprocessor):
         num_turn = None
 
         for turn in example[: self.max_turn_length]:
-            assert len(turn.current_turn) == 2 # current turn은 시스템과 유저의 turn의 2개여야 함
+            assert len(turn.current_turn) == 2  # current turn은 시스템과 유저의 turn의 2개여야 함
 
             # Current turn의 utterance 토큰화
-            uttrs = [self.src_tokenizer.encode(uttr, add_special_tokens=False) for uttr in turn.current_turn]
+            uttrs = [
+                self.src_tokenizer.encode(uttr, add_special_tokens=False)
+                for uttr in turn.current_turn
+            ]
 
             _truncate_seq_pair(uttrs[0], uttrs[1], self.max_seq_length - 3)
             tokens = (
@@ -205,7 +211,7 @@ class SUMBTPreprocessor(DSTPreprocessor):
                 label.append(label_idx)
 
             labels.append(label)
-        
+
         # Packing
         num_turn = len(turns)
         if len(turns) < self.max_turn_length:
@@ -261,35 +267,36 @@ class SUMBTPreprocessor(DSTPreprocessor):
         return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import json
     from tqdm import tqdm
     from transformers import BertTokenizer
     from data_utils import get_examples_from_dialogues, convert_state_dict, load_dataset
     from data_utils import OntologyDSTFeature, DSTPreprocessor, _truncate_seq_pair
 
-
     train_data_file = "./input/data/train_dataset/train_dials.json"
     slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
     ontology = json.load(open("./input/data/train_dataset/ontology.json"))
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
-    train_examples = get_examples_from_dialogues(data=train_data,
-                                             user_first=True,
-                                             dialogue_level=True)
+    train_examples = get_examples_from_dialogues(
+        data=train_data, user_first=True, dialogue_level=True
+    )
 
-    dev_examples = get_examples_from_dialogues(data=dev_data,
-                                            user_first=True,
-                                            dialogue_level=True)
+    dev_examples = get_examples_from_dialogues(
+        data=dev_data, user_first=True, dialogue_level=True
+    )
 
-    max_turn = max([len(e['dialogue']) for e in train_data])
-    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
-    processor = SUMBTPreprocessor(slot_meta,
-                              tokenizer,
-                              ontology=ontology,  # predefined ontology
-                              max_seq_length=64,  # 각 turn마다 최대 길이
-                              max_turn_length=max_turn)  # 각 dialogue의 최대 turn 길이
-    
+    max_turn = max([len(e["dialogue"]) for e in train_data])
+    tokenizer = BertTokenizer.from_pretrained("dsksd/bert-ko-small-minimal")
+    processor = SUMBTPreprocessor(
+        slot_meta,
+        tokenizer,
+        ontology=ontology,  # predefined ontology
+        max_seq_length=64,  # 각 turn마다 최대 길이
+        max_turn_length=max_turn,
+    )  # 각 dialogue의 최대 turn 길이
+
     train_features = processor.convert_examples_to_features(train_examples)
     dev_features = processor.convert_examples_to_features(dev_examples)
 
