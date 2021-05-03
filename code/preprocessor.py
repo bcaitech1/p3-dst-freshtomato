@@ -40,7 +40,12 @@ class TRADEPreprocessor(DSTPreprocessor):
         Returns:
             [OpenVocabDSTFeature]: feature 데이터
         """
-        dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
+
+        # XLM-Robert 토크나이저 케이스 추가
+        if self.src_tokenizer.special_tokens_map['sep_token'] == '</s>':
+            dialogue_context = " <s> ".join(example.context_turns + example.current_turn)
+        else:
+            dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
 
         input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
 

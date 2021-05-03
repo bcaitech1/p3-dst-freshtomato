@@ -259,26 +259,26 @@ if __name__ == "__main__":
         "--tokenizer_name",
         type=str,
         help="Not Using AutoTokenizer, Tokenizer Name For Loading (EX. Bert, Electra, XLMRoberta, etc..)",
-        default="Bert",
-        # default="Electra",
+        default='XLMRoberta'
     )
     parser.add_argument(
         "--model_name",
         type=str,
         help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
-        default="Bert",
-        # default="Electra",
+        default="XLMRoberta"
     )
     parser.add_argument(
         "--model_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
-        default="monologg/kobert",
+        default='xlm-roberta-large'
+        # default="monologg/kobert",
         # default="monologg/koelectra-base-v3-discriminator",
+        
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=1024)
     parser.add_argument(
         "--vocab_size",
         type=int,
