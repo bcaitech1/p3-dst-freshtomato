@@ -42,10 +42,14 @@ class TRADEPreprocessor(DSTPreprocessor):
         """
 
         # XLM-Robert 토크나이저 케이스 추가
-        if self.src_tokenizer.special_tokens_map['sep_token'] == '</s>':
-            dialogue_context = " <s> ".join(example.context_turns + example.current_turn)
+        if self.src_tokenizer.special_tokens_map["sep_token"] == "</s>":
+            dialogue_context = " <s> ".join(
+                example.context_turns + example.current_turn
+            )
         else:
-            dialogue_context = " [SEP] ".join(example.context_turns + example.current_turn)
+            dialogue_context = " [SEP] ".join(
+                example.context_turns + example.current_turn
+            )
 
         input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
 
@@ -134,3 +138,160 @@ class TRADEPreprocessor(DSTPreprocessor):
             self.trg_tokenizer.pad_token_id,
         )
         return input_ids, segment_ids, input_masks, gating_ids, target_ids, guids
+
+
+class SUMBTPreprocessor(DSTPreprocessor):
+    def __init__(
+        self,
+        slot_meta,
+        src_tokenizer,
+        trg_tokenizer=None,
+        ontology=None,
+        max_seq_length=64,
+        max_turn_length=14,
+    ):
+        self.slot_meta = slot_meta
+        self.src_tokenizer = src_tokenizer
+        self.trg_tokenizer = trg_tokenizer if trg_tokenizer else src_tokenizer
+        self.ontology = ontology
+        self.max_seq_length = max_seq_length
+        self.max_turn_length = max_turn_length
+
+    def _convert_example_to_feature(self, example: List[DSTInputExample]) -> OntologyDSTFeature:
+        """Dialogue 단위 내 각 turn별 DSTInputExmple을 feature로 변형하는 함수
+
+        Args:
+            example (list): 단일 dialogue. DSTInputExmple(turn)로 구성된 리스트
+
+        Returns:
+            [type]: [description]
+        """
+        guid = example[0].guid.rsplit("-", 1)[0]  # dialogue_idx
+        turns = []
+        token_types = []
+        labels = []
+        num_turn = None
+
+        for turn in example[: self.max_turn_length]:
+            assert len(turn.current_turn) == 2 # current turn은 시스템과 유저의 turn의 2개여야 함
+
+            # Current turn의 utterance 토큰화
+            uttrs = [self.src_tokenizer.encode(uttr, add_special_tokens=False) for uttr in turn.current_turn]
+
+            _truncate_seq_pair(uttrs[0], uttrs[1], self.max_seq_length - 3)
+            tokens = (
+                [self.src_tokenizer.cls_token_id]
+                + uttrs[0]
+                + [self.src_tokenizer.sep_token_id]
+                + uttrs[1]
+                + [self.src_tokenizer.sep_token_id]
+            )
+            token_type = [0] * (len(uttrs[0]) + 2) + [1] * (len(uttrs[1]) + 1)
+            if len(tokens) < self.max_seq_length:
+                gap = self.max_seq_length - len(tokens)
+                tokens.extend([self.src_tokenizer.pad_token_id] * gap)
+                token_type.extend([0] * gap)
+
+            turns.append(tokens)
+            token_types.append(token_type)
+
+            # 레이블 정보 추가
+            label = []
+            slot_dict = convert_state_dict(turn.label) if turn.label else {}
+
+            for slot_type in self.slot_meta:
+                value = slot_dict.get(slot_type, "none")
+                label_idx = ontology[slot_type].index(value)
+                label.append(label_idx)
+
+            labels.append(label)
+        
+        # Packing
+        num_turn = len(turns)
+        if len(turns) < self.max_turn_length:
+            gap = self.max_turn_length - len(turns)
+            for _ in range(gap):
+                dummy_turn = [self.src_tokenizer.pad_token_id] * self.max_seq_length
+                turns.append(dummy_turn)
+                token_types.append(dummy_turn)
+                dummy_label = [-1] * len(self.slot_meta)
+                labels.append(dummy_label)
+
+        return OntologyDSTFeature(
+            guid=guid,
+            input_ids=turns,
+            segment_ids=token_types,
+            num_turn=num_turn,
+            target_ids=labels,
+        )
+
+    def convert_examples_to_features(self, examples):
+        return [
+            self._convert_example_to_feature(example)
+            for example in tqdm(examples, desc="[Conversion: Examples > Features]")
+        ]
+
+    def recover_state(self, pred_slots, num_turn):
+        """포맷에 맞게 예측값을 출력하는 함수
+
+        Args:
+            pred_slots ([type]): [description]
+            num_turn ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        states = []
+        for pred_slot in pred_slots[:num_turn]:
+            state = []
+            for s, p in zip(self.slot_meta, pred_slot):
+                v = self.ontology[s][p]
+                if v != "none":
+                    state.append(f"{s}-{v}")
+            states.append(state)
+        return states
+
+    def collate_fn(self, batch):
+        guids = [b.guid for b in batch]
+        input_ids = torch.LongTensor([b.input_ids for b in batch])
+        segment_ids = torch.LongTensor([b.segment_ids for b in batch])
+        input_masks = input_ids.ne(self.src_tokenizer.pad_token_id)
+        target_ids = torch.LongTensor([b.target_ids for b in batch])
+        num_turns = [b.num_turn for b in batch]
+        return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
+
+
+if __name__ == '__main__':
+    import json
+    from tqdm import tqdm
+    from transformers import BertTokenizer
+    from data_utils import get_examples_from_dialogues, convert_state_dict, load_dataset
+    from data_utils import OntologyDSTFeature, DSTPreprocessor, _truncate_seq_pair
+
+
+    train_data_file = "./input/data/train_dataset/train_dials.json"
+    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
+    ontology = json.load(open("./input/data/train_dataset/ontology.json"))
+    train_data, dev_data, dev_labels = load_dataset(train_data_file)
+
+    train_examples = get_examples_from_dialogues(data=train_data,
+                                             user_first=True,
+                                             dialogue_level=True)
+
+    dev_examples = get_examples_from_dialogues(data=dev_data,
+                                            user_first=True,
+                                            dialogue_level=True)
+
+    max_turn = max([len(e['dialogue']) for e in train_data])
+    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
+    processor = SUMBTPreprocessor(slot_meta,
+                              tokenizer,
+                              ontology=ontology,  # predefined ontology
+                              max_seq_length=64,  # 각 turn마다 최대 길이
+                              max_turn_length=max_turn)  # 각 dialogue의 최대 turn 길이
+    
+    train_features = processor.convert_examples_to_features(train_examples)
+    dev_features = processor.convert_examples_to_features(dev_examples)
+
+    print(len(train_features))  # 대화 level의 features
+    print(len(dev_features))

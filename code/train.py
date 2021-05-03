@@ -218,17 +218,17 @@ if __name__ == "__main__":
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=32)
     parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument("--lr", type=float, default=1e-4)
+    parser.add_argument("--lr", type=float, default=1e-7)
     parser.add_argument(
         "--max_lr",
         type=float,
         help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of learning_rate",
-        default=5e-6,
+        default=1e-4,
     )
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=float, default=0.4)
+    parser.add_argument("--warmup_ratio", type=float, default=0.3)
     parser.add_argument("--weight_decay", type=float, default=0.01)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
@@ -247,13 +247,13 @@ if __name__ == "__main__":
         "--scheduler_gamma",
         type=float,
         help="Determine max_lr of Next Cycle Sequentially, When Using CustomizedCosineScheduler",
-        default=0.9,
+        default=0.7,
     )
     parser.add_argument(
         "--first_cycle_ratio",
         type=float,
         help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
-        default=0.05,
+        default=0.3,
     )
 
     parser.add_argument(
