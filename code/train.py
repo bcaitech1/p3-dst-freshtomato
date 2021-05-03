@@ -1,14 +1,27 @@
+import sys
+
+sys.path.insert(0, "CustomizedModule")
+from CustomizedScheduler import get_scheduler
+from CustomizedOptimizer import get_optimizer
 import argparse
 import json
 import os
 import random
 import wandb
+import numpy as np
+from importlib import import_module
 
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from tqdm import tqdm
-from transformers import AdamW, BertTokenizer, get_linear_schedule_with_warmup, AutoTokenizer
+from transformers import (
+    AdamW,
+    BertTokenizer,
+    get_linear_schedule_with_warmup,
+    AutoTokenizer,
+)
+from torch.optim import Adam, SGD
 
 from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
 from eval_utils import DSTEvaluator
@@ -37,7 +50,11 @@ def train(args):
     )
 
     # Define Preprocessor
-    tokenizer = AutoTokenizer.from_pretrained(args.model_name_or_path)
+    tokenizer_module = getattr(
+        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+    )
+    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
+
     processor = TRADEPreprocessor(slot_meta, tokenizer)
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
@@ -55,7 +72,8 @@ def train(args):
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
-    model.set_subword_embedding(args.model_name_or_path)  # Subword Embedding 초기화
+    # getattr 사용할 수 있도록 바뀐 부분
+    model.set_subword_embedding(args)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
     model.to(device)
     print("Model is initialized")
@@ -85,11 +103,13 @@ def train(args):
     # Optimizer 및 Scheduler 선언
     n_epochs = args.epochs
     t_total = len(train_loader) * n_epochs
-    warmup_steps = int(t_total * args.warmup_ratio)
-    optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon)
-    scheduler = get_linear_schedule_with_warmup(
-        optimizer, num_warmup_steps=warmup_steps, num_training_steps=t_total
-    )
+    # get_optimizer 부분에서 자동으로 warmup_steps를 계산할 수 있도록 바꿨음 (아래가 원래의 code)
+    # warmup_steps = int(t_total * args.warmup_ratio)
+    optimizer = get_optimizer(model, args)  # get optimizer (Adam, sgd, AdamP, ..)
+
+    scheduler = get_scheduler(
+        optimizer, t_total, args
+    )  # get scheduler (custom, linear, cosine, ..)
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
     loss_fnc_2 = nn.CrossEntropyLoss()  # gating
@@ -98,13 +118,13 @@ def train(args):
 
     json.dump(
         vars(args),
-        open(f"{args.model_dir}/exp_config.json", "w"),
+        open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
         indent=2,
         ensure_ascii=False,
     )
     json.dump(
         slot_meta,
-        open(f"{args.model_dir}/slot_meta.json", "w"),
+        open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
         indent=2,
         ensure_ascii=False,
     )
@@ -148,6 +168,8 @@ def train(args):
             nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             optimizer.step()
             scheduler.step()
+            for learning_rate in scheduler.get_lr():
+                wandb.log({"learning_rate": learning_rate})
             optimizer.zero_grad()
 
             if step % 100 == 0:
@@ -175,10 +197,11 @@ def train(args):
 
             wandb.log({"epoch": epoch, "Best joint goal accuracy": best_score})
 
-        torch.save(model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin")
+        torch.save(
+            model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
+        )
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
-
-
+    wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
 
 
 if __name__ == "__main__":
@@ -194,16 +217,63 @@ if __name__ == "__main__":
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument("--lr", type=float, default=1e-4)
+    parser.add_argument("--lr", type=float, default=1e-8)
+    parser.add_argument(
+        "--max_lr",
+        type=float,
+        help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of learning_rate",
+        default=5e-6,
+    )
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=int, default=0.1)
+    parser.add_argument("--warmup_ratio", type=float, default=0.2)
+    parser.add_argument("--weight_decay", type=float, default=0.01)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--optimizer",
+        type=str,
+        help="Name of Optimizer (Ex. AdamW, Adam, SGD, AdamP ...)",
+        default="Adam",
+    )
+    parser.add_argument(
+        "--scheduler",
+        type=str,
+        help="Name of Scheduler (Ex. linear, custom, cosine, plateau ...)",
+        default="custom",
+    )
+    parser.add_argument(
+        "--scheduler_gamma",
+        type=float,
+        help="Determine max_lr of Next Cycle Sequentially, When Using CustomizedCosineScheduler",
+        default=0.9,
+    )
+    parser.add_argument(
+        "--first_cycle_ratio",
+        type=float,
+        help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
+        default=0.05,
+    )
+
+    parser.add_argument(
+        "--tokenizer_name",
+        type=str,
+        help="Not Using AutoTokenizer, Tokenizer Name For Loading (EX. Bert, Electra, XLMRoberta, etc..)",
+        default="Bert",
+        # default="Electra",
+    )
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
+        # default="Bert",
+        default="Electra",
+    )
     parser.add_argument(
         "--model_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
+        # default="monologg/kobert",
         default="monologg/koelectra-base-v3-discriminator",
     )
 
@@ -231,4 +301,3 @@ if __name__ == "__main__":
     wandb.config.update(args)
 
     train(args)
-    
