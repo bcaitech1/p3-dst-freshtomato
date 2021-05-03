@@ -122,13 +122,19 @@ def set_seed(seed):
         torch.cuda.manual_seed_all(seed)
 
 
-def split_slot(dom_slot_value, get_domain_slot=False):
+def split_slot(dom_slot_value: str, get_domain_slot=False) -> Tuple[str, str, str]:
+    """도메인-슬릇-밸류 형태의 문자열을 triple로 분리하는 함수
+
+    Args:
+        dom_slot_value (str): 도메인-슬릇-밸류 문자열
+        get_domain_slot (bool, optional): True시 도메인-슬릇/밸류의 형태로 분리. Defaults to False.
+    """
     try:
         dom, slot, value = dom_slot_value.split("-")
     except ValueError:
         tempo = dom_slot_value.split("-")
         if len(tempo) < 2:
-            return dom_slot_value, dom_slot_value, dom_slot_value
+            return dom_slot_value, dom_slot_value, dom_slot_value # ?
         dom, slot = tempo[0], tempo[1]
         value = dom_slot_value.replace(f"{dom}-{slot}-", "").strip()
 
@@ -151,8 +157,19 @@ def build_slot_meta(data):
     return sorted(slot_meta)
 
 
-def convert_state_dict(state):
+def convert_state_dict(state: list) -> dict:
+    """turn의 state 레이블을 딕셔너리 형태로 변환하는 함수
 
+    Examples:
+        >>> convert_state_dict(turn.label) # turn.label: ['관광-종류-박물관', '관광-지역-서울 중앙']
+        {'관광-종류': '박물관', '관광-지역': '서울 중앙'}
+
+    Args:
+        state ([type]): 특정 turn의 dial state
+
+    Returns:
+        dict: {도메인슬릇:밸류} 꼴의 state dict
+    """
     dic = {}
     for slot in state:
         s, v = split_slot(slot, get_domain_slot=True)
