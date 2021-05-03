@@ -1,1 +1,1 @@
---project_name DST-XLMRobertaL --model_fold xlmrobertal-batch4-linear-lr1e-4-proj192 --lr 0.0001 --train_batch_size 4 --scheduler linear --proj_dim 192 --epochs 10
+--project_name DST-XLMRobertaL --model_fold xlmrobertal-batch4-linear-lr1e-4-proj192-drop0.8 --lr 0.0001 --train_batch_size 4 --scheduler linear --proj_dim 192 --hidden_dropout_prob 0.8 --epochs 10

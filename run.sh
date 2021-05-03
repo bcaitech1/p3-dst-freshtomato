@@ -2,6 +2,6 @@
 
 while  read line
 do 
-    python code/train.py $line
+    python3 code/train.py $line
 
 done < experiments.txt
