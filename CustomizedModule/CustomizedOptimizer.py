@@ -123,7 +123,7 @@ class AdamP(Optimizer):
 
 def get_optimizer(model, args):
     if args.optimizer == "AdamW":
-        optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon)
+        optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon, weight_decay=args.weight_decay)
     elif args.optimizer == "Adam":
         optimizer = torch.optim.Adam(
             model.parameters(), lr=args.lr, weight_decay=args.weight_decay
