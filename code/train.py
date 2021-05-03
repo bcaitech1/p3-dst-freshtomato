@@ -210,9 +210,9 @@ if __name__ == "__main__":
         "--project_name",
         type=str,
         required=True,
-        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
+        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
     )
-    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
+    parser.add_argument("--model_fold", type=str, help="model 폴더명", required=True)
     parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=32)
@@ -227,20 +227,20 @@ if __name__ == "__main__":
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
-    parser.add_argument("--warmup_ratio", type=float, default=0.1)
+    parser.add_argument("--warmup_ratio", type=float, default=0.4)
     parser.add_argument("--weight_decay", type=float, default=0.01)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--optimizer",
         type=str,
         help="Name of Optimizer (Ex. AdamW, Adam, SGD, AdamP ...)",
-        default="Adam",
+        default="AdamW",
     )
     parser.add_argument(
         "--scheduler",
         type=str,
         help="Name of Scheduler (Ex. linear, custom, cosine, plateau ...)",
-        default="custom",
+        default="linear",
     )
     parser.add_argument(
         "--scheduler_gamma",
@@ -259,26 +259,29 @@ if __name__ == "__main__":
         "--tokenizer_name",
         type=str,
         help="Not Using AutoTokenizer, Tokenizer Name For Loading (EX. Bert, Electra, XLMRoberta, etc..)",
-        default='XLMRoberta'
+        # default='XLMRoberta'
+        default='Albert'
+
     )
     parser.add_argument(
         "--model_name",
         type=str,
         help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
-        default="XLMRoberta"
+        default="Albert"
     )
     parser.add_argument(
         "--model_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
-        default='xlm-roberta-large'
+        default='albert-xxlarge-v2',
+        # default='xlm-roberta-large'
         # default="monologg/kobert",
         # default="monologg/koelectra-base-v3-discriminator",
         
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=1024)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=128)
     parser.add_argument(
         "--vocab_size",
         type=int,
@@ -294,8 +297,8 @@ if __name__ == "__main__":
     )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     args = parser.parse_args()
+    print(args)
 
-    # wandb init
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)
