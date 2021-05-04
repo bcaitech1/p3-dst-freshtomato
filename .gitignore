@@ -10,6 +10,7 @@ code/loss.py
 code/run.sh
 code/command_file.txt
 code/wandb/**
+code/sumbt_solution.py
 
 
 # data
