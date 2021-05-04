@@ -8,13 +8,11 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues
-from model import TRADE
-from preprocessor import TRADEPreprocessor
+from model import TRADE, SUMBT
 from config import CFG
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 
 def postprocess_state(state):
     for i, s in enumerate(state):
@@ -23,7 +21,7 @@ def postprocess_state(state):
     return state
 
 
-def inference(model, eval_loader, processor, device):
+def inference_TRADE(model, eval_loader, processor, device):
     model.eval()
     predictions = {}
     for batch in tqdm(eval_loader):
@@ -42,6 +40,27 @@ def inference(model, eval_loader, processor, device):
             prediction = postprocess_state(prediction)
             predictions[guid] = prediction
     return predictions
+
+def inference_SUMBT(model, eval_loader, processor, device):
+    model.eval()
+    predictions = {}
+    for batch in tqdm(eval_loader):
+        input_ids, segment_ids, input_masks, target_ids, num_turns, guids = \
+        [b.to(device) if not isinstance(b, list) else b for b in batch]
+
+        with torch.no_grad():
+            _, pred_slot = model(
+                input_ids, segment_ids, input_masks, labels=None, n_gpu=1
+            )
+        
+        batch_size = input_ids.size(0)
+        for i in range(batch_size):
+            guid = guids[i]
+            states = processor.recover_state(pred_slot.tolist()[i], num_turns[i])
+            for tid, state in enumerate(states):
+                predictions[f"{guid}-{tid}"] = state
+    return predictions
+
 
 
 if __name__ == "__main__":
