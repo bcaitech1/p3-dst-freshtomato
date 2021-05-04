@@ -107,10 +107,9 @@ def train(args, tokenizer, processor, slot_meta, train_loader, dev_loader):
             nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             optimizer.step()
             scheduler.step()
-            '''
             for learning_rate in scheduler.get_lr():
                 wandb.log({"learning_rate": learning_rate})
-            '''
+
             optimizer.zero_grad()
 
             if step % 100 == 0:
