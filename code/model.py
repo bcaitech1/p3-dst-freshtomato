@@ -556,7 +556,13 @@ class MultiHeadAttention(nn.Module):
         return self.scores
 
 
+
 if __name__ == "__main__":
+    from torch.utils.data import DataLoader
+    from transformers import AutoTokenizer
+    from data_utils import WOSDataset, get_examples_from_dialogue, get_examples_from_dialogues, load_dataset
+    from preprocessor import TRADEPreprocessor
+    import random
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_size", type=int, default=384)
     parser.add_argument("--vocab_size", type=int, default=384)
@@ -573,12 +579,24 @@ if __name__ == "__main__":
     ##################################################################
     args = parser.parse_args()
 
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
+    train_data_file = f"./input/data/train_dataset/train_dials.json"
+    train_data, dev_data, dev_labels = load_dataset(train_data_file)
     slot_meta = json.load(open(f"./input/data/train_dataset/slot_meta.json"))
-    tokenizer_module = getattr(
-        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+    processor = TRADEPreprocessor(slot_meta, tokenizer)
+    dev_examples = get_examples_from_dialogues(
+        dev_data, user_first=False, dialogue_level=False
     )
-    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
-    # tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
+    dev_features = processor.convert_examples_to_features(dev_examples)
+    dev_data = WOSDataset(dev_features)
+    dev_loader = DataLoader(
+        dev_data,
+        batch_size=2,
+        num_workers=4,
+        collate_fn=processor.collate_fn,
+    )
+
     args.vocab_size = len(tokenizer)
     args.n_gate = 3  # gating 개수
 
@@ -588,4 +606,25 @@ if __name__ == "__main__":
             tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
         )
 
-    TRADE(args, tokenized_slot_meta)
+    model = TRADE(args, tokenized_slot_meta)
+    model.cuda()
+    model.train()
+
+    for step, batch in enumerate(dev_loader):
+        input_ids, segment_ids, input_masks, gating_ids, target_ids, guids = [
+            b.to(device) if not isinstance(b, list) else b for b in batch
+        ]
+
+        # teacher forcing
+        if (
+            args.teacher_forcing_ratio > 0.0
+            and random.random() < args.teacher_forcing_ratio
+        ):
+            tf = target_ids
+        else:
+            tf = None
+
+        all_point_outputs, all_gate_outputs = model(
+            input_ids, segment_ids, input_masks, target_ids.size(-1), tf
+        )
+    
