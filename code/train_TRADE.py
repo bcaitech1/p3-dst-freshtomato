@@ -17,12 +17,28 @@ from tqdm import tqdm
 from eval_utils import DSTEvaluator
 from evaluation import _evaluation
 from inference import inference_TRADE
+from data_utils import data_loading, extract_features, get_data_loader
+
+from preprocessor import TRADEPreprocessor
 from model import TRADE, masked_cross_entropy_for_value
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(args, tokenizer, processor, slot_meta, train_loader, dev_loader):
+def train(args):
+    # Define Tokenizer
+    tokenizer_module = getattr(
+        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+    )
+    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
+
+    slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=False, isDialogueLevel=False)
+    # Define Preprocessor
+    processor = TRADEPreprocessor(slot_meta, tokenizer)
+
+    train_features, dev_features = extract_features(args, processor, train_examples, dev_examples)
+    train_loader, dev_loader = get_data_loader(args, processor, train_features, dev_features)
+
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
     

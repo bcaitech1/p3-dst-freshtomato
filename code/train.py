@@ -3,70 +3,8 @@ import json
 import wandb
 import argparse
 
+from data_utils import set_seed
 from importlib import import_module
-from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
-from data_utils import WOSDataset, get_examples_from_dialogues, load_dataset, set_seed
-
-
-def data_loading(args):
-    # Data Loading
-    train_data_file = f"{args.data_dir}/train_dials.json"
-    train_data, dev_data, dev_labels = load_dataset(train_data_file)
-
-    train_examples = get_examples_from_dialogues(
-        train_data, user_first=False, dialogue_level=False
-    )
-    dev_examples = get_examples_from_dialogues(
-        dev_data, user_first=False, dialogue_level=False
-    )
-
-    return train_examples, dev_examples
-
-def extract_features(args, train_examples, dev_examples):
-    slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
-    
-    # Define Tokenizer
-    tokenizer_module = getattr(
-        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
-    )
-    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
-
-    # Define Preprocessor
-    processor_module = getattr(
-        import_module("preprocessor"), f"{args.dst}Preprocessor"
-    )
-    processor = processor_module(slot_meta, tokenizer)
-
-    # Extracting Featrues
-    train_features = processor.convert_examples_to_features(train_examples)
-    dev_features = processor.convert_examples_to_features(dev_examples)
-
-    return slot_meta, tokenizer, processor, train_features, dev_features
-
-def get_data_loader(args, processor, train_features, dev_features):
-    train_data = WOSDataset(train_features)
-    train_sampler = RandomSampler(train_data)
-    train_loader = DataLoader(
-        train_data,
-        batch_size=args.train_batch_size,
-        sampler=train_sampler,
-        num_workers=4,
-        collate_fn=processor.collate_fn,
-    )
-    print("# train:", len(train_data))
-
-    dev_data = WOSDataset(dev_features)
-    dev_sampler = SequentialSampler(dev_data)
-    dev_loader = DataLoader(
-        dev_data,
-        batch_size=args.eval_batch_size,
-        sampler=dev_sampler,
-        num_workers=4,
-        collate_fn=processor.collate_fn,
-    )
-    print("# dev:", len(dev_data))
-
-    return train_loader, dev_loader
 
 
 if __name__ == "__main__":
@@ -148,7 +86,8 @@ if __name__ == "__main__":
     )
 
     # Model Specific Argument
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768)
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
+    parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
     parser.add_argument(
         "--vocab_size",
         type=int,
@@ -163,24 +102,29 @@ if __name__ == "__main__":
         default=None,
     )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
+
+    # SUMBT
+    parser.add_argument("--zero_init_rnn", type=bool, default=False)
+    parser.add_argument("--max_seq_length", type=int, default=64)
+    parser.add_argument("--max_label_length", type=int, default=12)
+    parser.add_argument("--attn_head", type=int, default=4)
+    parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
+    parser.add_argument("--distance_metric", type=str, default="euclidean")
+
     args = parser.parse_args()
     args.dst = args.dst.upper()
     os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
     # wandb init
-    
+
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)
-    
+
     # random seed 고정
     set_seed(args.seed)
-
-    train_examples, dev_examples = data_loading(args)
-    slot_meta, tokenizer, processor, train_features, dev_features = extract_features(args, train_examples, dev_examples)
-    train_loader, dev_loader = get_data_loader(args, processor, train_features, dev_features)
     
     train_module = getattr(
         import_module(f"train_{args.dst}"), "train"
     )
-    train_module(args, tokenizer, processor, slot_meta, train_loader, dev_loader)
+    train_module(args)

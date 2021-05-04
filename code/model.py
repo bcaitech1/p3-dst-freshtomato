@@ -1,8 +1,10 @@
 import argparse
+import math
 import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
 
 from importlib import import_module
 from transformers import BertModel, BertPreTrainedModel
@@ -26,7 +28,7 @@ class TRADE(nn.Module):
         self.encoder = GRUEncoder(
             config.vocab_size,
             config.hidden_size,
-            1,
+            config.num_rnn_layers,
             config.hidden_dropout_prob,
             config.proj_dim,
             pad_idx,
@@ -296,7 +298,7 @@ class SUMBT(nn.Module):
     def __init__(self, args, num_labels, device):
         super(SUMBT, self).__init__()
 
-        self.hidden_dim = args.hidden_dim
+        self.hidden_dim = args.hidden_size
         self.rnn_num_layers = args.num_rnn_layers
         self.zero_init_rnn = args.zero_init_rnn
         self.max_seq_length = args.max_seq_length

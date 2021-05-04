@@ -11,6 +11,7 @@ import torch
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
+from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
 @dataclass
 class OntologyDSTFeature:
@@ -116,6 +117,7 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
 def data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
+    slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
     train_examples = get_examples_from_dialogues(
@@ -125,16 +127,14 @@ def data_loading(args, isUserFirst, isDialogueLevel):
         dev_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
     )
 
-    return train_examples, dev_examples
+    return slot_meta, train_examples, dev_examples
 
 def extract_features(args, processor, train_examples, dev_examples):
-    slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
-    
     # Extracting Featrues
     train_features = processor.convert_examples_to_features(train_examples)
     dev_features = processor.convert_examples_to_features(dev_examples)
 
-    return slot_meta, train_features, dev_features
+    return train_features, dev_features
 
 def get_data_loader(args, processor, train_features, dev_features):
     train_data = WOSDataset(train_features)

@@ -6,6 +6,8 @@ from data_utils import (
     OpenVocabDSTFeature,
     convert_state_dict,
     DSTInputExample,
+    OntologyDSTFeature,
+    _truncate_seq_pair
 )
 
 
