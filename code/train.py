@@ -16,48 +16,38 @@ if __name__ == "__main__":
         help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
     )
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="../models")
+    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--seed", type=int, default=42)
 
-    parser.add_argument("--lr", type=float, default=1e-8)
+    parser.add_argument("--lr", type=float, default=1e-7)
     parser.add_argument(
-        "--max_lr",
-        type=float,
-        help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of learning_rate",
-        default=5e-5,
-    )
+        "--max_lr", 
+        type=float, 
+        help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of lr", 
+        default=1e-4
+        )
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
-    parser.add_argument("--warmup_ratio", type=float, default=0.2)
+    parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--weight_decay", type=float, default=0.01)
    
-    parser.add_argument(
-        "--optimizer",
-        type=str,
-        help="Name of Optimizer (Ex. AdamW, Adam, SGD, AdamP ...)",
-        default="AdamW",
-    )
-    parser.add_argument(
-        "--scheduler",
-        type=str,
-        help="Name of Scheduler (Ex. linear, custom, cosine, plateau ...)",
-        default="custom",
-    )
+    parser.add_argument("--optimizer", type=str, help="Name of Optimizer (AdamW, Adam, SGD, AdamP ...)", default="AdamW")
+    parser.add_argument("--scheduler", type=str, help="Name of Scheduler (linear, custom, cosine, plateau ...)", default="custom")
     parser.add_argument(
         "--scheduler_gamma",
         type=float,
         help="Determine max_lr of Next Cycle Sequentially, When Using CustomizedCosineScheduler",
-        default=0.7,
+        default=0.8,
     )
     parser.add_argument(
         "--first_cycle_ratio",
         type=float,
         help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
-        default=0.2,
+        default=0.25,
     )
 
     parser.add_argument(
@@ -127,4 +117,9 @@ if __name__ == "__main__":
     train_module = getattr(
         import_module(f"train_{args.dst}"), "train"
     )
+
+    print('='*100)
+    print(args)
+    print('='*100)
+
     train_module(args)
