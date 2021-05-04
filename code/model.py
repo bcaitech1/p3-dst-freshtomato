@@ -1,20 +1,12 @@
 import argparse
 import math
-import os.path
 import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
-from transformers import (
-    ElectraModel,
-    ElectraConfig,
-    AutoTokenizer,
-    BertModel,
-    BertPreTrainedModel,
-)
-from data_utils import OntologyDSTFeature
 from importlib import import_module
+from transformers import BertModel, BertPreTrainedModel
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
@@ -35,7 +27,7 @@ class TRADE(nn.Module):
         self.encoder = GRUEncoder(
             config.vocab_size,
             config.hidden_size,
-            1,
+            config.num_rnn_layers,
             config.hidden_dropout_prob,
             config.proj_dim,
             pad_idx,
@@ -229,11 +221,85 @@ class SlotGenerator(nn.Module):
         return all_point_outputs, all_gate_outputs
 
 
+class BertForUtteranceEncoding(BertPreTrainedModel):
+    def __init__(self, config):
+        super(BertForUtteranceEncoding, self).__init__(config)
+
+        self.config = config
+        self.bert = BertModel(config)
+
+    def forward(self, input_ids, token_type_ids, attention_mask):
+        return self.bert(
+            input_ids=input_ids,
+            attention_mask=attention_mask,
+            token_type_ids=token_type_ids,
+            output_attentions=False,
+            output_hidden_states=False,
+            return_dict=False,
+        )
+
+
+class MultiHeadAttention(nn.Module):
+    def __init__(self, heads, d_model, dropout=0.1):
+        super().__init__()
+
+        self.d_model = d_model
+        self.d_k = d_model // heads
+        self.h = heads
+
+        self.q_linear = nn.Linear(d_model, d_model)
+        self.v_linear = nn.Linear(d_model, d_model)
+        self.k_linear = nn.Linear(d_model, d_model)
+        self.dropout = nn.Dropout(dropout)
+        self.out = nn.Linear(d_model, d_model)
+
+        self.scores = None
+
+    def attention(self, q, k, v, d_k, mask=None, dropout=None):
+
+        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
+
+        if mask is not None:
+            mask = mask.unsqueeze(1)
+            scores = scores.masked_fill(mask == 0, -1e9)
+        scores = F.softmax(scores, dim=-1)
+
+        if dropout is not None:
+            scores = dropout(scores)
+
+        self.scores = scores
+        output = torch.matmul(scores, v)
+        return output
+
+    def forward(self, q, k, v, mask=None):
+        bs = q.size(0)
+
+        # perform linear operation and split into h heads
+        k = self.k_linear(k).view(bs, -1, self.h, self.d_k)
+        q = self.q_linear(q).view(bs, -1, self.h, self.d_k)
+        v = self.v_linear(v).view(bs, -1, self.h, self.d_k)
+
+        # transpose to get dimensions bs * h * sl * d_model
+        k = k.transpose(1, 2)
+        q = q.transpose(1, 2)
+        v = v.transpose(1, 2)
+
+        scores = self.attention(q, k, v, self.d_k, mask, self.dropout)
+
+        # concatenate heads and put through final linear layer
+        concat = scores.transpose(1, 2).contiguous().view(bs, -1, self.d_model)
+        output = self.out(concat)
+        return output
+
+    def get_scores(self):
+        return self.scores
+
+
 class SUMBT(nn.Module):
     def __init__(self, args, num_labels, device):
         super(SUMBT, self).__init__()
 
-        self.hidden_dim = args.hidden_dim
+        self.hidden_dim = args.hidden_size
         self.rnn_num_layers = args.num_rnn_layers
         self.zero_init_rnn = args.zero_init_rnn
         self.max_seq_length = args.max_seq_length
@@ -481,111 +547,3 @@ class SUMBT(nn.Module):
             torch.nn.init.xavier_normal_(module.weight_hh_l0)
             torch.nn.init.constant_(module.bias_ih_l0, 0.0)
             torch.nn.init.constant_(module.bias_hh_l0, 0.0)
-
-
-class BertForUtteranceEncoding(BertPreTrainedModel):
-    def __init__(self, config):
-        super(BertForUtteranceEncoding, self).__init__(config)
-
-        self.config = config
-        self.bert = BertModel(config)
-
-    def forward(self, input_ids, token_type_ids, attention_mask):
-        return self.bert(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            token_type_ids=token_type_ids,
-            output_attentions=False,
-            output_hidden_states=False,
-            return_dict=False,
-        )
-
-
-class MultiHeadAttention(nn.Module):
-    def __init__(self, heads, d_model, dropout=0.1):
-        super().__init__()
-
-        self.d_model = d_model
-        self.d_k = d_model // heads
-        self.h = heads
-
-        self.q_linear = nn.Linear(d_model, d_model)
-        self.v_linear = nn.Linear(d_model, d_model)
-        self.k_linear = nn.Linear(d_model, d_model)
-        self.dropout = nn.Dropout(dropout)
-        self.out = nn.Linear(d_model, d_model)
-
-        self.scores = None
-
-    def attention(self, q, k, v, d_k, mask=None, dropout=None):
-        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
-
-        if mask is not None:
-            mask = mask.unsqueeze(1)
-            scores = scores.masked_fill(mask == 0, -1e9)
-        scores = F.softmax(scores, dim=-1)
-
-        if dropout is not None:
-            scores = dropout(scores)
-
-        self.scores = scores
-        output = torch.matmul(scores, v)
-        return output
-
-    def forward(self, q, k, v, mask=None):
-        bs = q.size(0)
-
-        # perform linear operation and split into h heads
-        k = self.k_linear(k).view(bs, -1, self.h, self.d_k)
-        q = self.q_linear(q).view(bs, -1, self.h, self.d_k)
-        v = self.v_linear(v).view(bs, -1, self.h, self.d_k)
-
-        # transpose to get dimensions bs * h * sl * d_model
-        k = k.transpose(1, 2)
-        q = q.transpose(1, 2)
-        v = v.transpose(1, 2)
-
-        scores = self.attention(q, k, v, self.d_k, mask, self.dropout)
-
-        # concatenate heads and put through final linear layer
-        concat = scores.transpose(1, 2).contiguous().view(bs, -1, self.d_model)
-        output = self.out(concat)
-        return output
-
-    def get_scores(self):
-        return self.scores
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--hidden_size", type=int, default=384)
-    parser.add_argument("--vocab_size", type=int, default=384)
-    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
-    parser.add_argument(
-        "--proj_dim",
-        type=int,
-        default=None,
-    )
-    parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
-    ############### getattr 사용을 위해 추가된 부분 ####################
-    parser.add_argument("--tokenizer_name", type=str, default="Bert")
-    parser.add_argument("--model_name_or_path", type=str, default="monologg/kobert")
-    ##################################################################
-    args = parser.parse_args()
-
-    slot_meta = json.load(open(f"./input/data/train_dataset/slot_meta.json"))
-    tokenizer_module = getattr(
-        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
-    )
-    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
-    # tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
-    args.vocab_size = len(tokenizer)
-    args.n_gate = 3  # gating 개수
-
-    tokenized_slot_meta = []
-    for slot in slot_meta:
-        tokenized_slot_meta.append(
-            tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
-        )
-
-    TRADE(args, tokenized_slot_meta)

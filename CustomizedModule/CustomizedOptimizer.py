@@ -122,19 +122,21 @@ class AdamP(Optimizer):
 
 
 def get_optimizer(model, args):
+    model_param = model if type(model) == list else model.parameters()
+    
     if args.optimizer == "AdamW":
-        optimizer = AdamW(model.parameters(), lr=args.lr, eps=args.adam_epsilon, weight_decay=args.weight_decay)
+        optimizer = AdamW(model_param, lr=args.lr, eps=args.adam_epsilon, weight_decay=args.weight_decay)
     elif args.optimizer == "Adam":
         optimizer = torch.optim.Adam(
-            model.parameters(), lr=args.lr, weight_decay=args.weight_decay
+            model_param, lr=args.lr, weight_decay=args.weight_decay
         )
     elif args.optimizer == "SGD":
         optimizer = torch.optim.SGD(
-            model.parameters(), lr=args.lr, momentum=0.9, weight_decay=args.weight_decay
+            model_param, lr=args.lr, momentum=0.9, weight_decay=args.weight_decay
         )
     elif args.optimizer == "AdamP":
         optimizer = AdamP(
-            model.parameters(),
+            model_param,
             lr=args.lr,
             betas=(0.9, 0.999),
             eps=args.adam_epsilon,
