@@ -8,8 +8,7 @@ from tqdm import tqdm
 from transformers import AutoTokenizer
 
 from data_utils import WOSDataset, get_examples_from_dialogues
-from model import TRADE
-from preprocessor import TRADEPreprocessor
+from model import TRADE, SUMBT
 from config import CFG
 
 

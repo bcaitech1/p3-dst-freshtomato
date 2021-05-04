@@ -3,8 +3,9 @@ import json
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from transformers import ElectraModel, ElectraConfig, AutoTokenizer
+
 from importlib import import_module
+from transformers import BertModel, BertPreTrainedModel
 
 
 def masked_cross_entropy_for_value(logits, target, pad_idx=0):
