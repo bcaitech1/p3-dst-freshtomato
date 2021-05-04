@@ -113,6 +113,53 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
 
     return train_data, dev_data, dev_labels
 
+def data_loading(args, isUserFirst, isDialogueLevel):
+    # Data Loading
+    train_data_file = f"{args.data_dir}/train_dials.json"
+    train_data, dev_data, dev_labels = load_dataset(train_data_file)
+
+    train_examples = get_examples_from_dialogues(
+        train_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
+    )
+    dev_examples = get_examples_from_dialogues(
+        dev_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
+    )
+
+    return train_examples, dev_examples
+
+def extract_features(args, processor, train_examples, dev_examples):
+    slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
+    
+    # Extracting Featrues
+    train_features = processor.convert_examples_to_features(train_examples)
+    dev_features = processor.convert_examples_to_features(dev_examples)
+
+    return slot_meta, train_features, dev_features
+
+def get_data_loader(args, processor, train_features, dev_features):
+    train_data = WOSDataset(train_features)
+    train_sampler = RandomSampler(train_data)
+    train_loader = DataLoader(
+        train_data,
+        batch_size=args.train_batch_size,
+        sampler=train_sampler,
+        num_workers=4,
+        collate_fn=processor.collate_fn,
+    )
+    print("# train:", len(train_data))
+
+    dev_data = WOSDataset(dev_features)
+    dev_sampler = SequentialSampler(dev_data)
+    dev_loader = DataLoader(
+        dev_data,
+        batch_size=args.eval_batch_size,
+        sampler=dev_sampler,
+        num_workers=4,
+        collate_fn=processor.collate_fn,
+    )
+    print("# dev:", len(dev_data))
+
+    return train_loader, dev_loader
 
 def set_seed(seed):
     random.seed(seed)
