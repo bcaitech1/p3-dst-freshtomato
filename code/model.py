@@ -6,7 +6,13 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
-from transformers import ElectraModel, ElectraConfig, AutoTokenizer, BertModel, BertPreTrainedModel
+from transformers import (
+    ElectraModel,
+    ElectraConfig,
+    AutoTokenizer,
+    BertModel,
+    BertPreTrainedModel,
+)
 from data_utils import OntologyDSTFeature
 from importlib import import_module
 
@@ -48,8 +54,10 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     # def set_subword_embedding(self, model_name_or_path):
-    def set_subword_embedding(self, config):    # args 전체를 input으로 받는 것으로 바뀌었음
-        model_module = getattr(import_module("transformers"), f'{config.model_name}Model')
+    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+        model_module = getattr(
+            import_module("transformers"), f"{config.model_name}Model"
+        )
         model = model_module.from_pretrained(config.model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
@@ -548,31 +556,36 @@ class MultiHeadAttention(nn.Module):
         return self.scores
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--hidden_size", type=int, default=384)
     parser.add_argument("--vocab_size", type=int, default=384)
     parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
-    parser.add_argument("--proj_dim", type=int, default=None, )
+    parser.add_argument(
+        "--proj_dim",
+        type=int,
+        default=None,
+    )
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     ############### getattr 사용을 위해 추가된 부분 ####################
-    parser.add_argument("--tokenizer_name", type=str, default='Bert')
-    parser.add_argument("--model_name_or_path", type=str, default='monologg/kobert')
+    parser.add_argument("--tokenizer_name", type=str, default="Bert")
+    parser.add_argument("--model_name_or_path", type=str, default="monologg/kobert")
     ##################################################################
     args = parser.parse_args()
 
     slot_meta = json.load(open(f"./input/data/train_dataset/slot_meta.json"))
-    tokenizer_module = getattr(import_module("transformers"), f'{args.tokenizer_name}Tokenizer')
+    tokenizer_module = getattr(
+        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+    )
     tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
     # tokenizer = AutoTokenizer.from_pretrained("monologg/koelectra-base-v3-discriminator")
     args.vocab_size = len(tokenizer)
-    args.n_gate = 3 # gating 개수
+    args.n_gate = 3  # gating 개수
 
     tokenized_slot_meta = []
     for slot in slot_meta:
         tokenized_slot_meta.append(
             tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
         )
-    
+
     TRADE(args, tokenized_slot_meta)
