@@ -5,7 +5,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
-
 from importlib import import_module
 from transformers import BertModel, BertPreTrainedModel
 
@@ -47,8 +46,10 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     # def set_subword_embedding(self, model_name_or_path):
-    def set_subword_embedding(self, config):    # args 전체를 input으로 받는 것으로 바뀌었음
-        model_module = getattr(import_module("transformers"), f'{config.model_name}Model')
+    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+        model_module = getattr(
+            import_module("transformers"), f"{config.model_name}Model"
+        )
         model = model_module.from_pretrained(config.model_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()

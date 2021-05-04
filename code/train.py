@@ -13,7 +13,7 @@ if __name__ == "__main__":
         "--project_name",
         type=str,
         required=True,
-        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
+        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
     )
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
     parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
@@ -28,7 +28,7 @@ if __name__ == "__main__":
         "--max_lr",
         type=float,
         help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of learning_rate",
-        default=5e-6,
+        default=5e-5,
     )
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         "--optimizer",
         type=str,
         help="Name of Optimizer (Ex. AdamW, Adam, SGD, AdamP ...)",
-        default="Adam",
+        default="AdamW",
     )
     parser.add_argument(
         "--scheduler",
@@ -51,13 +51,13 @@ if __name__ == "__main__":
         "--scheduler_gamma",
         type=float,
         help="Determine max_lr of Next Cycle Sequentially, When Using CustomizedCosineScheduler",
-        default=0.9,
+        default=0.7,
     )
     parser.add_argument(
         "--first_cycle_ratio",
         type=float,
         help="Determine Num of First Cycle Epoch When Using CustomizedCosineScheduler (first_cycle = t_total * first_cycle_ratio)",
-        default=0.05,
+        default=0.2,
     )
 
     parser.add_argument(
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         help="vocab size, subword vocab tokenizer에 의해 특정된다",
         default=None,
     )
-    parser.add_argument("--hidden_dropout_prob", type=float, default=0.1)
+    parser.add_argument("--hidden_dropout_prob", type=float, default=0.0)
     parser.add_argument(
         "--proj_dim",
         type=int,
