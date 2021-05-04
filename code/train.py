@@ -38,23 +38,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def train(args):
-    nvmlInit()
-    h = nvmlDeviceGetHandleByIndex(0)
-    info = nvmlDeviceGetMemoryInfo(h)
-
-    # GPU 사용량을 로깅
-    cuda_logs = dict(
-        total_memory=info.total, 
-        init_free=info.free,
-        init_used=info.used,
-        model_to_cuda=0, 
-        batch_to_cuda=[], 
-        getting_outputs=[], 
-        loss_calculation=[], 
-        loss_backward=[], 
-        step_optimizer=[]
-        )
-
     # random seed 고정
     set_seed(args.seed)
 
@@ -97,12 +80,6 @@ def train(args):
     model.set_subword_embedding(args)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
     model.to(device)
-
-    nvmlInit()
-    h = nvmlDeviceGetHandleByIndex(0)
-    info = nvmlDeviceGetMemoryInfo(h)
-    cuda_logs['model_to_cuda'] = info.used
-    print("Model is initialized")
 
     train_data = WOSDataset(train_features)
     train_sampler = RandomSampler(train_data)
@@ -162,13 +139,6 @@ def train(args):
             input_ids, segment_ids, input_masks, gating_ids, target_ids, guids = [
                 b.to(device) if not isinstance(b, list) else b for b in batch
             ]
-            
-            # gpu log
-            if epoch == 0:
-                nvmlInit()
-                h = nvmlDeviceGetHandleByIndex(0)
-                info = nvmlDeviceGetMemoryInfo(h)
-                cuda_logs['batch_to_cuda'].append(info.used)
 
             # teacher forcing
             if (
@@ -182,13 +152,6 @@ def train(args):
             all_point_outputs, all_gate_outputs = model(
                 input_ids, segment_ids, input_masks, target_ids.size(-1), tf
             )
-
-            # gpu log
-            if epoch == 0:
-                nvmlInit()
-                h = nvmlDeviceGetHandleByIndex(0)
-                info = nvmlDeviceGetMemoryInfo(h)
-                cuda_logs['getting_outputs'].append(info.used)
 
             # generation loss
             loss_1 = loss_fnc_1(
@@ -204,21 +167,7 @@ def train(args):
             )
             loss = loss_1 + loss_2
 
-            # gpu log
-            if epoch == 0:
-                nvmlInit()
-                h = nvmlDeviceGetHandleByIndex(0)
-                info = nvmlDeviceGetMemoryInfo(h)
-                cuda_logs['loss_calculation'].append(info.used)
-
             loss.backward()
-
-            # gpu log
-            if epoch == 0:
-                nvmlInit()
-                h = nvmlDeviceGetHandleByIndex(0)
-                info = nvmlDeviceGetMemoryInfo(h)
-                cuda_logs['loss_backward'].append(info.used)
 
             nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             optimizer.step()
@@ -229,9 +178,6 @@ def train(args):
                 wandb.log({"learning_rate": learning_rate})
             optimizer.zero_grad()
 
-            # gpu log
-            if epoch == 0:
-                cuda_logs['step_optimizer'].append(info.used)
 
             if step % 100 == 0:
                 print(
@@ -245,12 +191,7 @@ def train(args):
                         "Train epoch gate loss": loss_2.item(),
                     }
                 )
-            if epoch == 0:
-                save_json('gpu_logs.json', cuda_logs)
-
-        if epoch == 0:
-            save_json('gpu_logs.json', cuda_logs)
-            print('GPU logging finished')
+                
         predictions = inference(model, dev_loader, processor, device)
         eval_result = _evaluation(predictions, dev_labels, slot_meta)
         for k, v in eval_result.items():
