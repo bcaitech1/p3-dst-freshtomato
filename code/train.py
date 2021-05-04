@@ -223,13 +223,13 @@ if __name__ == "__main__":
         "--max_lr",
         type=float,
         help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of learning_rate",
-        default=1e-4,
+        default=5e-5,
     )
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--warmup_ratio", type=float, default=0.2)
-    parser.add_argument("--weight_decay", type=float, default=0.01)
+    parser.add_argument("--weight_decay", type=float, default=0.001)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument(
         "--optimizer",
@@ -299,12 +299,12 @@ if __name__ == "__main__":
     parser.add_argument("--teacher_forcing_ratio", type=float, default=0.5)
     args = parser.parse_args()
 
-    print('='*100)
-    print(args)
-    print('='*100)
-
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)
+
+    print('='*100)
+    print(args)
+    print('='*100)
 
     train(args)
