@@ -73,7 +73,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_dir", type=str, default=CFG.Output)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument(
-        "--model_name_or_path",
+        "--pretrained_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
         default="monologg/koelectra-base-v3-discriminator",
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     config = argparse.Namespace(**config)
     slot_meta = json.load(open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "r"))
 
-    tokenizer = AutoTokenizer.from_pretrained(config.model_name_or_path)
+    tokenizer = AutoTokenizer.from_pretrained(config.pretrained_name_or_path)
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
     eval_examples = get_examples_from_dialogues(
