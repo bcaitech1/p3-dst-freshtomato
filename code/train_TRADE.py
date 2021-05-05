@@ -32,7 +32,7 @@ def train(args):
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
-    slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=False, isDialogueLevel=False)
+    slot_meta, train_examples, dev_examples, dev_labels = data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
