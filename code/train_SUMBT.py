@@ -29,9 +29,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def train(args):
     # Define Tokenizer
     tokenizer_module = getattr(
-        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+        import_module("transformers"), f"{args.model_name}Tokenizer"
     )
-    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
+    tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
     slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=True, isDialogueLevel=True)
     ontology = json.load(open("../input/data/train_dataset/ontology.json"))
