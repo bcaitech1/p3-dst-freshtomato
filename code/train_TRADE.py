@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 from importlib import import_module
 
-sys.path.insert(0, "./CustomizedModule")
+sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -28,9 +28,9 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def train(args):
     # Define Tokenizer
     tokenizer_module = getattr(
-        import_module("transformers"), f"{args.tokenizer_name}Tokenizer"
+        import_module("transformers"), f"{args.model_name}Tokenizer"
     )
-    tokenizer = tokenizer_module.from_pretrained(args.model_name_or_path)
+    tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
     slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
@@ -52,7 +52,7 @@ def train(args):
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
     model.set_subword_embedding(args)  # Subword Embedding 초기화
-    print(f"Subword Embeddings is loaded from {args.model_name_or_path}")
+    print(f"Subword Embeddings is loaded from {args.pretrained_name_or_path}")
     model.to(device)
     print("Model is initialized")
 

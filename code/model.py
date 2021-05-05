@@ -45,12 +45,12 @@ class TRADE(nn.Module):
         self.decoder.set_slot_idx(tokenized_slot_meta)
         self.tie_weight()
 
-    # def set_subword_embedding(self, model_name_or_path):
+    # def set_subword_embedding(self, pretrained_name_or_path):
     def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
         model_module = getattr(
             import_module("transformers"), f"{config.model_name}Model"
         )
-        model = model_module.from_pretrained(config.model_name_or_path)
+        model = model_module.from_pretrained(config.pretrained_name_or_path)
         self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
@@ -311,7 +311,7 @@ class SUMBT(nn.Module):
 
         ### Utterance Encoder
         self.utterance_encoder = BertForUtteranceEncoding.from_pretrained(
-            args.model_name_or_path
+            args.pretrained_name_or_path
         )
         self.bert_output_dim = self.utterance_encoder.config.hidden_size
         self.hidden_dropout_prob = self.utterance_encoder.config.hidden_dropout_prob
@@ -321,7 +321,7 @@ class SUMBT(nn.Module):
 
         ### slot, slot-value Encoder (not trainable)
         self.sv_encoder = BertForUtteranceEncoding.from_pretrained(
-            args.model_name_or_path
+            args.pretrained_name_or_path
         )
         # os.path.join(args.bert_dir, 'bert-base-uncased.model'))
         for p in self.sv_encoder.bert.parameters():
