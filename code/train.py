@@ -12,12 +12,18 @@ if __name__ == "__main__":
     parser.add_argument(
         "--project_name",
         type=str,
-        required=True,
-        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
+        # required=True,
+        # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
+        default='DST-DEBUG-iloveslowfood'
     )
-    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="../models")
+    parser.add_argument(
+        "--model_fold", 
+        # type=str, 
+        # required=True, 
+        # help="model 폴더명",
+        default='trade-LSLOSS')
+    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
@@ -54,7 +60,7 @@ if __name__ == "__main__":
         "--dst",
         type=str,
         help="Model Name For DST Task (EX. TRADE, SUMBT)",
-        default="SUMBT",
+        default="TRADE",
     )
     parser.add_argument(
         "--model_name",
@@ -102,9 +108,9 @@ if __name__ == "__main__":
 
     # wandb init
 
-    wandb.init(project=args.project_name)
-    wandb.run.name = f"{args.model_fold}"
-    wandb.config.update(args)
+    # wandb.init(project=args.project_name)
+    # wandb.run.name = f"{args.model_fold}"
+    # wandb.config.update(args)
 
     # random seed 고정
     set_seed(args.seed)

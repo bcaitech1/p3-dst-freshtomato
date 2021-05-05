@@ -8,7 +8,7 @@ from importlib import import_module
 
 from data_utils import tokenize_ontology
 
-sys.path.insert(0, "../CustomizedModule")
+sys.path.insert(0, "./CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -34,7 +34,7 @@ def train(args):
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
     slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=True, isDialogueLevel=True)
-    ontology = json.load(open("../input/data/train_dataset/ontology.json"))
+    ontology = json.load(open("./input/data/train_dataset/ontology.json"))
 
     # Define Preprocessor
     max_turn = max([len(e)*2 for e in train_examples])

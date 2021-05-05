@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 from importlib import import_module
 
-sys.path.insert(0, "../CustomizedModule")
+sys.path.insert(0, "./CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -68,9 +68,9 @@ def train(args):
         optimizer, t_total, args
     )  # get scheduler (custom, linear, cosine, ..)
 
-    loss_fnc_1 = masked_cross_entropy_for_value  # generation
-    # loss_fnc_2 = nn.CrossEntropyLoss()  # gating
-    loss_fnc_2 = LabelSmoothingLoss()
+    loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
+    # loss_fnc_2 = nn.CrossEntropyLoss()  # gating - # classes: 3
+    loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate)
 
     
     json.dump(
