@@ -6,6 +6,7 @@
 ## Command Line Interface
 ### Train Phase
 ```python
+>>> python cd code
 >>> python train.py --project_name [PROJECT_NAME] --model_fold [MODEL_FOLD_NAME] --dst [DST_MODEL]
 ```
 
