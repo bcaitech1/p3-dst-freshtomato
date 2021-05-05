@@ -62,15 +62,8 @@ if __name__ == "__main__":
         help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
         default="Electra"
     )
-    # )
-    # parser.add_argument(
-    #     "--model_name",
-    #     type=str,
-    #     help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
-    #     default="Electra",
-    # )
+    
     parser.add_argument(
-        # "--model_name_or_path",
         "--pretrained_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
