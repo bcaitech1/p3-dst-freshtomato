@@ -33,7 +33,7 @@ def train(args):
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
-    slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=True, isDialogueLevel=True)
+    slot_meta, train_examples, dev_examples, dev_labels = data_loading(args, isUserFirst=True, isDialogueLevel=True)
     ontology = json.load(open("../input/data/train_dataset/ontology.json"))
 
     # Define Preprocessor

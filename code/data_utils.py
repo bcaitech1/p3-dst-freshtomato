@@ -127,7 +127,7 @@ def data_loading(args, isUserFirst, isDialogueLevel):
         dev_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
     )
 
-    return slot_meta, train_examples, dev_examples
+    return slot_meta, train_examples, dev_examples, dev_labels
 
 def extract_features(args, processor, train_examples, dev_examples):
     # Extracting Featrues
