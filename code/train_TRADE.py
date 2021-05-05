@@ -21,6 +21,7 @@ from data_utils import data_loading, extract_features, get_data_loader
 
 from preprocessor import TRADEPreprocessor
 from model import TRADE, masked_cross_entropy_for_value
+from criterions import LabelSmoothingLoss
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -68,7 +69,8 @@ def train(args):
     )  # get scheduler (custom, linear, cosine, ..)
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
-    loss_fnc_2 = nn.CrossEntropyLoss()  # gating
+    # loss_fnc_2 = nn.CrossEntropyLoss()  # gating
+    loss_fnc_2 = LabelSmoothingLoss()
 
     
     json.dump(

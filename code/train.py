@@ -16,8 +16,8 @@ if __name__ == "__main__":
         help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
     )
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="./models")
+    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="../models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
