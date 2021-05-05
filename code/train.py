@@ -16,8 +16,8 @@ if __name__ == "__main__":
         help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)"
     )
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="./models")
+    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="../models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
@@ -54,22 +54,24 @@ if __name__ == "__main__":
         "--dst",
         type=str,
         help="Model Name For DST Task (EX. TRADE, SUMBT)",
-        default="TRADE",
-    )
-    parser.add_argument(
-        "--tokenizer_name",
-        type=str,
-        help="Not Using AutoTokenizer, Tokenizer Name For Loading (EX. Bert, Electra, XLMRoberta, etc..)",
-        default="Electra",
+        default="SUMBT",
     )
     parser.add_argument(
         "--model_name",
         type=str,
-        help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
-        default="Electra",
+        help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
+        default="Electra"
     )
+    # )
+    # parser.add_argument(
+    #     "--model_name",
+    #     type=str,
+    #     help="Not Using AutoModel, Model Name For Loading set_subword_embedding in model.py (EX. Bert, Electra, XLMRoberta, etc..)",
+    #     default="Electra",
+    # )
     parser.add_argument(
-        "--model_name_or_path",
+        # "--model_name_or_path",
+        "--pretrained_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
         default="monologg/koelectra-base-v3-discriminator",
