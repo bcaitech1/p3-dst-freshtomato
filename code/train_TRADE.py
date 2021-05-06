@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 from importlib import import_module
 
-sys.path.insert(0, "../CustomizedModule")
+sys.path.insert(0, "./CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -20,7 +20,8 @@ from inference import inference_TRADE
 from data_utils import data_loading, extract_features, get_data_loader
 
 from preprocessor import TRADEPreprocessor
-from model import TRADE, masked_cross_entropy_for_value
+from model import TRADE
+from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -32,7 +33,7 @@ def train(args):
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
-    slot_meta, train_examples, dev_examples = data_loading(args, isUserFirst=False, isDialogueLevel=False)
+    slot_meta, train_examples, dev_examples, dev_labels = data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
@@ -67,8 +68,9 @@ def train(args):
         optimizer, t_total, args
     )  # get scheduler (custom, linear, cosine, ..)
 
-    loss_fnc_1 = masked_cross_entropy_for_value  # generation
-    loss_fnc_2 = nn.CrossEntropyLoss()  # gating
+    loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
+    # loss_fnc_2 = nn.CrossEntropyLoss()  # gating - # classes: 3
+    loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate)
 
     
     json.dump(
