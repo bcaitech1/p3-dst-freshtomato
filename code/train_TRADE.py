@@ -70,7 +70,6 @@ def train(args):
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
     loss_fnc_2 = nn.CrossEntropyLoss()  # gating
 
-    
     json.dump(
         vars(args),
         open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),

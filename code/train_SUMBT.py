@@ -80,6 +80,18 @@ def train(args):
         optimizer, t_total, args
     )  # get scheduler (custom, linear, cosine, ..)
 
+    json.dump(
+        vars(args),
+        open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+    json.dump(
+        slot_meta,
+        open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
 
     best_score, best_checkpoint = 0, 0
     for epoch in range(n_epochs):
