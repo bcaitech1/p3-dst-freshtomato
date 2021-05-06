@@ -7,7 +7,10 @@ from torch.utils.data import DataLoader, SequentialSampler
 from tqdm import tqdm
 from transformers import AutoTokenizer
 
-from data_utils import WOSDataset, get_examples_from_dialogues
+from importlib import import_module
+from data_utils import WOSDataset, get_examples_from_dialogues, test_data_loading, get_data_loader, tokenize_ontology
+from preprocessor import TRADEPreprocessor, SUMBTPreprocessor
+
 from model import TRADE, SUMBT
 from config import CFG
 
@@ -62,61 +65,61 @@ def inference_SUMBT(model, eval_loader, processor, device):
     return predictions
 
 
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
-
-    parser.add_argument("--data_dir", type=str, default=CFG.Test)
-    parser.add_argument("--model_dir", type=str, default='../models')
-    parser.add_argument("--output_dir", type=str, default=CFG.Output)
-    parser.add_argument("--eval_batch_size", type=int, default=32)
-    parser.add_argument(
-        "--pretrained_name_or_path",
-        type=str,
-        help="Subword Vocab만을 위한 huggingface model",
-        default="monologg/koelectra-base-v3-discriminator",
-    )
-    args = parser.parse_args()
-
-    eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
-    config = json.load(open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "r"))
-    config = argparse.Namespace(**config)
+def main_inference(args, config):
     slot_meta = json.load(open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "r"))
+    ontology = json.load(open(f"{CFG.TrainOntology}", "r"))
 
-    tokenizer = AutoTokenizer.from_pretrained(config.pretrained_name_or_path)
-    processor = TRADEPreprocessor(slot_meta, tokenizer)
-
-    eval_examples = get_examples_from_dialogues(
-        eval_data, user_first=False, dialogue_level=False
+    # Define Tokenizer
+    tokenizer_module = getattr(
+        import_module("transformers"), f"{args.model_name}Tokenizer"
     )
+    tokenizer = tokenizer_module.from_pretrained(config.pretrained_name_or_path)
 
     # Extracting Featrues
+    if args.dst == 'TRADE':
+        eval_examples = test_data_loading(args, isUserFirst=False, isDialogueLevel=False)
+        processor = TRADEPreprocessor(slot_meta, tokenizer)
+
+        tokenized_slot_meta = []
+        for slot in slot_meta:
+            tokenized_slot_meta.append(
+                tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
+            )
+        
+        # Model 선언
+        model = TRADE(config, tokenized_slot_meta)
+        model.set_subword_embedding(config)  # Subword Embedding 초기화
+
+    elif config.dst == 'SUMBT':
+        eval_examples = test_data_loading(args, isUserFirst=True, isDialogueLevel=True)
+        max_turn = max([len(e)*2 for e in eval_examples])
+        processor = SUMBTPreprocessor(slot_meta,
+                                    tokenizer,
+                                    ontology=ontology,  # predefined ontology
+                                    max_seq_length=config.max_seq_length,  # 각 turn마다 최대 길이
+                                    max_turn_length=max_turn)  # 각 dialogue의 최대 turn 길이
+
+        slot_type_ids, slot_values_ids = tokenize_ontology(ontology, tokenizer, config.max_label_length)
+
+        # Model 선언
+        num_labels = [len(s) for s in slot_values_ids] # 각 Slot 별 후보 Values의 갯수
+
+        model = SUMBT(config, num_labels, device)
+        model.initialize_slot_value_lookup(slot_values_ids, slot_type_ids)  # Tokenized Ontology의 Pre-encoding using BERT_SV
+
     eval_features = processor.convert_examples_to_features(eval_examples)
-    eval_data = WOSDataset(eval_features)
-    eval_sampler = SequentialSampler(eval_data)
-    eval_loader = DataLoader(
-        eval_data,
-        batch_size=args.eval_batch_size,
-        sampler=eval_sampler,
-        collate_fn=processor.collate_fn,
-    )
-    print("# eval:", len(eval_data))
+    eval_loader = get_data_loader(processor, eval_features, config.eval_batch_size)
+    print("# eval:", len(eval_loader))
 
-    tokenized_slot_meta = []
-    for slot in slot_meta:
-        tokenized_slot_meta.append(
-            tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
-        )
-
-    model = TRADE(config, tokenized_slot_meta)
     ckpt = torch.load(f'{args.model_dir}/{args.model_fold}/model-{args.chkpt_idx}.bin', map_location="cpu")
     model.load_state_dict(ckpt)
     model.to(device)
     print("Model is loaded")
 
-    predictions = inference(model, eval_loader, processor, device)
+    inference_module = getattr(
+        import_module("inference"), f"inference_{config.dst}"
+    )
+    predictions = inference_module(model, eval_loader, processor, device)
 
     os.makedirs(args.output_dir, exist_ok=True)
 
@@ -126,3 +129,53 @@ if __name__ == "__main__":
         indent=2,
         ensure_ascii=False,
     )
+
+    
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
+    parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
+    parser.add_argument(
+        "--dst",
+        type=str,
+        help="Model Name For DST Task (EX. TRADE, SUMBT)",
+        default="SUMBT",
+    )
+    parser.add_argument(
+        "--model_name",
+        type=str,
+        help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
+        default="Electra"
+    )
+    parser.add_argument("--data_dir", type=str, default=CFG.Test)
+    parser.add_argument("--model_dir", type=str, default=CFG.Models)
+    parser.add_argument("--output_dir", type=str, default=CFG.Output)
+    parser.add_argument("--eval_batch_size", type=int, default=32)
+
+    '''
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
+    parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
+    parser.add_argument("--zero_init_rnn", type=bool, default=False)
+    parser.add_argument("--max_seq_length", type=int, default=64)
+    parser.add_argument("--max_label_length", type=int, default=12)
+    parser.add_argument("--attn_head", type=int, default=4)
+    parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
+    parser.add_argument("--distance_metric", type=str, default="euclidean")
+    '''
+
+    parser.add_argument(
+        "--pretrained_name_or_path",
+        type=str,
+        help="Subword Vocab만을 위한 huggingface model",
+        default="monologg/koelectra-base-v3-discriminator",
+    )
+    
+    args = parser.parse_args()
+    args.dst = args.dst.upper()
+
+    config_files = json.load(open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "r"))
+    config = argparse.Namespace(**config_files)
+
+    main_inference(args, config)
