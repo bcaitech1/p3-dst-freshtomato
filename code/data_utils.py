@@ -114,7 +114,7 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
 
     return train_data, dev_data, dev_labels
 
-def data_loading(args, isUserFirst, isDialogueLevel):
+def data_loading(args, isUserFirst: bool, isDialogueLevel: bool):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
@@ -243,7 +243,7 @@ def convert_state_dict(state):
 class DSTInputExample:
     """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
     - guid: dialogue_idx + turn_idx 형태의 인덱스
-    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
+    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1}). 현재까지의 누적 발화
     - current_turn: 현재 turn에서의 시스템/유저의 발화.
                     (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
     - label: Turn t에서의 dialogue state(=B_{t})
