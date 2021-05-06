@@ -19,7 +19,7 @@ from tqdm import tqdm
 from eval_utils import DSTEvaluator
 from evaluation import _evaluation
 from inference import inference_SUMBT
-from data_utils import data_loading, extract_features, get_data_loader
+from data_utils import train_data_loading, get_data_loader
 
 from preprocessor import SUMBTPreprocessor
 from model import SUMBT
@@ -33,7 +33,7 @@ def train(args):
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
-    slot_meta, train_examples, dev_examples, dev_labels = data_loading(args, isUserFirst=True, isDialogueLevel=True)
+    slot_meta, train_examples, dev_examples, dev_labels = train_data_loading(args, isUserFirst=True, isDialogueLevel=True)
     ontology = json.load(open("../input/data/train_dataset/ontology.json"))
 
     # Define Preprocessor
@@ -44,14 +44,16 @@ def train(args):
                                 max_seq_length=args.max_seq_length,  # 각 turn마다 최대 길이
                                 max_turn_length=max_turn)  # 각 dialogue의 최대 turn 길이
 
-    train_features, dev_features = extract_features(args, processor, train_examples, dev_examples)
-    train_loader, dev_loader = get_data_loader(args, processor, train_features, dev_features)
+    train_features = processor.convert_examples_to_features(train_examples)
+    dev_features = processor.convert_examples_to_features(dev_examples)
+
+    train_loader = get_data_loader(processor, train_features, args.train_batch_size)
+    dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
     
     slot_type_ids, slot_values_ids = tokenize_ontology(ontology, tokenizer, args.max_label_length)
-    num_labels = [len(s) for s in slot_values_ids]  # 각 Slot 별 후보 Values의 갯수
 
     # Model 선언
-    num_labels = [len(s) for s in slot_values_ids]
+    num_labels = [len(s) for s in slot_values_ids] # 각 Slot 별 후보 Values의 갯수
     n_gpu = 1 if torch.cuda.device_count() < 2 else torch.cuda.device_count()
 
     model = SUMBT(args, num_labels, device)
