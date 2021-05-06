@@ -20,8 +20,8 @@ from inference import inference_TRADE
 from data_utils import data_loading, extract_features, get_data_loader
 
 from preprocessor import TRADEPreprocessor
-from model import TRADE, masked_cross_entropy_for_value
-from criterions import LabelSmoothingLoss
+from model import TRADE
+from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
