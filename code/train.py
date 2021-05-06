@@ -14,7 +14,7 @@ if __name__ == "__main__":
         type=str,
         # required=True,
         # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
-        default='DST-DEBUG-iloveslowfood'
+        default='DST-iloveslowfood'
     )
     parser.add_argument(
         "--model_fold", 
@@ -66,14 +66,14 @@ if __name__ == "__main__":
         "--model_name",
         type=str,
         help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
-        default="Electra"
+        default="Bert"
     )
     
     parser.add_argument(
         "--pretrained_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
-        default="monologg/koelectra-base-v3-discriminator",
+        default="dsksd/bert-ko-small-minimal",
     )
 
     # Model Specific Argument
@@ -108,9 +108,9 @@ if __name__ == "__main__":
 
     # wandb init
 
-    # wandb.init(project=args.project_name)
-    # wandb.run.name = f"{args.model_fold}"
-    # wandb.config.update(args)
+    wandb.init(project=args.project_name)
+    wandb.run.name = f"{args.model_fold}"
+    wandb.config.update(args)
 
     # random seed 고정
     set_seed(args.seed)
