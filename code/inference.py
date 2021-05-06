@@ -71,12 +71,12 @@ def main_inference(args, config):
 
     # Define Tokenizer
     tokenizer_module = getattr(
-        import_module("transformers"), f"{args.model_name}Tokenizer"
+        import_module("transformers"), f"{config.model_name}Tokenizer"
     )
     tokenizer = tokenizer_module.from_pretrained(config.pretrained_name_or_path)
 
     # Extracting Featrues
-    if args.dst == 'TRADE':
+    if config.dst == 'TRADE':
         eval_examples = test_data_loading(args, isUserFirst=False, isDialogueLevel=False)
         processor = TRADEPreprocessor(slot_meta, tokenizer)
 
@@ -137,43 +137,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
     parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
-    parser.add_argument(
-        "--dst",
-        type=str,
-        help="Model Name For DST Task (EX. TRADE, SUMBT)",
-        default="SUMBT",
-    )
-    parser.add_argument(
-        "--model_name",
-        type=str,
-        help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
-        default="Electra"
-    )
+
     parser.add_argument("--data_dir", type=str, default=CFG.Test)
     parser.add_argument("--model_dir", type=str, default=CFG.Models)
     parser.add_argument("--output_dir", type=str, default=CFG.Output)
     parser.add_argument("--eval_batch_size", type=int, default=32)
 
-    '''
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
-    parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
-    parser.add_argument("--zero_init_rnn", type=bool, default=False)
-    parser.add_argument("--max_seq_length", type=int, default=64)
-    parser.add_argument("--max_label_length", type=int, default=12)
-    parser.add_argument("--attn_head", type=int, default=4)
-    parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
-    parser.add_argument("--distance_metric", type=str, default="euclidean")
-    '''
-
-    parser.add_argument(
-        "--pretrained_name_or_path",
-        type=str,
-        help="Subword Vocab만을 위한 huggingface model",
-        default="monologg/koelectra-base-v3-discriminator",
-    )
-    
     args = parser.parse_args()
-    args.dst = args.dst.upper()
 
     config_files = json.load(open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "r"))
     config = argparse.Namespace(**config_files)

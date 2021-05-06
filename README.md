@@ -13,7 +13,7 @@
 ### Inference Phase
 ```python
 >>> python cd code
->>> python inference.py --model_dir [UPPER_MODEL_DIR] --model_fold [MODEL_FOLD_NAME] --chkpt_idx [CHECKPOINT INDEX]
+>>> python inference.py --model_fold [MODEL_FOLD_NAME] --chkpt_idx [CHECKPOINT INDEX]
 ```
 
 ### Application: wandb
