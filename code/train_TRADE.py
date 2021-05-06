@@ -17,7 +17,7 @@ from tqdm import tqdm
 from eval_utils import DSTEvaluator
 from evaluation import _evaluation
 from inference import inference_TRADE
-from data_utils import data_loading, extract_features, get_data_loader
+from data_utils import train_data_loading, get_data_loader
 
 from preprocessor import TRADEPreprocessor
 from model import TRADE, masked_cross_entropy_for_value
@@ -36,8 +36,11 @@ def train(args):
     # Define Preprocessor
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
-    train_features, dev_features = extract_features(args, processor, train_examples, dev_examples)
-    train_loader, dev_loader = get_data_loader(args, processor, train_features, dev_features)
+    train_features = processor.convert_examples_to_features(train_examples)
+    dev_features = processor.convert_examples_to_features(dev_examples)
+
+    train_loader = get_data_loader(processor, train_features, args.train_batch_size)
+    dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
     args.vocab_size = len(tokenizer)
     args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
@@ -70,7 +73,6 @@ def train(args):
     loss_fnc_1 = masked_cross_entropy_for_value  # generation
     loss_fnc_2 = nn.CrossEntropyLoss()  # gating
 
-    
     json.dump(
         vars(args),
         open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
