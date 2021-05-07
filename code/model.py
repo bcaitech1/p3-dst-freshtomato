@@ -320,7 +320,14 @@ class SUMBT(nn.Module):
 
 
 class SomDST(BertPreTrainedModel):
-    def __init__(self, config, n_op: int, n_domain: int, update_id: int, exclude_domain: bool=False):
+    def __init__(
+        self,
+        config,
+        n_op: int,
+        n_domain: int,
+        update_id: int,
+        exclude_domain: bool = False,
+    ):
         super(SomDST, self).__init__(config)
         self.hidden_size = config.hidden_size
         self.encoder = SomDSTEncoder(config, n_op, n_domain, update_id, exclude_domain)
@@ -380,14 +387,16 @@ class SomDSTEncoder(nn.Module):
         nn ([type]): [description]
     """
 
-    def __init__(self, config, n_op: int, n_domain: int, update_id, exclude_domain: bool=False):
+    def __init__(
+        self, config, n_op: int, n_domain: int, update_id, exclude_domain: bool = False
+    ):
         super(SomDSTEncoder, self).__init__()
         self.hidden_size = config.hidden_size  # 인코딩 결과 얻을 hidden size
         self.exclude_domain = exclude_domain  # 제외할 도메인 목록
         self.bert = BertModel(config)  # 인코더로 활용할 pre-trained BERT
         self.dropout = nn.Dropout(config.dropout)
         self.action_cls = nn.Linear(config.hidden_size, n_op)  # operation clf
-        
+
         # 제외할 도메인
         if self.exclude_domain is not True:
             self.domain_cls = nn.Linear(config.hidden_size, n_domain)
@@ -405,11 +414,19 @@ class SomDSTEncoder(nn.Module):
         op_ids=None,
         max_update=None,
     ):
-        bert_outputs = self.bert(input_ids, token_type_ids, attention_mask)  # 인코딩 결과, |X_t| x hidden_dim
-        sequence_output, pooled_output = bert_outputs[:2] # [?] Sequence_ouptut이 뭐지
-        state_pos = state_positions[:, :, np.newaxis].expand(-1, -1, sequence_output.size(-1)) # [?] exand
-        state_output = torch.gather(sequence_output, 1, state_pos) # memory를 얻는 듯? / torch.gather(t, dim, index): 텐서 t의 dim에 대하여 index 텐서를 바탕으로 값을 가져옴
-        state_scores = self.action_cls(self.dropout(state_output))  # B,J,4 4가지 operation 각각에 대한 확률(CARRYOVER, DELETE, DONTCARE, UPDATE)
+        bert_outputs = self.bert(
+            input_ids, token_type_ids, attention_mask
+        )  # 인코딩 결과, |X_t| x hidden_dim
+        sequence_output, pooled_output = bert_outputs[:2]  # [?] Sequence_ouptut이 뭐지
+        state_pos = state_positions[:, :, np.newaxis].expand(
+            -1, -1, sequence_output.size(-1)
+        )  # [?] exand
+        state_output = torch.gather(
+            sequence_output, 1, state_pos
+        )  # memory를 얻는 듯? / torch.gather(t, dim, index): 텐서 t의 dim에 대하여 index 텐서를 바탕으로 값을 가져옴
+        state_scores = self.action_cls(
+            self.dropout(state_output)
+        )  # B,J,4 4가지 operation 각각에 대한 확률(CARRYOVER, DELETE, DONTCARE, UPDATE)
 
         # 도메인 label 분류
         # [?] 도메인을 고려하지 않고 학습할 경우 <- single 도메인에 사용하려나
@@ -421,21 +438,29 @@ class SomDSTEncoder(nn.Module):
 
         batch_size = state_scores.size(0)
         if op_ids is None:
-            op_ids = state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1) # 샘플 각각에 대한 슬릇 각각의 operation을 결정
+            op_ids = (
+                state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1)
+            )  # 샘플 각각에 대한 슬릇 각각의 operation을 결정
 
         # update 한도 설정 - 따로 없으면 싹다 업데이트
         if max_update is None:
             max_update = op_ids.eq(self.update_id).sum(-1).max().item()
 
         gathered = []
-        for b, a in zip(state_output, op_ids.eq(self.update_id)):  # update할 슬릇에 대하여 / torch.eq(input, other): input과 other의 원소 단위 같은지 계산
+        for b, a in zip(
+            state_output, op_ids.eq(self.update_id)
+        ):  # update할 슬릇에 대하여 / torch.eq(input, other): input과 other의 원소 단위 같은지 계산
             # b: slot별 hidden_dim, a: operation id
-            # a: slot 
+            # a: slot
 
             # [?] update가 필요한 경우
-            if a.sum().item() != 0: # [?] sum이라는 건 id의 equivalent (bool) 값을 합친다는 건데, 아직 모르겠음
-                v = b.masked_select(a.unsqueeze(-1)).view(1, -1, self.hidden_size) # 마스킹을 통해 update가 필요한 것만 남김(실제로 원소가 줄어듦)
-                n = v.size(1) # update할 state 개수
+            if (
+                a.sum().item() != 0
+            ):  # [?] sum이라는 건 id의 equivalent (bool) 값을 합친다는 건데, 아직 모르겠음
+                v = b.masked_select(a.unsqueeze(-1)).view(
+                    1, -1, self.hidden_size
+                )  # 마스킹을 통해 update가 필요한 것만 남김(실제로 원소가 줄어듦)
+                n = v.size(1)  # update할 state 개수
 
                 # udpate 한도가 있을 떄
                 gap = max_update - n
