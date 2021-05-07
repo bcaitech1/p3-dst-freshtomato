@@ -245,6 +245,7 @@ class DSTInputExample:
     guid: str
     context_turns: List[str]
     current_turn: List[str]
+    pre_label: Optional[List[str]] = None
     label: Optional[List[str]] = None
 
     def to_dict(self):
@@ -273,7 +274,7 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
 
 
 def get_examples_from_dialogue(
-    dialogue: dict, user_first: bool = False
+    dialogue: dict, user_first: bool = False, add_pre_state: bool=False
 ) -> List[DSTInputExample]:
     """단일의 발화 데이터로부터 DSTInputExample을 생성
 
@@ -292,6 +293,11 @@ def get_examples_from_dialogue(
     examples = []
     history = []
     d_idx = 0
+
+    if add_pre_state:
+        pre_state = []
+
+
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
             continue
@@ -308,14 +314,28 @@ def get_examples_from_dialogue(
             current_turn = [user_utter, sys_utter]
         else:
             current_turn = [sys_utter, user_utter]
-        examples.append(
-            DSTInputExample(
-                guid=f"{guid}-{d_idx}",
-                context_turns=context,
-                current_turn=current_turn,
-                label=state,
+
+        if add_pre_state:
+            examples.append(
+                DSTInputExample(
+                    guid=f"{guid}-{d_idx}",
+                    context_turns=context,
+                    current_turn=current_turn,
+                    pre_label=pre_state,
+                    label=state,
+                )
             )
-        )
+            pre_state = state
+
+        else:
+            examples.append(
+                DSTInputExample(
+                    guid=f"{guid}-{d_idx}",
+                    context_turns=context,
+                    current_turn=current_turn,
+                    label=state,
+                )
+            )
         history.append(sys_utter)
         history.append(user_utter)
         d_idx += 1
@@ -324,7 +344,7 @@ def get_examples_from_dialogue(
 
 
 def get_examples_from_dialogues(
-    data: list, user_first: bool = False, dialogue_level: bool = False
+    data: list, user_first: bool = False, dialogue_level: bool = False, add_pre_state: bool=False
 ) -> List[DSTInputExample]:
     """다중 발화 데이터로부터 DSTInputExample 리스트를 생성
 
@@ -349,7 +369,7 @@ def get_examples_from_dialogues(
     """
     examples = []
     for d in tqdm(data):
-        example = get_examples_from_dialogue(d, user_first=user_first)
+        example = get_examples_from_dialogue(d, user_first=user_first, add_pre_state=add_pre_state)
         if dialogue_level:
             examples.append(example)
         else:
@@ -399,5 +419,3 @@ class DSTPreprocessor:
     def recover_state(self):
         """모델의 출력을 prediction 포맷에 맞게 변경"""
         raise NotImplementedError
-
-
