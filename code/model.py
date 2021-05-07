@@ -320,7 +320,7 @@ class SUMBT(nn.Module):
 
 
 class SomDST(BertPreTrainedModel):
-    def __init__(self, config, n_op, n_domain, update_id, exclude_domain=False):
+    def __init__(self, config, n_op: int, n_domain: int, update_id: int, exclude_domain: bool=False):
         super(SomDST, self).__init__(config)
         self.hidden_size = config.hidden_size
         self.encoder = SomDSTEncoder(config, n_op, n_domain, update_id, exclude_domain)

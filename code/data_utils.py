@@ -13,6 +13,9 @@ from tqdm import tqdm
 
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
+NUM_DOMAINS = 5
+
+
 @dataclass
 class OntologyDSTFeature:
     guid: str
@@ -406,3 +409,5 @@ class DSTPreprocessor:
     def recover_state(self):
         """모델의 출력을 prediction 포맷에 맞게 변경"""
         raise NotImplementedError
+
+
