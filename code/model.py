@@ -327,7 +327,8 @@ class SomDST(BertPreTrainedModel):
         self.decoder = SomDSTDecoder(
             config, self.encoder.bert.embeddings.word_embeddings.weight
         )
-        self.apply(self.init_weights)
+        self.init_weights()
+        # self.apply(self.init_weights)
 
     def forward(
         self,
