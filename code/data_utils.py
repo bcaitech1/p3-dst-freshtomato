@@ -13,7 +13,7 @@ from tqdm import tqdm
 
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
-NUM_DOMAINS = 5
+DOMAINS = ['관광', '숙소', '식당', '지하철', '택시']
 
 
 @dataclass
