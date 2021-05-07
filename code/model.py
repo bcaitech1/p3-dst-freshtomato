@@ -1,6 +1,7 @@
 import argparse
 import math
 import json
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -385,11 +386,14 @@ class SomDSTEncoder(nn.Module):
         self.bert = BertModel(config)  # 인코더로 활용할 pre-trained BERT
         self.dropout = nn.Dropout(config.dropout)
         self.action_cls = nn.Linear(config.hidden_size, n_op)  # operation clf
+        
+        # 제외할 도메인
         if self.exclude_domain is not True:
             self.domain_cls = nn.Linear(config.hidden_size, n_domain)
+
         self.n_op = n_op  # opertation 수
         self.n_domain = n_domain  # domain 수
-        self.update_id = update_id  # (추정) update할 슬릇의 id
+        self.update_id = update_id  # update ID를 나타내는 scalar
 
     def forward(
         self,
@@ -400,39 +404,53 @@ class SomDSTEncoder(nn.Module):
         op_ids=None,
         max_update=None,
     ):
-        bert_outputs = self.bert(input_ids, token_type_ids, attention_mask)  # 인코딩 결과
-        sequence_output, pooled_output = bert_outputs[:2]
-        state_pos = state_positions[:, :, None].expand(-1, -1, sequence_output.size(-1))
-        state_output = torch.gather(sequence_output, 1, state_pos)
-        state_scores = self.action_cls(self.dropout(state_output))  # B,J,4
+        bert_outputs = self.bert(input_ids, token_type_ids, attention_mask)  # 인코딩 결과, |X_t| x hidden_dim
+        sequence_output, pooled_output = bert_outputs[:2] # [?] Sequence_ouptut이 뭐지
+        state_pos = state_positions[:, :, np.newaxis].expand(-1, -1, sequence_output.size(-1)) # [?] exand
+        state_output = torch.gather(sequence_output, 1, state_pos) # memory를 얻는 듯? / torch.gather(t, dim, index): 텐서 t의 dim에 대하여 index 텐서를 바탕으로 값을 가져옴
+        state_scores = self.action_cls(self.dropout(state_output))  # B,J,4 4가지 operation 각각에 대한 확률(CARRYOVER, DELETE, DONTCARE, UPDATE)
+
+        # 도메인 label 분류
+        # [?] 도메인을 고려하지 않고 학습할 경우 <- single 도메인에 사용하려나
         if self.exclude_domain:
             domain_scores = torch.zeros(1, device=input_ids.device)  # dummy
+        # 도메인을 고려할 경우 <- multi 도메인이려나
         else:
             domain_scores = self.domain_cls(self.dropout(pooled_output))
 
         batch_size = state_scores.size(0)
         if op_ids is None:
-            op_ids = state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1)
+            op_ids = state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1) # 샘플 각각에 대한 슬릇 각각의 operation을 결정
+
+        # update 한도 설정 - 따로 없으면 싹다 업데이트
         if max_update is None:
             max_update = op_ids.eq(self.update_id).sum(-1).max().item()
 
         gathered = []
-        for b, a in zip(state_output, op_ids.eq(self.update_id)):  # update
-            if a.sum().item() != 0:
-                v = b.masked_select(a.unsqueeze(-1)).view(1, -1, self.hidden_size)
-                n = v.size(1)
+        for b, a in zip(state_output, op_ids.eq(self.update_id)):  # update할 슬릇에 대하여 / torch.eq(input, other): input과 other의 원소 단위 같은지 계산
+            # b: slot별 hidden_dim, a: operation id
+            # a: slot 
+
+            # [?] update가 필요한 경우
+            if a.sum().item() != 0: # [?] sum이라는 건 id의 equivalent (bool) 값을 합친다는 건데, 아직 모르겠음
+                v = b.masked_select(a.unsqueeze(-1)).view(1, -1, self.hidden_size) # 마스킹을 통해 update가 필요한 것만 남김(실제로 원소가 줄어듦)
+                n = v.size(1) # update할 state 개수
+
+                # udpate 한도가 있을 떄
                 gap = max_update - n
                 if gap > 0:
                     zeros = torch.zeros(
                         1, 1 * gap, self.hidden_size, device=input_ids.device
                     )
                     v = torch.cat([v, zeros], 1)
+            # [?] update가 필요하지 않은 경우
             else:
                 v = torch.zeros(
                     1, max_update, self.hidden_size, device=input_ids.device
                 )
             gathered.append(v)
-        decoder_inputs = torch.cat(gathered)
+
+        decoder_inputs = torch.cat(gathered) # 
         return (
             domain_scores,
             state_scores,
