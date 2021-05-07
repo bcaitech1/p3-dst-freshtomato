@@ -379,7 +379,7 @@ class SomDSTEncoder(nn.Module):
         nn ([type]): [description]
     """
 
-    def __init__(self, config, n_op, n_domain, update_id, exclude_domain=False):
+    def __init__(self, config, n_op: int, n_domain: int, update_id, exclude_domain: bool=False):
         super(SomDSTEncoder, self).__init__()
         self.hidden_size = config.hidden_size  # 인코딩 결과 얻을 hidden size
         self.exclude_domain = exclude_domain  # 제외할 도메인 목록
@@ -450,7 +450,7 @@ class SomDSTEncoder(nn.Module):
                 )
             gathered.append(v)
 
-        decoder_inputs = torch.cat(gathered) # 
+        decoder_inputs = torch.cat(gathered)
         return (
             domain_scores,
             state_scores,
