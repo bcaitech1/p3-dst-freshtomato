@@ -241,3 +241,120 @@ class SUMBTPreprocessor(DSTPreprocessor):
         target_ids = torch.LongTensor([b.target_ids for b in batch])
         num_turns = [b.num_turn for b in batch]
         return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
+
+
+
+class TrainingInstance:
+    def __init__(self, ID,
+                 turn_domain,
+                 turn_id,
+                 turn_utter,
+                 dialog_history,
+                 last_dialog_state,
+                 op_labels,
+                 generate_y,
+                 gold_state,
+                 max_seq_length,
+                 slot_meta,
+                 is_last_turn,
+                 op_code='4'):
+        self.id = ID
+        self.turn_domain = turn_domain
+        self.turn_id = turn_id
+        self.turn_utter = turn_utter
+        self.dialog_history = dialog_history
+        self.last_dialog_state = last_dialog_state
+        self.gold_p_state = last_dialog_state
+        self.generate_y = generate_y
+        self.op_labels = op_labels
+        self.gold_state = gold_state
+        self.max_seq_length = max_seq_length
+        self.slot_meta = slot_meta
+        self.is_last_turn = is_last_turn
+        self.op2id = OP_SET[op_code]
+
+    def shuffle_state(self, rng, slot_meta=None):
+        new_y = []
+        gid = 0
+        for idx, aa in enumerate(self.op_labels):
+            if aa == 'update':
+                new_y.append(self.generate_y[gid])
+                gid += 1
+            else:
+                new_y.append(["dummy"])
+        if slot_meta is None:
+            temp = list(zip(self.op_labels, self.slot_meta, new_y))
+            rng.shuffle(temp)
+        else:
+            indices = list(range(len(slot_meta)))
+            for idx, st in enumerate(slot_meta):
+                indices[self.slot_meta.index(st)] = idx
+            temp = list(zip(self.op_labels, self.slot_meta, new_y, indices))
+            temp = sorted(temp, key=lambda x: x[-1])
+        temp = list(zip(*temp))
+        self.op_labels = list(temp[0])
+        self.slot_meta = list(temp[1])
+        self.generate_y = [yy for yy in temp[2] if yy != ["dummy"]]
+
+    def make_instance(self, tokenizer, max_seq_length=None,
+                      word_dropout=0., slot_token='[SLOT]'):
+        if max_seq_length is None:
+            max_seq_length = self.max_seq_length
+        state = []
+        for s in self.slot_meta:
+            state.append(slot_token)
+            k = s.split('-')
+            v = self.last_dialog_state.get(s)
+            if v is not None:
+                k.extend(['-', v])
+                t = tokenizer.tokenize(' '.join(k))
+            else:
+                t = tokenizer.tokenize(' '.join(k))
+                t.extend(['-', '[NULL]']) # 이전 값이 없으면 value를 [NULL] 처리
+            state.extend(t)
+        avail_length_1 = max_seq_length - len(state) - 3
+        diag_1 = tokenizer.tokenize(self.dialog_history) # 시스템 발화
+        diag_2 = tokenizer.tokenize(self.turn_utter) # 유저 발화
+        avail_length = avail_length_1 - len(diag_2)
+
+        if len(diag_1) > avail_length:  # truncated
+            avail_length = len(diag_1) - avail_length
+            diag_1 = diag_1[avail_length:]
+
+        if len(diag_1) == 0 and len(diag_2) > avail_length_1:
+            avail_length = len(diag_2) - avail_length_1
+            diag_2 = diag_2[avail_length:]
+
+        drop_mask = [0] + [1] * len(diag_1) + [0] + [1] * len(diag_2) + [0]
+        diag_1 = ["[CLS]"] + diag_1 + ["[SEP]"]
+        diag_2 = diag_2 + ["[SEP]"]
+        segment = [0] * len(diag_1) + [1] * len(diag_2)
+
+        diag = diag_1 + diag_2
+        # word dropout
+        if word_dropout > 0.:
+            drop_mask = np.array(drop_mask)
+            word_drop = np.random.binomial(drop_mask.astype('int64'), word_dropout)
+            diag = [w if word_drop[i] == 0 else '[UNK]' for i, w in enumerate(diag)]
+        input_ = diag + state
+        segment = segment + [1]*len(state)
+        self.input_ = input_ # X_t
+
+        self.segment_id = segment
+        slot_position = []
+        for i, t in enumerate(self.input_):
+            if t == slot_token:
+                slot_position.append(i)
+        self.slot_position = slot_position # 슬릇의 위치 인덱스를 담은 리스트
+ 
+        input_mask = [1] * len(self.input_)
+        self.input_id = tokenizer.convert_tokens_to_ids(self.input_)
+        if len(input_mask) < max_seq_length:
+            self.input_id = self.input_id + [0] * (max_seq_length-len(input_mask)) # 제로패딩
+            self.segment_id = self.segment_id + [0] * (max_seq_length-len(input_mask)) # 제로패딩
+            input_mask = input_mask + [0] * (max_seq_length-len(input_mask))
+
+        self.input_mask = input_mask
+        self.domain_id = domain2id[self.turn_domain]
+        self.op_ids = [self.op2id[a] for a in self.op_labels]
+        self.generate_ids = [tokenizer.convert_tokens_to_ids(y) for y in self.generate_y]
