@@ -246,6 +246,7 @@ class DSTInputExample:
     context_turns: List[str]
     current_turn: List[str]
     pre_state: Optional[List[str]] = None
+    turn_domain: Optional[str] = None
     label: Optional[List[str]] = None
 
     def to_dict(self):
