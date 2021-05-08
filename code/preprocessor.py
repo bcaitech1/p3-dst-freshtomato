@@ -237,7 +237,7 @@ class SUMBTPreprocessor(DSTPreprocessor):
         guids = [b.guid for b in batch]
         input_ids = torch.LongTensor([b.input_ids for b in batch])
         segment_ids = torch.LongTensor([b.segment_ids for b in batch])
-        input_masks = input_ids.ne(self.src_tokenizer.pad_token_id)
+        input_masks = input_ids.ne(self.src_tokenizer.pad_token_id) # torch.ne - compute a != b
         target_ids = torch.LongTensor([b.target_ids for b in batch])
         num_turns = [b.num_turn for b in batch]
         return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
