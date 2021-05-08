@@ -1,5 +1,6 @@
 from copy import deepcopy
-from typing import List
+from dataclasses import dataclass
+from typing import *
 from tqdm import tqdm
 from data_utils import DSTInputExample
 
@@ -48,6 +49,15 @@ TURN_DOMAIN_DICT = {
 domain2id = TURN_DOMAIN_DICT
 
 
+@dataclass
+class SomDSTFeature:
+    guid: str
+    input_id: List[int]
+    segment_id: List[int]
+    gating_id: List[int]
+    target_ids: Optional[Union[List[int], List[List[int]]]]
+
+
 def get_somdst_examples_from_dialogues(
     data: list, user_first: bool = False
 ) -> List[DSTInputExample]:
@@ -67,43 +77,39 @@ def get_somdst_examples_from_dialogue(
     examples = []
     history = []
     d_idx = 0
-    pre_state = []
+    cumulative_state = []
+    last_dialogue_state = [] # 직전 turn까지의 dial state
+
+    user_first = False
 
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
             continue
 
-        if idx:
-            sys_utter = dialogue["dialogue"][idx - 1]["text"]
-        else:
-            sys_utter = ""
-
+        sys_utter = dialogue["dialogue"][idx - 1]["text"] if idx != 0 else ""
         user_utter = turn["text"]
-        state = turn.get("state")
-        state = [s for s in state if s not in pre_state]
-
-        turn_domain = get_turn_domain(state)
+        
+        turn_dialogue_state = turn.get("state") # 현재 turn까지의 dialogue state
+        turn_label = [s for s in turn_dialogue_state if s not in last_dialogue_state]
+        turn_domain = get_turn_domain(turn_dialogue_state) # 현재 turn의 도메인
 
         context = deepcopy(history)
-        if user_first:
-            current_turn = [user_utter, sys_utter]
-        else:
-            current_turn = [sys_utter, user_utter]
+        current_turn = [user_utter, sys_utter] if user_first else [sys_utter, user_utter]
 
+        history += [sys_utter, user_utter]
         examples.append(
             DSTInputExample(
                 guid=f"{guid}-{d_idx}",
                 context_turns=context,
                 current_turn=current_turn,
-                pre_state=pre_state,
+                last_dialogue_state=last_dialogue_state,
+                turn_dialogue_state=turn_dialogue_state,
                 turn_domain=turn_domain,
-                label=state,
+                turn_label=turn_label
             )
         )
-        pre_state = state
 
-        history.append(sys_utter)
-        history.append(user_utter)
+        last_dialogue_state = turn_dialogue_state
         d_idx += 1
 
     return examples
