@@ -307,6 +307,10 @@ class SomDSTPreprocessor(DSTPreprocessor):
 
         return SomDSTFeature(
             guid=example.guid,
+            turn_id=example.turn_id,
+            last_dialogue_state=example.last_dialogue_state, # for evaluation
+            gold_p_state=example.gold_p_state, # for evaluation
+            gold_state=example.gold_state, # for evaluation
             input_ids=input_ids,
             input_masks=input_masks,
             segment_ids=segment_ids,
@@ -314,6 +318,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
             slot_positions=slot_positions,
             domain_id=domain_id,
             generate_ids=generate_ids,
+            is_last_turn=example.is_last_turn
         )
 
 

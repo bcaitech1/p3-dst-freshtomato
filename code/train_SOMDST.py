@@ -18,7 +18,7 @@ from CustomizedOptimizer import get_optimizer
 from eval_utils import DSTEvaluator
 from evaluation import _evaluation
 from inference import inference_TRADE
-from data_utils import WOSDataset, load_dataset
+from data_utils import WOSDataset, load_dataset, set_seed
 from som_dst_utils import (
     get_somdst_examples_from_dialogues,
     load_somdst_dataset,
@@ -37,6 +37,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def train(args):
+    set_seed(args.seed)
     # Define Tokenizer
     tokenizer_module = getattr(
         import_module("transformers"), f"{args.model_name}Tokenizer"
@@ -68,10 +69,10 @@ def train(args):
 
     # for test
     train_features = [
-        preprocessor._convert_example_to_feature(train_examples[i]) for i in range(50)
+        preprocessor._convert_example_to_feature(train_examples[i]) for i in range(1000)
     ]
     dev_features = [
-        preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(50)
+        preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(1000)
     ]
 
     # train_features = preprocessor.convert_examples_to_features(train_examples)
@@ -146,25 +147,25 @@ def train(args):
     criterion = nn.CrossEntropyLoss()
     rng = random.Random(args.seed)
 
-    # json.dump(
-    #     vars(args),
-    #     open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
-    #     indent=2,
-    #     ensure_ascii=False,
-    # )
-    # json.dump(
-    #     slot_meta,
-    #     open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
-    #     indent=2,
-    #     ensure_ascii=False,
-    # )
+    json.dump(
+        vars(args),
+        open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+    json.dump(
+        slot_meta,
+        open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
 
     best_score = {"epoch": 0, "joint_acc": 0, "op_acc": 0, "final_slot_f1": 0}
 
     for epoch in range(args.epochs):
         batch_loss = []
         model.train()
-
+        
         for step, batch in enumerate(train_dataloader):
             batch = [b.to(device) if not isinstance(b, int) else b for b in batch]
             (
@@ -229,7 +230,7 @@ def train(args):
                 batch_loss = []
 
         eval_res = model_evaluation(
-            model, dev_features, tokenizer, slot_meta, epoch + 1, args.op_code
+            model, dev_features, tokenizer, slot_meta, args.domain2id, epoch + 1, args.op_code
         )
         if eval_res["joint_acc"] > best_score["joint_acc"]:
             best_score = eval_res
@@ -245,20 +246,22 @@ if __name__ == "__main__":
 
     op_code = "4"
     n_op = len(OP_SET[op_code])
-    n_domain = get_domain_nums(DOMAIN2ID)
+    domain2id = DOMAIN2ID
+    n_domain = get_domain_nums(domain2id)
     update_id = OP_SET[op_code]["update"]
 
     config = BertConfig.from_pretrained("dsksd/bert-ko-small-minimal")
     config.dropout = 0.1
     config.op_code = "4"
     config.n_op = n_op
+    config.domain2id = domain2id
     config.n_domain = n_domain
     config.update_id = update_id
     config.model_name = "Bert"
     config.pretrained_name_or_path = "dsksd/bert-ko-small-minimal"
     config.data_dir = "./input/data/train_dataset"
-    config.batch_size = 4
-    config.num_workers = 4
+    config.batch_size = 32
+    config.num_workers = 1
     config.epochs = 1
     config.enc_lr = 4e-5
     config.dec_lr = 1e-4
@@ -268,6 +271,12 @@ if __name__ == "__main__":
     config.seed = 42
     config.exclude_domain = False
     config.op_code = "4"
+
+    config.model_fold = 'som-dst'
+    config.model_dir = './sketches' 
+    config.save_dir = './sketches'
+
+    os.makedirs(f"{config.model_dir}/{config.model_fold}", exist_ok=True)
 
     print(config)
 

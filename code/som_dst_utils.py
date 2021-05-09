@@ -1,4 +1,5 @@
 import json
+import time
 from collections import defaultdict
 import random
 from copy import deepcopy
@@ -71,7 +72,7 @@ class SomDSTInputExample(DSTInputExample):
     last_dialogue_state: List[str] = None
     turn_dialogue_state: List[str] = None
     op_labels: List[str] = None
-    gold_p_state: List[str] = None  # 아직 모르겠음
+    gold_p_state: List[str] = None  # 이전 turn에서 update한 state: List['도메인-슬릇-밸류' ]
     gold_state: List[str] = None  # 현재 turn의 update state: List['도메인-슬릇-밸류' ]
     generate_y: List[str] = None  # 현재 turn의 update state: List['밸류']
 
@@ -79,6 +80,10 @@ class SomDSTInputExample(DSTInputExample):
 @dataclass
 class SomDSTFeature:
     guid: str
+    turn_id: str
+    last_dialogue_state: List[str]
+    gold_p_state: List[str]
+    gold_state: List[str]
     input_ids: List[int]
     input_masks: List[int] # attention에 활용할 마스크 리스트(패딩은 0처리, 그 외 1처리)
     segment_ids: List[int] # 문장의 구분
@@ -86,6 +91,7 @@ class SomDSTFeature:
     slot_positions: List[int] # [SLOT] 토큰 위치
     domain_id: int # turn 도메인
     generate_ids: List[int] # 모델이 생성해야 할 id 리스트
+    is_last_turn: bool
 
 
 def load_somdst_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
@@ -212,7 +218,7 @@ def get_somdst_examples_from_dialogue(
     return examples
 
 
-def model_evaluation(model, test_features, tokenizer, slot_meta, epoch, op_code='4',
+def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoch, op_code='4',
                      is_gt_op=False, is_gt_p_state=False, is_gt_gen=False):
     model.eval()
     op2id = OP_SET[op_code]
