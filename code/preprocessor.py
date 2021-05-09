@@ -1,5 +1,6 @@
 from typing import List
 from tqdm import tqdm
+import numpy as np
 import torch
 from data_utils import (
     DSTPreprocessor,
@@ -12,6 +13,7 @@ from data_utils import (
 from som_dst_utils import (
     convert_state_dict,
     SLOT_TOKEN,
+    NULL_TOKEN,
     DOMAIN2ID,
     OP_SET,
     SomDSTFeature,
@@ -260,7 +262,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
         slot_meta: dict,
         tokenizer,
         max_seq_length: int = 384,
-        word_dropout: float = 0.0,
+        word_dropout: float = 0.1,
         slot_token: str = SLOT_TOKEN,
         domain2id: dict = None,
         op_code: str = "4",
@@ -343,8 +345,8 @@ class SomDSTPreprocessor(DSTPreprocessor):
         diag_2 = self.tokenizer.tokenize(example.turn_uttr)
         diag_1, diag_2 = self._truncate(diag_1, diag_2, state)
 
-        diag_1 = ["[CLS]"] + diag_1 + ["[SEP]"]
-        diag_2 = diag_2 + ["[SEP]"]
+        diag_1 = [self.tokenizer.cls_token] + diag_1 + [self.tokenizer.sep_token]
+        diag_2 = diag_2 + [self.tokenizer.sep_token]
 
         segment = [0] * len(diag_1) + [1] * len(diag_2)
         diag = diag_1 + diag_2
@@ -362,11 +364,11 @@ class SomDSTPreprocessor(DSTPreprocessor):
         input_mask += [self.tokenizer.pad_token_id] * num_pads
         return input_id, segment_id, input_mask
 
-    def _apply_word_dropout(self, diag_1, diag_2, diag):
+    def _word_dropout(self, diag_1, diag_2, diag):
         drop_mask = [0] + [1] * (len(diag_1) - 2) + [0] + [1] * (len(diag_2) - 1) + [0]
         drop_mask = np.array(drop_mask)
-        word_drop = np.random.binomial(drop_mask.astype("int64"), word_dropout)
-        diag = [w if word_drop[i] == 0 else "[UNK]" for i, w in enumerate(diag)]
+        word_drop = np.random.binomial(drop_mask.astype("int64"), self.word_dropout)
+        diag = [w if word_drop[i] == 0 else self.tokenizer.unk_token for i, w in enumerate(diag)]
         return diag
 
     def _get_slot_positions(self, input_: list) -> list:
@@ -386,7 +388,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
                 t = self.tokenizer.tokenize(" ".join(k))
             else: # 직전 turn까지의 state에 슬릇 s에 대한 value가 없을 경우 => 해당 value를 [Null] 처리
                 t = self.tokenizer.tokenize(" ".join(k))
-                t.extend(["-", "[NULL]"])  # 이전 값이 없으면
+                t.extend(["-", NULL_TOKEN])  # 이전 값이 없으면
             state.extend(t)
         return state
 
@@ -417,7 +419,7 @@ if __name__ == '__main__':
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
     tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
-    tokenizer.add_special_tokens({'additional_special_tokens': ['[NULL]']})
+    tokenizer.add_special_tokens({'additional_special_tokens': [NULL_TOKEN, SLOT_TOKEN]})
 
     train_examples = get_somdst_examples_from_dialogues(
         train_data, slot_meta, tokenizer

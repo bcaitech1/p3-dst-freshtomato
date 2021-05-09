@@ -1,3 +1,6 @@
+import json
+from collections import defaultdict
+import random
 from copy import deepcopy
 from dataclasses import dataclass
 from typing import *
@@ -52,6 +55,7 @@ DOMAIN2ID = TURN_DOMAIN_DICT
 
 UTTR_SPLITTER = " ; "
 SLOT_TOKEN = '[SLOT]'
+NULL_TOKEN = '[NULL]'
 flatten = lambda x: [i for s in x for i in s]
 
 
@@ -84,12 +88,55 @@ class SomDSTFeature:
     generate_ids: List[int] # 모델이 생성해야 할 id 리스트
 
 
+def load_somdst_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
+    data = json.load(open(dataset_path))
+    num_data = len(data)
+    num_dev = int(num_data * dev_split)
+    if not num_dev:
+        return data, []  # no dev dataset
+
+    dom_mapper = defaultdict(list)
+    for d in data:
+        dom_mapper[len(d["domains"])].append(d["dialogue_idx"])
+
+    # Dialogue별 Domain은 최소 1개부터 3개까지
+    num_per_domain_trainsition = int(num_dev / 3)
+    dev_idx = []
+    for v in dom_mapper.values():
+        idx = random.sample(v, num_per_domain_trainsition)
+        dev_idx.extend(idx)
+
+    train_data, dev_data = [], []
+    for d in data:
+        if d["dialogue_idx"] in dev_idx:
+            dev_data.append(d)
+        else:
+            train_data.append(d)
+
+    dev_labels = {}
+    for dialogue in dev_data:
+        d_idx = 0
+        guid = dialogue["dialogue_idx"]
+        for idx, turn in enumerate(dialogue["dialogue"]):
+            if turn["role"] != "user":
+                continue
+
+            state = turn["state"]
+
+            guid_t = f"{guid}-{d_idx}"
+            d_idx += 1
+
+            dev_labels[guid_t] = state
+
+    return train_data, dev_data, dev_labels
+
+
 def get_somdst_examples_from_dialogues(
     data: list, slot_meta: dict, tokenizer, user_first: bool = False, n_current: int=1, op_code="4", max_seq_length: int = 256, dynamic: bool=False
 ) -> List[DSTInputExample]:
     examples = []
 
-    for d in tqdm(data):
+    for d in tqdm(data, desc='[Extract InputExamples from dialogues]'):
         example = get_somdst_examples_from_dialogue(d, slot_meta, tokenizer, user_first, n_current, op_code, max_seq_length, dynamic)
         examples.extend(example)
 
@@ -103,7 +150,7 @@ def get_somdst_examples_from_dialogue(
     user_first: bool = False,
     n_current: int = 1, # 0으로 설정시 모든 과거 발화를 얻음
     op_code="4",
-    max_seq_length: int = 256,
+    max_seq_length: int = 256, # TODO: 필요한지 파악한뒤, 불필요하면 제외하자
     dynamic: bool=False
 ) -> List[DSTInputExample]:
     guid = dialogue["dialogue_idx"]
@@ -163,6 +210,159 @@ def get_somdst_examples_from_dialogue(
         d_idx += 1
 
     return examples
+
+
+def model_evaluation(model, test_features, tokenizer, slot_meta, epoch, op_code='4',
+                     is_gt_op=False, is_gt_p_state=False, is_gt_gen=False):
+    model.eval()
+    op2id = OP_SET[op_code]
+    id2op = {v: k for k, v in op2id.items()}
+    id2domain = {v: k for k, v in domain2id.items()}
+
+    slot_turn_acc, joint_acc, slot_F1_pred, slot_F1_count = 0, 0, 0, 0
+    final_joint_acc, final_count, final_slot_F1_pred, final_slot_F1_count = 0, 0, 0, 0
+    op_acc, op_F1, op_F1_count = 0, {k: 0 for k in op2id}, {k: 0 for k in op2id}
+    all_op_F1_count = {k: 0 for k in op2id}
+
+    tp_dic = {k: 0 for k in op2id}
+    fn_dic = {k: 0 for k in op2id}
+    fp_dic = {k: 0 for k in op2id}
+
+    results = {}
+    last_dialog_state = {}
+    wall_times = []
+    for di, i in enumerate(test_features):
+        if i.turn_id == 0:
+            last_dialog_state = {}
+
+        if is_gt_p_state is False:
+            i.last_dialog_state = deepcopy(last_dialog_state)
+            i.make_instance(tokenizer, word_dropout=0.)
+        else:  # ground-truth previous dialogue state
+            last_dialog_state = deepcopy(i.gold_p_state)
+            i.last_dialog_state = deepcopy(last_dialog_state)
+            i.make_instance(tokenizer, word_dropout=0.)
+
+        input_ids = torch.LongTensor([i.input_id]).to(device)
+        input_mask = torch.FloatTensor([i.input_mask]).to(device)
+        segment_ids = torch.LongTensor([i.segment_id]).to(device)
+        state_position_ids = torch.LongTensor([i.slot_position]).to(device)
+
+        d_gold_op, _, _ = make_turn_label(slot_meta, last_dialog_state, i.gold_state,
+                                          tokenizer, op_code, dynamic=True)
+        gold_op_ids = torch.LongTensor([d_gold_op]).to(device)
+
+        start = time.perf_counter()
+        MAX_LENGTH = 9
+        with torch.no_grad():
+            # ground-truth state operation
+            gold_op_inputs = gold_op_ids if is_gt_op else None
+            d, s, g = model(input_ids=input_ids,
+                            token_type_ids=segment_ids,
+                            state_positions=state_position_ids,
+                            attention_mask=input_mask,
+                            max_value=MAX_LENGTH,
+                            op_ids=gold_op_inputs)
+
+        _, op_ids = s.view(-1, len(op2id)).max(-1)
+
+        if g.size(1) > 0:
+            generated = g.squeeze(0).max(-1)[1].tolist()
+        else:
+            generated = []
+
+        if is_gt_op:
+            pred_ops = [id2op[a] for a in gold_op_ids[0].tolist()]
+        else:
+            pred_ops = [id2op[a] for a in op_ids.tolist()]
+        gold_ops = [id2op[a] for a in d_gold_op]
+
+        if is_gt_gen:
+            # ground_truth generation
+            gold_gen = {'-'.join(ii.split('-')[:2]): ii.split('-')[-1] for ii in i.gold_state}
+        else:
+            gold_gen = {}
+        generated, last_dialog_state = postprocessing(slot_meta, pred_ops, last_dialog_state,
+                                                      generated, tokenizer, op_code, gold_gen)
+        end = time.perf_counter()
+        wall_times.append(end - start)
+        pred_state = []
+        for k, v in last_dialog_state.items():
+            pred_state.append('-'.join([k, v]))
+
+        if set(pred_state) == set(i.gold_state):
+            joint_acc += 1
+        key = str(i.id) + '_' + str(i.turn_id)
+        results[key] = [pred_state, i.gold_state]
+
+        # Compute prediction slot accuracy
+        temp_acc = compute_acc(set(i.gold_state), set(pred_state), slot_meta)
+        slot_turn_acc += temp_acc
+
+        # Compute prediction F1 score
+        temp_f1, temp_r, temp_p, count = compute_prf(i.gold_state, pred_state)
+        slot_F1_pred += temp_f1
+        slot_F1_count += count
+
+        # Compute operation accuracy
+        temp_acc = sum([1 if p == g else 0 for p, g in zip(pred_ops, gold_ops)]) / len(pred_ops)
+        op_acc += temp_acc
+
+        if i.is_last_turn:
+            final_count += 1
+            if set(pred_state) == set(i.gold_state):
+                final_joint_acc += 1
+            final_slot_F1_pred += temp_f1
+            final_slot_F1_count += count
+
+        # Compute operation F1 score
+        for p, g in zip(pred_ops, gold_ops):
+            all_op_F1_count[g] += 1
+            if p == g:
+                tp_dic[g] += 1
+                op_F1_count[g] += 1
+            else:
+                fn_dic[g] += 1
+                fp_dic[p] += 1
+
+    joint_acc_score = joint_acc / len(test_features)
+    turn_acc_score = slot_turn_acc / len(test_features)
+    slot_F1_score = slot_F1_pred / slot_F1_count
+    op_acc_score = op_acc / len(test_features)
+    final_joint_acc_score = final_joint_acc / final_count
+    final_slot_F1_score = final_slot_F1_pred / final_slot_F1_count
+    latency = np.mean(wall_times) * 1000
+    op_F1_score = {}
+    for k in op2id.keys():
+        tp = tp_dic[k]
+        fn = fn_dic[k]
+        fp = fp_dic[k]
+        precision = tp / (tp+fp) if (tp+fp) != 0 else 0
+        recall = tp / (tp+fn) if (tp+fn) != 0 else 0
+        F1 = 2 * precision * recall / float(precision + recall) if (precision + recall) != 0 else 0
+        op_F1_score[k] = F1
+
+    print("------------------------------")
+    print('op_code: %s, is_gt_op: %s, is_gt_p_state: %s, is_gt_gen: %s' % \
+          (op_code, str(is_gt_op), str(is_gt_p_state), str(is_gt_gen)))
+    print("Epoch %d joint accuracy : " % epoch, joint_acc_score)
+    print("Epoch %d slot turn accuracy : " % epoch, turn_acc_score)
+    print("Epoch %d slot turn F1: " % epoch, slot_F1_score)
+    print("Epoch %d op accuracy : " % epoch, op_acc_score)
+    print("Epoch %d op F1 : " % epoch, op_F1_score)
+    print("Epoch %d op hit count : " % epoch, op_F1_count)
+    print("Epoch %d op all count : " % epoch, all_op_F1_count)
+    print("Final Joint Accuracy : ", final_joint_acc_score)
+    print("Final slot turn F1 : ", final_slot_F1_score)
+    print("Latency Per Prediction : %f ms" % latency)
+    print("-----------------------------\n")
+    json.dump(results, open('preds_%d.json' % epoch, 'w'))
+    per_domain_join_accuracy(results, slot_meta)
+
+    scores = {'epoch': epoch, 'joint_acc': joint_acc_score,
+              'slot_acc': turn_acc_score, 'slot_f1': slot_F1_score,
+              'op_acc': op_acc_score, 'op_f1': op_F1_score, 'final_slot_f1': final_slot_F1_score}
+    return scores
 
 
 def make_turn_label(
@@ -253,3 +453,6 @@ def get_turn_domain(state: list):
 
 def get_turn_domain_id(domain):
     return DOMAIN2ID[domain]
+
+def get_domain_nums(domain2id):
+    return len(set(domain2id.values()))
