@@ -247,11 +247,6 @@ class DSTInputExample:
     current_turn: List[str]
     label: Optional[List[str]] = None
 
-    turn_domain: Optional[str] = None # for SOM-DST
-    last_dialogue_state: Optional[List[str]] = None # for SOM-DST
-    turn_dialogue_state: Optional[List[str]] = None # for SOM-DST
-    turn_label: Optional[List[str]] = None # for SOM-DST
-
     def to_dict(self):
         return dataclasses.asdict(self)
 
