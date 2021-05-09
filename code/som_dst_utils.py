@@ -170,7 +170,7 @@ def make_turn_label(
     turn_dialog_state, # {'hotel-area': 'east', 'hotel-stars': '4'}의 {'도메인-슬릇': '밸류'} 꼴
     tokenizer,
     op_code="4",
-    dynamic=False, # [?]
+    dynamic=False,
 ):
     last_dialog_state_dict = convert_state_dict(last_dialog_state)
     turn_dialog_state_dict = convert_state_dict(turn_dialog_state)
@@ -252,22 +252,3 @@ def get_turn_domain(state: list):
 
 def get_turn_domain_id(domain):
     return DOMAIN2ID[domain]
-
-
-if __name__ == '__main__':
-    import json
-    from transformers import BertTokenizer
-    from data_utils import load_dataset
-
-    train_data_file = './input/data/train_dataset/train_dials.json'
-    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
-    train_data, dev_data, dev_labels = load_dataset(train_data_file)
-
-    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
-    train_examples = get_somdst_examples_from_dialogue(
-        dialogue=train_data[0], 
-        slot_meta=slot_meta,
-        tokenizer=tokenizer,
-        user_first=False,
-    )
-    
