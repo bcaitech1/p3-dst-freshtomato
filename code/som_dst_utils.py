@@ -52,6 +52,7 @@ DOMAIN2ID = TURN_DOMAIN_DICT
 
 UTTR_SPLITTER = " ; "
 SLOT_TOKEN = '[SLOT]'
+flatten = lambda x: [i for s in x for i in s]
 
 
 @dataclass

@@ -16,6 +16,7 @@ from som_dst_utils import (
     OP_SET,
     SomDSTFeature,
     SomDSTInputExample,
+    flatten
 )
 
 
@@ -313,6 +314,30 @@ class SomDSTPreprocessor(DSTPreprocessor):
             generate_ids=generate_ids,
         )
 
+
+    def collate_fn(self, batch):
+        input_ids = torch.LongTensor([f.input_ids for f in batch])
+        input_masks = torch.LongTensor([f.input_masks for f in batch])
+        segment_ids = torch.LongTensor([f.segment_ids for f in batch])
+
+        state_position_ids = torch.LongTensor([f.slot_positions for f in batch])
+        op_ids = torch.LongTensor([f.op_ids for f in batch])
+        domain_ids = torch.LongTensor([f.domain_id for f in batch])
+        gen_ids = [f.generate_ids for f in batch]
+        max_update = max([len(b) for b in gen_ids]) # 최대 업데이트 수
+        max_value = max([len(b) for b in flatten(gen_ids)]) # 생성할 레이블의 최대 길이
+
+        for bid, b in enumerate(gen_ids):
+            n_update = len(b)
+            for idx, v in enumerate(b):
+                b[idx] = v + [self.tokenizer.pad_token_id] * (max_value - len(v))
+            gen_ids[bid] = b + [[self.tokenizer.pad_token_id] * max_value] * (max_update - n_update)
+        gen_ids = torch.LongTensor(gen_ids) # (batch_size, max_update, max_value)
+
+        return input_ids, input_masks, segment_ids, state_position_ids, op_ids, domain_ids, gen_ids, max_value, max_update
+
+
+
     def _get_diag_segment_from_example(self, example, state):
         diag_1 = self.tokenizer.tokenize(example.context_turns)
         diag_2 = self.tokenizer.tokenize(example.turn_uttr)
@@ -355,11 +380,11 @@ class SomDSTPreprocessor(DSTPreprocessor):
             state.append(self.slot_token)
             k = s.split("-")
             v = last_dial_state_dict.get(s)
-
-            if v is not None:
+            
+            if v is not None: # 직전 turn까지의 state에 슬릇 s에 대한 value가 있을 경우
                 k.extend(["-", v])
                 t = self.tokenizer.tokenize(" ".join(k))
-            else:
+            else: # 직전 turn까지의 state에 슬릇 s에 대한 value가 없을 경우 => 해당 value를 [Null] 처리
                 t = self.tokenizer.tokenize(" ".join(k))
                 t.extend(["-", "[NULL]"])  # 이전 값이 없으면
             state.extend(t)
@@ -379,22 +404,12 @@ class SomDSTPreprocessor(DSTPreprocessor):
 
         return diag_1, diag_2
 
-    def collate_fn(self, batch):
-        guids = [b.guid for b in batch]
-        input_ids = torch.LongTensor([b.input_ids for b in batch])
-        segment_ids = torch.LongTensor([b.segment_ids for b in batch])
-        input_masks = input_ids.ne(
-            self.src_tokenizer.pad_token_id
-        )  # torch.ne - compute a != b
-        target_ids = torch.LongTensor([b.target_ids for b in batch])
-        num_turns = [b.num_turn for b in batch]
-        return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
-
 
 if __name__ == '__main__':
     import json
+    from torch.utils.data import DataLoader, RandomSampler
     from transformers import BertTokenizer
-    from data_utils import load_dataset
+    from data_utils import load_dataset, WOSDataset
     from som_dst_utils import get_somdst_examples_from_dialogues
 
     train_data_file = './input/data/train_dataset/train_dials.json'
@@ -402,6 +417,7 @@ if __name__ == '__main__':
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
     tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
+    tokenizer.add_special_tokens({'additional_special_tokens': ['[NULL]']})
 
     train_examples = get_somdst_examples_from_dialogues(
         train_data, slot_meta, tokenizer
@@ -409,3 +425,21 @@ if __name__ == '__main__':
 
     preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer)
     preprocessor._convert_example_to_feature(train_examples[0])
+
+    features = [preprocessor._convert_example_to_feature(train_examples[i]) for i in range(100)]
+
+    dataset = WOSDataset(features=features)
+    sampler = RandomSampler(dataset)
+
+    loader = DataLoader(
+        dataset, 
+        batch_size=11,
+        sampler=sampler,
+        collate_fn=preprocessor.collate_fn
+    )
+
+    for batch in loader:
+        break
+
+    print(batch)
+    

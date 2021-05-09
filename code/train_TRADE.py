@@ -19,7 +19,7 @@ from evaluation import _evaluation
 from inference import inference_TRADE
 from data_utils import train_data_loading, get_data_loader
 
-from preprocessor import TRADEPreprocessor
+from preprocessor import SomDSTPreprocessor
 from model import TRADE
 from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 
@@ -35,7 +35,7 @@ def train(args):
 
     slot_meta, train_examples, dev_examples, dev_labels = train_data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
-    processor = TRADEPreprocessor(slot_meta, tokenizer)
+    processor = SomDSTPreprocessor(slot_meta, tokenizer)
 
     train_features = processor.convert_examples_to_features(train_examples)
     dev_features = processor.convert_examples_to_features(dev_examples)

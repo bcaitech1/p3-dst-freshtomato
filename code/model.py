@@ -329,6 +329,7 @@ class SomDST(BertPreTrainedModel):
         exclude_domain: bool = False,
     ):
         super(SomDST, self).__init__(config)
+        self.config = config
         self.hidden_size = config.hidden_size
         self.encoder = SomDSTEncoder(config, n_op, n_domain, update_id, exclude_domain)
         self.decoder = SomDSTDecoder(
@@ -378,7 +379,13 @@ class SomDST(BertPreTrainedModel):
 
         return domain_scores, state_scores, gen_scores
 
+    def resize_token_embeddings(self, new_num_tokens: int):
+        self.encoder.resize_token_embeddings(new_num_tokens)
+        self.decoder.resize_token_embeddings(new_num_tokens)
+        self.config.vocab_size = new_num_tokens
+        print(f'token_embeddings resized: {new_num_tokens}')
 
+# SOP
 class SomDSTEncoder(nn.Module):
     """State Operation Predictor + Domain Predictor
 
@@ -484,7 +491,11 @@ class SomDSTEncoder(nn.Module):
             pooled_output.unsqueeze(0),
         )
 
+    def resize_token_embeddings(self, new_num_tokens: int):
+        self.bert.resize_token_embeddings(new_num_tokens)
 
+
+# SVG
 class SomDSTDecoder(nn.Module):
     def __init__(self, config, bert_model_embedding_weights):
         super(SomDSTDecoder, self).__init__()
@@ -549,6 +560,12 @@ class SomDSTDecoder(nn.Module):
                 all_point_outputs[j, :, k, :] = p_final
 
         return all_point_outputs.transpose(0, 1)
+
+
+    def resize_token_embeddings(self, new_num_tokens):
+        self.embed = nn.Embedding(new_num_tokens, self.hidden_size)
+        self.vocab_size = new_num_tokens
+
 
 
 class GRUEncoder(nn.Module):
