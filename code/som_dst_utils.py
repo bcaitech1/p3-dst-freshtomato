@@ -45,11 +45,13 @@ TURN_DOMAIN_DICT = {
     "숙소*식당*택시": 22,"숙소*택시*식당": 22,"식당*숙소*택시": 22,"식당*택시*숙소": 22,"택시*숙소*식당": 22,"택시*식당*숙소": 22,
     "숙소*지하철*택시": 23,"숙소*택시*지하철": 23,"지하철*숙소*택시": 23,"지하철*택시*숙소": 23,"택시*숙소*지하철": 23,"택시*지하철*숙소": 23,
     "식당*지하철*택시": 24,"식당*택시*지하철": 24,"지하철*식당*택시": 24,"지하철*택시*식당": 24,"택시*식당*지하철": 24,"택시*지하철*식당": 24,
+    "": 25 # 도메인 없음
 }
 
-domain2id = TURN_DOMAIN_DICT
+DOMAIN2ID = TURN_DOMAIN_DICT
 
 UTTR_SPLITTER = " ; "
+SLOT_TOKEN = '[SLOT]'
 
 
 @dataclass
@@ -73,21 +75,21 @@ class SomDSTInputExample(DSTInputExample):
 class SomDSTFeature:
     guid: str
     input_ids: List[int]
-    input_mask: List[int] # attention에 활용할 마스크 리스트(패딩은 0처리, 그 외 1처리)
+    input_masks: List[int] # attention에 활용할 마스크 리스트(패딩은 0처리, 그 외 1처리)
     segment_ids: List[int] # 문장의 구분
     op_ids: List[int] # [carryover, ...] 등의 operation id 리스트
-    slot_position: List[int] # [SLOT] 토큰 위치
+    slot_positions: List[int] # [SLOT] 토큰 위치
     domain_id: int # turn 도메인
     generate_ids: List[int] # 모델이 생성해야 할 id 리스트
 
 
 def get_somdst_examples_from_dialogues(
-    data: list, slot_meta: dict, tokenizer, user_first: bool = False, op_code="4", max_seq_length: int = 256, dynamic: bool=False
+    data: list, slot_meta: dict, tokenizer, user_first: bool = False, n_current: int=1, op_code="4", max_seq_length: int = 256, dynamic: bool=False
 ) -> List[DSTInputExample]:
     examples = []
 
     for d in tqdm(data):
-        example = get_somdst_examples_from_dialogue(d, slot_meta, tokenizer, user_first, op_code, max_seq_length, dynamic)
+        example = get_somdst_examples_from_dialogue(d, slot_meta, tokenizer, user_first, n_current, op_code, max_seq_length, dynamic)
         examples.extend(example)
 
     return examples
@@ -98,6 +100,7 @@ def get_somdst_examples_from_dialogue(
     slot_meta: dict,
     tokenizer,
     user_first: bool = False,
+    n_current: int = 1, # 0으로 설정시 모든 과거 발화를 얻음
     op_code="4",
     max_seq_length: int = 256,
     dynamic: bool=False
@@ -124,10 +127,10 @@ def get_somdst_examples_from_dialogue(
         # generate_y = [s for s in turn_dialogue_state if s not in last_dialogue_state]
         turn_domain = get_turn_domain(turn_dialogue_state)  # 현재 turn의 도메인
 
-        context_turns = deepcopy(history)
+        context_turns = ' '.join(history[-n_current:])
         current_turn = [user_uttr, sys_uttr] if user_first else [sys_uttr, user_uttr]
 
-        history += [sys_uttr, user_uttr]
+        history += [turn_uttr]
         op_labels, generate_y, gold_state = make_turn_label(
             slot_meta, last_dialogue_state, turn_dialogue_state, tokenizer
         )
@@ -237,7 +240,7 @@ def make_turn_label(
 
 
 def get_turn_uttr(sys_uttr, user_uttr, splitter=UTTR_SPLITTER):
-    return sys_uttr + splitter + user_uttr
+    return (sys_uttr + splitter + user_uttr).strip()
 
 
 def get_turn_domain(state: list):
@@ -248,7 +251,7 @@ def get_turn_domain(state: list):
 
 
 def get_turn_domain_id(domain):
-    return domain2id[domain]
+    return DOMAIN2ID[domain]
 
 
 if __name__ == '__main__':
