@@ -17,7 +17,7 @@ def save_pickle(path: str, f: object) -> None:
 
 
 def save_json(path: str, f: object) -> None:
-    with open(path, "w") as json_path:
+    with open(path, "w", encoding='utf-8') as json_path:
         json.dump(
             f,
             json_path,

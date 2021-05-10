@@ -226,11 +226,14 @@ def convert_state_dict(state):
     Returns:
         dict: {도메인슬릇:밸류} 꼴의 state dict
     """
-    dic = {}
-    for slot in state:
-        s, v = split_slot(slot, get_domain_slot=True)
-        dic[s] = v
-    return dic
+    if state:
+        dic = {}
+        for slot in state:
+            s, v = split_slot(slot, get_domain_slot=True)
+            dic[s] = v
+        return dic
+    else:
+        return dict()
 
 
 @dataclass
