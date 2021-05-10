@@ -3,3 +3,4 @@
 torch==1.7.0+cu101
 transformers==3.5.1
 wandb==0.10.28
+pytorch-transformers==1.2.0

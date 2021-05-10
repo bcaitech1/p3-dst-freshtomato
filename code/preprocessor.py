@@ -7,7 +7,15 @@ from data_utils import (
     convert_state_dict,
     DSTInputExample,
     OntologyDSTFeature,
-    _truncate_seq_pair
+    _truncate_seq_pair,
+)
+from som_dst_utils import (
+    convert_state_dict,
+    SLOT_TOKEN,
+    DOMAIN2ID,
+    OP_SET,
+    SomDSTFeature,
+    SomDSTInputExample,
 )
 
 
@@ -237,7 +245,167 @@ class SUMBTPreprocessor(DSTPreprocessor):
         guids = [b.guid for b in batch]
         input_ids = torch.LongTensor([b.input_ids for b in batch])
         segment_ids = torch.LongTensor([b.segment_ids for b in batch])
-        input_masks = input_ids.ne(self.src_tokenizer.pad_token_id)
+        input_masks = input_ids.ne(
+            self.src_tokenizer.pad_token_id
+        )  # torch.ne - compute a != b
         target_ids = torch.LongTensor([b.target_ids for b in batch])
         num_turns = [b.num_turn for b in batch]
         return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
+
+
+class SomDSTPreprocessor(DSTPreprocessor):
+    def __init__(
+        self,
+        slot_meta: dict,
+        tokenizer,
+        max_seq_length: int = 384,
+        word_dropout: float = 0.0,
+        slot_token: str = SLOT_TOKEN,
+        domain2id: dict = None,
+        op_code: str = "4",
+    ):
+        self.slot_meta = slot_meta
+        self.tokenizer = tokenizer
+        self.max_seq_length = max_seq_length
+        self.word_dropout = word_dropout
+        self.slot_token = slot_token
+        self.domain2id = DOMAIN2ID if domain2id is None else domain2id
+        self.op2id = OP_SET[op_code]
+
+    def convert_examples_to_features(self, examples):
+        features = [
+            self._convert_example_to_feature(example)
+            for example in tqdm(examples, desc="[Conversion: Examples > Features]")
+        ]
+        return features
+
+    def _convert_example_to_feature(self, example: SomDSTInputExample) -> SomDSTFeature:
+        state = self._get_state_from_example(example)
+        diag, segment_raw = self._get_diag_segment_from_example(example, state)
+        input_ = diag + state
+        segment_raw += [1] * len(state)
+
+        slot_positions = self._get_slot_positions(input_)
+        input_masks = [1] * len(input_)
+        input_ids = self.tokenizer.convert_tokens_to_ids(input_)
+
+        if len(input_masks) < self.max_seq_length:
+            input_ids, segment_ids, input_masks = self._apply_padding(
+                input_ids, segment_raw, input_masks
+            )
+        else:
+            segment_ids = segment_raw
+
+        domain_id = self.domain2id[example.turn_domain]
+        op_ids = [self.op2id[a] for a in example.op_labels]
+        generate_ids = [
+            self.tokenizer.convert_tokens_to_ids(y) for y in example.generate_y
+        ]
+
+        return SomDSTFeature(
+            guid=example.guid,
+            input_ids=input_ids,
+            input_masks=input_masks,
+            segment_ids=segment_ids,
+            op_ids=op_ids,
+            slot_positions=slot_positions,
+            domain_id=domain_id,
+            generate_ids=generate_ids,
+        )
+
+    def _get_diag_segment_from_example(self, example, state):
+        diag_1 = self.tokenizer.tokenize(example.context_turns)
+        diag_2 = self.tokenizer.tokenize(example.turn_uttr)
+        diag_1, diag_2 = self._truncate(diag_1, diag_2, state)
+
+        diag_1 = ["[CLS]"] + diag_1 + ["[SEP]"]
+        diag_2 = diag_2 + ["[SEP]"]
+
+        segment = [0] * len(diag_1) + [1] * len(diag_2)
+        diag = diag_1 + diag_2
+
+        # word dropout
+        if self.word_dropout > 0.0:
+            diag = self._word_dropout(diag_1, diag_2, diag)
+
+        return diag, segment
+
+    def _apply_padding(self, input_id, segment_id, input_mask):
+        num_pads = self.max_seq_length - len(input_mask)
+        input_id += [self.tokenizer.pad_token_id] * num_pads
+        segment_id += [self.tokenizer.pad_token_id] * num_pads
+        input_mask += [self.tokenizer.pad_token_id] * num_pads
+        return input_id, segment_id, input_mask
+
+    def _apply_word_dropout(self, diag_1, diag_2, diag):
+        drop_mask = [0] + [1] * (len(diag_1) - 2) + [0] + [1] * (len(diag_2) - 1) + [0]
+        drop_mask = np.array(drop_mask)
+        word_drop = np.random.binomial(drop_mask.astype("int64"), word_dropout)
+        diag = [w if word_drop[i] == 0 else "[UNK]" for i, w in enumerate(diag)]
+        return diag
+
+    def _get_slot_positions(self, input_: list) -> list:
+        slot_positions = [i for i, t in enumerate(input_) if t == self.slot_token]
+        return slot_positions
+
+    def _get_state_from_example(self, example):
+        last_dial_state_dict = convert_state_dict(example.last_dialogue_state)
+        state = []
+        for s in self.slot_meta:
+            state.append(self.slot_token)
+            k = s.split("-")
+            v = last_dial_state_dict.get(s)
+
+            if v is not None:
+                k.extend(["-", v])
+                t = self.tokenizer.tokenize(" ".join(k))
+            else:
+                t = self.tokenizer.tokenize(" ".join(k))
+                t.extend(["-", "[NULL]"])  # 이전 값이 없으면
+            state.extend(t)
+        return state
+
+    def _truncate(self, diag_1, diag_2, state):
+        avail_length_1 = self.max_seq_length - len(state) - 3
+        avail_length = avail_length_1 - len(diag_2)
+
+        if len(diag_1) > avail_length:  # truncated
+            avail_length = len(diag_1) - avail_length
+            diag_1 = diag_1[avail_length:]
+
+        if len(diag_1) == 0 and len(diag_2) > avail_length_1:
+            avail_length = len(diag_2) - avail_length_1
+            diag_2 = diag_2[avail_length:]
+
+        return diag_1, diag_2
+
+    def collate_fn(self, batch):
+        guids = [b.guid for b in batch]
+        input_ids = torch.LongTensor([b.input_ids for b in batch])
+        segment_ids = torch.LongTensor([b.segment_ids for b in batch])
+        input_masks = input_ids.ne(
+            self.src_tokenizer.pad_token_id
+        )  # torch.ne - compute a != b
+        target_ids = torch.LongTensor([b.target_ids for b in batch])
+        num_turns = [b.num_turn for b in batch]
+        return input_ids, segment_ids, input_masks, target_ids, num_turns, guids
+
+
+if __name__ == '__main__':
+    import json
+    from transformers import BertTokenizer
+    from data_utils import load_dataset
+    from som_dst_utils import get_somdst_examples_from_dialogues
+
+    train_data_file = './input/data/train_dataset/train_dials.json'
+    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
+    train_data, dev_data, dev_labels = load_dataset(train_data_file)
+
+    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
+
+    train_examples = get_somdst_examples_from_dialogues(
+        train_data, slot_meta, tokenizer
+    )
+
+    preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer)
+    preprocessor._convert_example_to_feature(train_examples[0])

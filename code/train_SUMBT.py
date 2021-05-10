@@ -8,7 +8,7 @@ from importlib import import_module
 
 from data_utils import tokenize_ontology
 
-sys.path.insert(0, "../CustomizedModule")
+sys.path.insert(0, "./CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
