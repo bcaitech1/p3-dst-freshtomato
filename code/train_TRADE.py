@@ -26,32 +26,49 @@ from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(args):
+def get_informations(args):
     # Define Tokenizer
     tokenizer_module = getattr(
         import_module("transformers"), f"{args.model_name}Tokenizer"
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
 
-    slot_meta, train_examples, dev_examples, dev_labels = train_data_loading(args, isUserFirst=False, isDialogueLevel=False)
+    slot_meta, train_examples, train_labels = train_data_loading(args, isUserFirst=False, isDialogueLevel=False)
+
     # Define Preprocessor
     processor = TRADEPreprocessor(slot_meta, tokenizer)
 
+    # Extract Features
     train_features = processor.convert_examples_to_features(train_examples)
-    dev_features = processor.convert_examples_to_features(dev_examples)
 
-    train_loader = get_data_loader(processor, train_features, args.train_batch_size)
-    dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
-
-    args.vocab_size = len(tokenizer)
-    args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
-    
     # Slot Meta tokenizing for the decoder initial inputs
     tokenized_slot_meta = []
     for slot in slot_meta:
         tokenized_slot_meta.append(
             tokenizer.encode(slot.replace("-", " "), add_special_tokens=False)
         )
+
+    args.vocab_size = len(tokenizer)
+    args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
+
+    json.dump(
+        vars(args),
+        open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+    json.dump(
+        slot_meta,
+        open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
+        indent=2,
+        ensure_ascii=False,
+    )
+    return tokenizer, processor, train_features, tokenized_slot_meta
+
+
+def train(args):
+    train_loader = get_data_loader(processor, train_features, args.train_batch_size)
+    dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
@@ -74,19 +91,6 @@ def train(args):
     loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
     # loss_fnc_2 = nn.CrossEntropyLoss()  # gating - # classes: 3
     loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate)
-
-    json.dump(
-        vars(args),
-        open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
-        indent=2,
-        ensure_ascii=False,
-    )
-    json.dump(
-        slot_meta,
-        open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "w"),
-        indent=2,
-        ensure_ascii=False,
-    )
 
     best_score, best_checkpoint = 0, 0
     for epoch in range(n_epochs):
