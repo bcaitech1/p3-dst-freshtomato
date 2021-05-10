@@ -14,14 +14,17 @@ if __name__ == "__main__":
         type=str,
         # required=True,
         # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
-        default='DST-iloveslowfood'
+        default='DST-DEBUG-iloveslowfood',
+        # default='DST-iloveslowfood'
     )
     parser.add_argument(
         "--model_fold", 
         # type=str, 
         # required=True, 
         # help="model 폴더명",
-        default='trade-LSLOSS')
+        default='som-dst',
+        # default='trade-LSLOSS'
+        )
     parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="./models")
     parser.add_argument("--train_batch_size", type=int, default=16)
@@ -36,10 +39,12 @@ if __name__ == "__main__":
         help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of lr", 
         default=1e-4
         )
+
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--weight_decay", type=float, default=0.01)
+
    
     parser.add_argument("--optimizer", type=str, help="Name of Optimizer (AdamW, Adam, SGD, AdamP ...)", default="AdamW")
     parser.add_argument("--scheduler", type=str, help="Name of Scheduler (linear, custom, cosine, plateau ...)", default="custom")
@@ -60,7 +65,7 @@ if __name__ == "__main__":
         "--dst",
         type=str,
         help="Model Name For DST Task (EX. TRADE, SUMBT)",
-        default="TRADE",
+        default="SOMDST",
     )
     parser.add_argument(
         "--model_name",
@@ -102,12 +107,20 @@ if __name__ == "__main__":
     parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
     parser.add_argument("--distance_metric", type=str, default="euclidean")
 
+    # SOM-DST
+    parser.add_argument("--enc_lr", type=float, default=4e-5)
+    parser.add_argument("--dec_lr", type=float, default=1e-4)
+    parser.add_argument("--enc_warmup", type=float, default=0.1)
+    parser.add_argument("--dec_warmup", type=float, default=0.1)
+    parser.add_argument("--op_code", type=str, default='4')
+    parser.add_argument("--num_workers", type=str, default=4)
+
+
     args = parser.parse_args()
     args.dst = args.dst.upper()
     os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
     # wandb init
-
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)

@@ -32,13 +32,19 @@ from som_dst_utils import (
 from preprocessor import SomDSTPreprocessor
 from model import SomDST
 from criterions import masked_cross_entropy_for_value
+from config import CFG
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+device = CFG.Device
 
 def train(args):
-    set_seed(args.seed)
-    # Define Tokenizer
+    # operation encoder domain encoder
+    op2id = OP_SET[args.op_code]
+    domain2id = DOMAIN2ID
+    args.n_op = len(op2id)
+    args.n_domain = get_domain_nums(domain2id)
+    args.update_id = op2id['update']
+
+    # initialize tokenizer
     tokenizer_module = getattr(
         import_module("transformers"), f"{args.model_name}Tokenizer"
     )
@@ -48,8 +54,7 @@ def train(args):
     )
     args.vocab_size = len(tokenizer)
 
-    op2id = OP_SET[args.op_code]
-
+    # load data
     slot_meta = json.load(open(os.path.join(args.data_dir, "slot_meta.json")))
     train_data, dev_data, dev_labels = load_somdst_dataset(
         os.path.join(args.data_dir, "train_dials.json")
@@ -63,11 +68,11 @@ def train(args):
         data=dev_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
     )
 
+    # preprocessing
     preprocessor = SomDSTPreprocessor(
         slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
     )
 
-    # for test
     train_features = [
         preprocessor._convert_example_to_feature(train_examples[i]) for i in range(1000)
     ]
@@ -79,24 +84,23 @@ def train(args):
     # dev_features = preprocessor.convert_examples_to_features(dev_examples)
 
     train_dataset = WOSDataset(features=train_features)
-    dev_dataset = WOSDataset(features=dev_features)
+    # dev_dataset = WOSDataset(features=dev_features)
 
     train_sampler = RandomSampler(train_dataset)
     train_dataloader = DataLoader(
         train_dataset,
         sampler=train_sampler,
-        batch_size=config.batch_size,
+        batch_size=args.train_batch_size,
         collate_fn=preprocessor.collate_fn,
-        num_workers=config.num_workers,
+        num_workers=args.num_workers,
     )
 
-    # Model 선언
+    # initialize model: update embedding size & initailize weights
     model = SomDST(
         args, n_op=args.n_op, n_domain=args.n_domain, update_id=args.update_id
     )
     model.resize_token_embeddings(len(tokenizer))
 
-    # re-initialize added special tokens ([SLOT], [NULL], [EOS])
     model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(
         mean=0.0, std=0.02
     )
@@ -110,7 +114,7 @@ def train(args):
     model.to(device)
     print("Model is initialized")
 
-    num_train_steps = int(len(train_features) / args.batch_size * args.epochs)
+    num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
 
     no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
     enc_param_optimizer = list(model.encoder.named_parameters())
@@ -160,7 +164,7 @@ def train(args):
         ensure_ascii=False,
     )
 
-    best_score = {"epoch": 0, "joint_acc": 0, "op_acc": 0, "final_slot_f1": 0}
+    best_score = {"epoch": 0, "joint_acc": 0, "op_acc": 0, "slot_acc": 0, "slot_f1":0, 'op_acc': 0, 'op_f1': 0}
 
     for epoch in range(args.epochs):
         batch_loss = []
@@ -218,27 +222,68 @@ def train(args):
             dec_scheduler.step()
             model.zero_grad()
 
+            for learning_rate in enc_scheduler.get_lr():
+                wandb.log({"encoder_learning_rate": learning_rate})
+
+            for learning_rate in dec_scheduler.get_lr():
+                wandb.log({"decoder_learning_rate": learning_rate})
+
+            
+
             if step % 100 == 0:
                 if args.exclude_domain is not True:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}, dom_loss : {loss_d.item():.3f}"
                     )
+                    wandb.log({
+                        "epoch": epoch,
+                        "Train epoch loss": np.mean(batch_loss),
+                        "Train epoch state loss": loss_s.item(),
+                        "Train epoch generation loss": loss_g.item(),
+                        "Train epoch domain loss": loss_d.item(),
+                        }
+                    )
                 else:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}"
                     )
+                    wandb.log({
+                        "epoch": epoch,
+                        "Train epoch loss": np.mean(batch_loss),
+                        "Train epoch state loss": loss_s.item(),
+                        "Train epoch generation loss": loss_g.item()
+                        }
+                    )
+                
                 batch_loss = []
 
         eval_res = model_evaluation(
             model, dev_features, tokenizer, slot_meta, args.domain2id, epoch + 1, args.op_code
         )
+
         if eval_res["joint_acc"] > best_score["joint_acc"]:
+            print("Update Best checkpoint!")
             best_score = eval_res
-            model_to_save = model.module if hasattr(model, "module") else model
-            save_path = os.path.join(args.save_dir, "model_best.bin")
-            torch.save(model_to_save.state_dict(), save_path)
+            best_checkpoint = best_score['epoch']
+            wandb.log({
+                "epoch": best_score['epoch'], 
+                "Best joint goal accuracy": best_score['joint_acc'], 
+                "Best turn slot accuracy": best_score['slot_acc'],
+                "Best turn slot f1": best_score['slot_f1'],
+                "Best operation accucay": best_score['op_acc'],
+                "Best operation f1": best_score['op_f1'],
+            })
+        
+        # save phase
+        model_to_save = model.module if hasattr(model, "module") else model
+        torch.save(
+            model_to_save.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
+        )
         print("Best Score : ", best_score)
         print("\n")
+
+    print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
+    wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
 
 
 if __name__ == "__main__":

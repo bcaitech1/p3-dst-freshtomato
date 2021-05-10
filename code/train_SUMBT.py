@@ -116,7 +116,7 @@ def train(args):
             optimizer.step()
             scheduler.step()
             for learning_rate in scheduler.get_lr():
-                    wandb.log({"learning_rate": learning_rate})
+                wandb.log({"learning_rate": learning_rate})
             
             optimizer.zero_grad()
 

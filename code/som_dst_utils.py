@@ -1,3 +1,4 @@
+import sys
 import json
 import time
 from collections import defaultdict
@@ -6,9 +7,13 @@ from copy import deepcopy
 from dataclasses import dataclass
 from typing import *
 from tqdm import tqdm
+import numpy as np
+import pandas as pd
+import torch
 from data_utils import DSTInputExample, convert_state_dict
 from config import CFG
 from utils import save_json
+
 
 # 아래의 케이스 중 operation class를 선택하는 데 활용
 OP_SET = {
@@ -239,7 +244,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     results = {}
     last_dialog_state = {}
     wall_times = []
-    for feature in test_features:
+    for feature in tqdm(test_features, desc='[Inferencing for evaluation]'):
         if feature.turn_id == 0:
             last_dialog_state = {}
 
@@ -354,14 +359,14 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
         op_F1_score[k] = F1
 
     print("------------------------------")
-    print(f'op_code: {op_code}, is_gt_op: {str(is_gt_op)}, is_gt_p_state: {str(is_gt_p_state)}, is_gt_gen: {str(is_gt_gen)}')
+    # print(f'op_code: {op_code}, is_gt_op: {str(is_gt_op)}, is_gt_p_state: {str(is_gt_p_state)}, is_gt_gen: {str(is_gt_gen)}')
     print(f"Epoch {epoch} joint accuracy : {joint_acc_score:.4f}")
     print(f"Epoch {epoch} slot turn accuracy : {turn_acc_score:.4f}")
     print(f"Epoch {epoch} slot turn F1: {slot_F1_score:.4f}")
     print(f"Epoch {epoch} op accuracy : {op_acc_score:.4f}")
-    print(f"Epoch {epoch} op F1 : {op_F1_score:.4f}")
-    print(f"Epoch {epoch} op hit count : {op_F1_count:.4f}")
-    print(f"Epoch {epoch} op all count : {all_op_F1_count:.4f}")
+    print(f"Epoch {epoch} op F1 : {op_F1_score}")
+    print(f"Epoch {epoch} op hit count : {op_F1_count}")
+    print(f"Epoch {epoch} op all count : {all_op_F1_count}")
     # print("Final Joint Accuracy : ", final_joint_acc_score)
     # print("Final slot turn F1 : ", final_slot_F1_score)
     print(f"Latency Per Prediction : {latency:.4f} ms")
@@ -373,7 +378,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
               'slot_acc': turn_acc_score, 'slot_f1': slot_F1_score,
               'op_acc': op_acc_score, 'op_f1': op_F1_score
               }
-              
+
     return scores
 
 
@@ -517,8 +522,8 @@ def compute_prf(gold, pred):
 def per_domain_join_accuracy(data, slot_temp):
     for dom in EXPERIMENT_DOMAINS:
         count = 0
-        jt = 0
-        acc = 0
+        jt = 0 # jga
+        acc = 0 # slot accuracy
         for k, d in data.items():
             p, g = d
             gg = [r for r in g if r.startswith(dom)]
@@ -529,7 +534,7 @@ def per_domain_join_accuracy(data, slot_temp):
                     jt += 1
                 temp_acc = compute_acc(set(gg), set(pp), slot_temp)
                 acc += temp_acc
-        print(dom, jt / count, acc / count)
+        print(f"[{dom}]\tjoint accuracy: {jt / count:.4f}\tslot turn accuracy: {acc / count:.4f}")
 
 
 def get_turn_uttr(sys_uttr, user_uttr, splitter=UTTR_SPLITTER):
