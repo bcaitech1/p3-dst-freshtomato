@@ -3,7 +3,6 @@ import sys
 import json
 import wandb
 import random
-import argparse
 import numpy as np
 from importlib import import_module
 from sklearn.model_selection import StratifiedKFold, train_test_split

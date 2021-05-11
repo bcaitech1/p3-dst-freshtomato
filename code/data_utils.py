@@ -19,6 +19,7 @@ DOMAINS = ['관광', '숙소', '식당', '지하철', '택시']
 @dataclass
 class OntologyDSTFeature:
     guid: str
+    domain: List[str]
     input_ids: List[int]
     segment_ids: List[int]
     num_turn: int
@@ -85,8 +86,7 @@ def load_dataset(dataset_path: str) -> Tuple[list, list, dict]:
 
 def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
-    # train_data_file = f"{args.data_dir}/train_dials.json"
-    train_data_file = "../input/data/train_subsampled_0.2.json"
+    train_data_file = f"{args.data_dir}/train_dials.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
     train_data, train_labels = load_dataset(train_data_file)
 
