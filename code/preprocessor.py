@@ -85,7 +85,7 @@ class TRADEPreprocessor(DSTPreprocessor):
             gating_id.append(self.gating2id.get(value, self.gating2id["ptr"]))
         target_ids = self.pad_ids(target_ids, self.trg_tokenizer.pad_token_id)
         return OpenVocabDSTFeature(
-            example.guid, input_id, segment_id, gating_id, target_ids
+            example.guid, example.domain, input_id, segment_id, gating_id, target_ids
         )
 
     def convert_examples_to_features(
@@ -169,6 +169,7 @@ class SUMBTPreprocessor(DSTPreprocessor):
 
     def _convert_example_to_feature(self, example):
         guid = example[0].guid.rsplit("-", 1)[0]  # dialogue_idx
+        domain = example[0].domain
         turns = []
         token_types = []
         labels = []
@@ -221,6 +222,7 @@ class SUMBTPreprocessor(DSTPreprocessor):
                 labels.append(dummy_label)
         return OntologyDSTFeature(
             guid=guid,
+            domain=domain,
             input_ids=turns,
             segment_ids=token_types,
             num_turn=num_turn,

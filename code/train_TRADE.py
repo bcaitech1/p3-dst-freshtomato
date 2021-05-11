@@ -1,3 +1,4 @@
+import os
 import sys
 import json
 import wandb
@@ -5,8 +6,9 @@ import random
 import argparse
 import numpy as np
 from importlib import import_module
+from sklearn.model_selection import StratifiedKFold, train_test_split
 
-sys.path.insert(0, "./CustomizedModule")
+sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -63,13 +65,66 @@ def get_informations(args):
         indent=2,
         ensure_ascii=False,
     )
-    return tokenizer, processor, train_features, tokenized_slot_meta
+    return tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels
 
 
-def train(args):
-    train_loader = get_data_loader(processor, train_features, args.train_batch_size)
-    dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
+def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
+    domain_group = {
+        '관광&식당':0,
+        '관광':1,
+        '지하철':2,
+        '택시':3,
+        '식당&택시':4,
+        '숙소&택시':5,
+        '식당':6,
+        '숙소&식당':7,
+        '숙소':8,
+        '관광&택시':9,
+        '관광&숙소&식당':10,
+        '관광&숙소':11,
+        '숙소&식당&택시':12,
+        '관광&식당&택시':13,
+        '관광&숙소&택시':14
+    }
 
+    features = np.array(features)
+    domain_labels = []
+    for f in features:
+        feature_domain = '&'.join(sorted(f.domain))
+        if '지하철' in feature_domain:
+            feature_domain = '지하철'
+        domain_labels.append(domain_group[feature_domain])
+
+    if args.isKfold:
+        kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
+        fold_idx = 1
+        
+        for train_index, dev_index in kf.split(features, domain_labels):
+            os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
+
+            train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
+            dev_labels = dict(np.array(list(labels.items()))[dev_index.astype(int)])
+
+            train_loader = get_data_loader(processor, train_features, args.train_batch_size)
+            dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
+
+            print(f"========= {fold_idx} fold =========")
+            train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels)
+            fold_idx += 1
+    else:
+        fold_idx = None
+        train_index, dev_index = train_test_split(np.array(range(len(features))), test_size=0.1, random_state=args.seed, stratify=domain_labels)
+
+        train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
+        dev_labels = dict(np.array(list((labels.items())))[dev_index.astype(int)])
+        
+        train_loader = get_data_loader(processor, train_features, args.train_batch_size)
+        dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
+
+        train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels)
+    
+
+def train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels):
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
     model.set_subword_embedding(args)  # Subword Embedding 초기화
@@ -80,7 +135,7 @@ def train(args):
     # Optimizer 및 Scheduler 선언
     n_epochs = args.epochs
     t_total = len(train_loader) * n_epochs
-    # get_optimizer 부분에서 자동으로 warmup_steps를 계산할 수 있도록 바꿨음 (아래가 원래의 code)
+    # get_optimizer 부분에서 자동으로 warmup_steps를 계산할 수 있도록 변경 (아래가 원래의 code)
     # warmup_steps = int(t_total * args.warmup_ratio)
     optimizer = get_optimizer(model, args)  # get optimizer (Adam, sgd, AdamP, ..)
 
@@ -89,8 +144,8 @@ def train(args):
     )  # get scheduler (custom, linear, cosine, ..)
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
-    # loss_fnc_2 = nn.CrossEntropyLoss()  # gating - # classes: 3
-    loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate)
+    loss_fnc_2 = nn.CrossEntropyLoss()  # gating - # classes: 3
+    # loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate)
 
     best_score, best_checkpoint = 0, 0
     for epoch in range(n_epochs):
@@ -167,9 +222,19 @@ def train(args):
                 "Best turn slot f1": eval_result['turn_slot_f1']
             })
 
-        torch.save(
-            model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
-        )
-    
+        if args.isKfold:
+            torch.save(
+                model.state_dict(), f"{args.model_dir}/{args.model_fold}/{fold_idx}-fold'/model-{epoch}.bin"
+            )
+        else:
+            torch.save(
+                model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
+            )
+
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
     wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
+
+
+def train(args):
+    tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels = get_informations(args)
+    select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels)

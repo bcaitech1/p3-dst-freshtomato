@@ -28,6 +28,7 @@ class OntologyDSTFeature:
 @dataclass
 class OpenVocabDSTFeature:
     guid: str
+    domain: List[str]
     input_id: List[int]
     segment_id: List[int]
     gating_id: List[int]
@@ -84,7 +85,8 @@ def load_dataset(dataset_path: str) -> Tuple[list, list, dict]:
 
 def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
-    train_data_file = f"{args.data_dir}/train_dials.json"
+    # train_data_file = f"{args.data_dir}/train_dials.json"
+    train_data_file = "../input/data/train_subsampled_0.2.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
     train_data, train_labels = load_dataset(train_data_file)
 
@@ -205,6 +207,7 @@ class DSTInputExample:
     """
 
     guid: str
+    domain: List[str]
     context_turns: List[str]
     current_turn: List[str]
     label: Optional[List[str]] = None
@@ -251,6 +254,7 @@ def get_examples_from_dialogue(
         List[DSTInputExample]: 단일 Dialogue 데이터로부터 추출된 DSTInputExample 리스트
     """
     guid = dialogue["dialogue_idx"]
+    domain = dialogue["domains"]
     examples = []
     history = []
     d_idx = 0
@@ -275,6 +279,7 @@ def get_examples_from_dialogue(
         examples.append(
             DSTInputExample(
                 guid=f"{guid}-{d_idx}",
+                domain=domain,
                 context_turns=context,
                 current_turn=current_turn,
                 label=state,

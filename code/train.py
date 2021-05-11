@@ -1,5 +1,4 @@
 import os
-import json
 import wandb
 import argparse
 
@@ -11,19 +10,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--project_name",
-        type=str,
-        # required=True,
-        # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
-        default='DST-iloveslowfood'
+        #type=str,
+        #required=True,
+        #help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
+        default='ARA-TEST-KFOLD'
     )
     parser.add_argument(
         "--model_fold", 
-        # type=str, 
-        # required=True, 
-        # help="model 폴더명",
-        default='trade-LSLOSS')
-    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="./models")
+        #type=str, 
+        #required=True, 
+        #help="model 폴더명",
+        default='trade-kfold')
+    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="../models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
@@ -102,12 +101,15 @@ if __name__ == "__main__":
     parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
     parser.add_argument("--distance_metric", type=str, default="euclidean")
 
+    # K-fold
+    parser.add_argument("--isKfold", type=bool, default=False)
+    parser.add_argument("--fold_num", type=int, default=5)
+
     args = parser.parse_args()
     args.dst = args.dst.upper()
     os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
     # wandb init
-
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)
