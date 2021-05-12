@@ -68,7 +68,7 @@ def get_informations(args):
     return tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels
 
 
-def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
+def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
     domain_group = {
         '관광_식당':0,
         '관광':1,
@@ -88,14 +88,19 @@ def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
     }
 
     features = np.array(features)
-    dialogue_labels, domain_labels = defaultdict(list), []
+    dialogue_features, dialogue_labels, domain_labels = defaultdict(list), defaultdict(list), []
     for f in features:
-        feature_domain = '_'.join(sorted(f.domain))
+        dialogue = '-'.join(f.guid.split('-')[:-1])
+        dialogue_features[dialogue].append(f)
+
+    for k, v in dialogue_features.items():
+        feature_domain = '_'.join(sorted(v[0].domain))
         if '지하철' in feature_domain:
             feature_domain = '지하철'
         domain_labels.append(domain_group[feature_domain])
+
     for k, v in labels.items():
-        dialogue_labels['_'.join(k.split('_')[:-1])].append([k, v])
+        dialogue_labels['-'.join(k.split('-')[:-1])].append([k, v])
 
     if args.isKfold:
         kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
@@ -104,30 +109,40 @@ def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
         for train_index, dev_index in kf.split(features, domain_labels):
             os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
 
-            train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
-            dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
-        
-            dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
+            train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
             
+            train_features, dev_features = [], []
+            [train_features.extend(t[1]) for t in train_dialogue_features]
+            [dev_features.extend(t[1]) for t in dev_dialogue_features]
+
+            dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
+            dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
+
             train_loader = get_data_loader(processor, train_features, args.train_batch_size)
             dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
             print(f"========= {fold_idx} fold =========")
             train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels)
             fold_idx += 1
+        
     else:
         fold_idx = None
-        train_index, dev_index = train_test_split(np.array(range(len(features))), test_size=0.1, random_state=args.seed, stratify=domain_labels)
+        train_index, dev_index = train_test_split(np.array(range(len(dialogue_features))), test_size=0.1, random_state=args.seed, stratify=domain_labels)
+        
+        train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
 
-        train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
+        train_features, dev_features = [], []
+        [train_features.extend(t[1]) for t in train_dialogue_features]
+        [dev_features.extend(t[1]) for t in dev_dialogue_features]
+
         dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
-        
         dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
-        
+
         train_loader = get_data_loader(processor, train_features, args.train_batch_size)
         dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
         train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels)
+    return train_loader, dev_loader
     
 
 def train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold_idx, train_loader, dev_loader, dev_labels):
@@ -243,4 +258,4 @@ def train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold
 
 def train(args):
     tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels = get_informations(args)
-    select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels)
+    select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels)
