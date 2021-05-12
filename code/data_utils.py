@@ -19,6 +19,7 @@ DOMAINS = ['관광', '숙소', '식당', '지하철', '택시']
 @dataclass
 class OntologyDSTFeature:
     guid: str
+    domain: List[str]
     input_ids: List[int]
     segment_ids: List[int]
     num_turn: int
@@ -28,6 +29,7 @@ class OntologyDSTFeature:
 @dataclass
 class OpenVocabDSTFeature:
     guid: str
+    domain: List[str]
     input_id: List[int]
     segment_id: List[int]
     gating_id: List[int]
@@ -46,15 +48,14 @@ class WOSDataset(Dataset):
         return self.features[idx]
 
 
-def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
+def load_dataset(dataset_path: str) -> Tuple[list, list, dict]:
     """Dialogue 데이터 경로를 입력 받아 train/valid/groun truth 데이터를 리턴
 
     Args:
         dataset_path (str): 학습에 활용할 Dialogue 데이터 경로
-        dev_split (float, optional): 데이터 중 검증용 데이터에 활용할 비율. Defaults to 0.1.
 
     Returns:
-        train_data, dev_data, dev_labels: 학습용 데이터와 검증용 데이터를 리턴하며, 각각 다음의 형태를 가짐
+        train_data: 학습용 데이터를 리턴하며, 다음의 형태를 가짐
         - train_data: dialogue_idx, domains, dialogue의 key를 지닌 딕셔너리 형태
             [
                 {'dialogue_idx': 'snowy-hat-8324:관광_식당_11',
@@ -62,46 +63,12 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
                 'dialogue': [{'role': ?, 'text': ?, 'state':?}, ... ]},
                 ...
             ]
-        - dev_data: 'dialogue' 내 'state'가 존재하지 않음
-            [
-                {'dialogue_idx': 'steep-limit-4198:식당_34',
-                'domains': ['식당'],
-                'dialogue': [{'role': ?, 'text': ?}, ... ]},
-                ...
-            ]
-        - dev_label: dev_data의 각 turn별 state(label)이 나열
-            {
-                'steep-limit-4198:식당_34-0': ['식당-예약 명수-8'], # 'steep-limit-4198:식당_34' dialogue의 첫 user turn
-                'steep-limit-4198:식당_34-1': [...],
-                ...
-            }
     """
     data = json.load(open(dataset_path))
-    num_data = len(data)
-    num_dev = int(num_data * dev_split)
-    if not num_dev:
-        return data, []  # no dev dataset
+    train_data = [d for d in data]
 
-    dom_mapper = defaultdict(list)
-    for d in data:
-        dom_mapper[len(d["domains"])].append(d["dialogue_idx"])
-
-    # Dialogue별 Domain은 최소 1개부터 3개까지
-    num_per_domain_trainsition = int(num_dev / 3)
-    dev_idx = []
-    for v in dom_mapper.values():
-        idx = random.sample(v, num_per_domain_trainsition)
-        dev_idx.extend(idx)
-
-    train_data, dev_data = [], []
-    for d in data:
-        if d["dialogue_idx"] in dev_idx:
-            dev_data.append(d)
-        else:
-            train_data.append(d)
-
-    dev_labels = {}
-    for dialogue in dev_data:
+    train_labels = {}
+    for dialogue in train_data:
         d_idx = 0
         guid = dialogue["dialogue_idx"]
         for idx, turn in enumerate(dialogue["dialogue"]):
@@ -113,24 +80,21 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
             guid_t = f"{guid}-{d_idx}"
             d_idx += 1
 
-            dev_labels[guid_t] = state
+            train_labels[guid_t] = state
 
-    return train_data, dev_data, dev_labels
+    return train_data, train_labels
 
 def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
-    train_data, dev_data, dev_labels = load_dataset(train_data_file)
+    train_data, train_labels = load_dataset(train_data_file)
 
     train_examples = get_examples_from_dialogues(
         train_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
     )
-    dev_examples = get_examples_from_dialogues(
-        dev_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
-    )
 
-    return slot_meta, train_examples, dev_examples, dev_labels
+    return slot_meta, train_examples, train_labels
 
 def test_data_loading(args, isUserFirst, isDialogueLevel):
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
@@ -243,6 +207,7 @@ class DSTInputExample:
     """
 
     guid: str
+    domain: List[str]
     context_turns: List[str]
     current_turn: List[str]
     label: Optional[List[str]] = None
@@ -289,10 +254,10 @@ def get_examples_from_dialogue(
         List[DSTInputExample]: 단일 Dialogue 데이터로부터 추출된 DSTInputExample 리스트
     """
     guid = dialogue["dialogue_idx"]
+    domain = dialogue["domains"]
     examples = []
     history = []
     d_idx = 0
-
 
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
@@ -314,6 +279,7 @@ def get_examples_from_dialogue(
         examples.append(
             DSTInputExample(
                 guid=f"{guid}-{d_idx}",
+                domain=domain,
                 context_turns=context,
                 current_turn=current_turn,
                 label=state,
