@@ -297,10 +297,6 @@ def get_examples_from_dialogue(
     history = []
     d_idx = 0
 
-    if add_pre_state:
-        pre_state = []
-
-
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
             continue

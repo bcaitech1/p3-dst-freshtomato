@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
 from importlib import import_module
-from transformers import BertModel, BertPreTrainedModel
+from transformers import BertModel, BertPreTrainedModel, ElectraModel, ElectraPreTrainedModel
 
 
 class TRADE(nn.Module):
@@ -319,6 +319,7 @@ class SUMBT(nn.Module):
             torch.nn.init.constant_(module.bias_hh_l0, 0.0)
 
 
+# class SomDST(ElectraPreTrainedModel):
 class SomDST(BertPreTrainedModel):
     def __init__(
         self,
@@ -399,6 +400,7 @@ class SomDSTEncoder(nn.Module):
         super(SomDSTEncoder, self).__init__()
         self.hidden_size = config.hidden_size  # 인코딩 결과 얻을 hidden size
         self.exclude_domain = exclude_domain  # 제외할 도메인 목록
+        # self.bert = ElectraModel(config) # 인코더로 활용할 pre-trained BERT
         self.bert = BertModel(config)  # 인코더로 활용할 pre-trained BERT
         self.dropout = nn.Dropout(config.dropout)
         self.action_cls = nn.Linear(config.hidden_size, n_op)  # operation clf
@@ -424,6 +426,11 @@ class SomDSTEncoder(nn.Module):
             input_ids, token_type_ids, attention_mask
         )  # 인코딩 결과, |X_t| x hidden_dim
         sequence_output, pooled_output = bert_outputs[:2]  # [?] Sequence_ouptut이 뭐지
+
+        # use electra
+        # sequence_output = bert_outputs[0][:, :, :]
+        # pooled_output = bert_outputs[0][:, 0, :].squeeze()
+
         state_pos = state_positions[:, :, np.newaxis].expand(
             -1, -1, sequence_output.size(-1)
         )  # [?] exand
@@ -482,7 +489,7 @@ class SomDSTEncoder(nn.Module):
                 )
             gathered.append(v)
 
-        decoder_inputs = torch.cat(gathered)
+        decoder_inputs = torch.cat(gathered) # 업데이트할 4개의 슬릇에 대한 hidden state
         return (
             domain_scores,
             state_scores,
@@ -526,9 +533,10 @@ class SomDSTDecoder(nn.Module):
         for j in range(n_update):
             w = state_in[:, j].unsqueeze(1)  # B,1,D
             slot_value = []
-            for k in range(max_len):
+            for k in range(max_len): # 최대 길이
                 w = self.dropout(w)
-                _, hidden = self.gru(w, hidden)  # 1,B,D
+                # _, hidden = self.gru(w, hidden)  # 1,B,D
+                _, hidden = self.gru(w, hidden.contiguous())  # 1,B,D
                 # B,T,D * B,D,1 => B,T
                 attn_e = torch.bmm(encoder_output, hidden.permute(1, 2, 0))  # B,T,1
                 attn_e = attn_e.squeeze(-1).masked_fill(mask, -1e9)

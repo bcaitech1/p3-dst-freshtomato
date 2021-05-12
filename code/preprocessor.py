@@ -261,7 +261,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
         self,
         slot_meta: dict,
         tokenizer,
-        max_seq_length: int = 384,
+        max_seq_length: int = 512,
         word_dropout: float = 0.1,
         slot_token: str = SLOT_TOKEN,
         domain2id: dict = None,
@@ -430,12 +430,17 @@ if __name__ == '__main__':
         train_data, slot_meta, tokenizer
     )
 
+    dev_examples = get_somdst_examples_from_dialogues(
+        dev_data, slot_meta, tokenizer
+    )
+
     preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer)
     preprocessor._convert_example_to_feature(train_examples[0])
 
-    features = [preprocessor._convert_example_to_feature(train_examples[i]) for i in range(100)]
+    train_features = [preprocessor._convert_example_to_feature(train_examples[i]) for i in range(10000)]
+    dev_features = [preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(len(dev_examples))]
 
-    dataset = WOSDataset(features=features)
+    dataset = WOSDataset(features=train_features)
     sampler = RandomSampler(dataset)
 
     loader = DataLoader(

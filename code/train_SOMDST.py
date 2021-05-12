@@ -8,9 +8,9 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, RandomSampler
-from transformers import AdamW, get_linear_schedule_with_warmup
-import wandb
+from transformers import AdamW, get_linear_schedule_with_warmup, BertConfig, BertTokenizer, BertModel, ElectraConfig
 from importlib import import_module
+import wandb
 
 sys.path.insert(0, "./CustomizedModule")
 from CustomizedScheduler import get_scheduler
@@ -35,6 +35,7 @@ from criterions import masked_cross_entropy_for_value
 from config import CFG
 
 device = CFG.Device
+MAX_GRAD_NORM = 4.
 
 def train(args):
     # operation encoder domain encoder
@@ -42,7 +43,7 @@ def train(args):
     domain2id = DOMAIN2ID
     args.n_op = len(op2id)
     args.n_domain = get_domain_nums(domain2id)
-    args.update_id = op2id['update']
+    args.update_id = op2id["update"]
 
     # initialize tokenizer
     tokenizer_module = getattr(
@@ -64,21 +65,19 @@ def train(args):
         data=train_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
     )
 
-    dev_examples = get_somdst_examples_from_dialogues(
-        data=dev_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
-    )
+    # dev_examples = get_somdst_examples_from_dialogues(
+    #     data=dev_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
+    # )
 
     # preprocessing
     preprocessor = SomDSTPreprocessor(
-        slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
+        slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code, max_seq_length=args.max_seq_length
     )
 
     train_features = [
-        preprocessor._convert_example_to_feature(train_examples[i]) for i in range(1000)
+        preprocessor._convert_example_to_feature(train_examples[i]) for i in tqdm(range(3000))
     ]
-    dev_features = [
-        preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(1000)
-    ]
+    # dev_features = preprocessor.convert_examples_to_features(dev_examples)
 
     # train_features = preprocessor.convert_examples_to_features(train_examples)
     # dev_features = preprocessor.convert_examples_to_features(dev_examples)
@@ -95,23 +94,24 @@ def train(args):
         num_workers=args.num_workers,
     )
 
+    for batch in train_dataloader:
+        break
+    
+
     # initialize model: update embedding size & initailize weights
-    model = SomDST(
-        args, n_op=args.n_op, n_domain=args.n_domain, update_id=args.update_id
-    )
+    model_config = BertConfig.from_pretrained(args.pretrained_name_or_path)
+    model_config.attention_probs_dropout_prob = 0.1
+    model_config.hidden_dropout_prob = 0.1
+    model_config.dropout = 0.1
+
+    model = SomDST(model_config, n_op=args.n_op, n_domain=args.n_domain, update_id=args.update_id)
     model.resize_token_embeddings(len(tokenizer))
-
-    model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(
-        mean=0.0, std=0.02
-    )
-    model.encoder.bert.embeddings.word_embeddings.weight.data[2].normal_(
-        mean=0.0, std=0.02
-    )
-    model.encoder.bert.embeddings.word_embeddings.weight.data[3].normal_(
-        mean=0.0, std=0.02
-    )
-
+    model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(mean=0.0, std=0.02)
+    model.encoder.bert.embeddings.word_embeddings.weight.data[2].normal_(mean=0.0, std=0.02)
+    model.encoder.bert.embeddings.word_embeddings.weight.data[3].normal_(mean=0.0, std=0.02)
     model.to(device)
+
+    torch.nn.utils.clip_grad_norm_(model.parameters(), MAX_GRAD_NORM) # CLIPPING
     print("Model is initialized")
 
     num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
@@ -133,7 +133,8 @@ def train(args):
         },
     ]
 
-    enc_optimizer = AdamW(enc_optimizer_grouped_parameters, lr=args.enc_lr)
+    # initialize optimizer & scheduler
+    enc_optimizer = AdamW(enc_optimizer_grouped_parameters, lr=args.enc_lr, eps=args.adam_epsilon)
     enc_scheduler = get_linear_schedule_with_warmup(
         optimizer=enc_optimizer,
         num_warmup_steps=int(num_train_steps * args.enc_warmup),
@@ -141,7 +142,7 @@ def train(args):
     )
 
     dec_param_optimizer = list(model.decoder.parameters())
-    dec_optimizer = AdamW(dec_param_optimizer, lr=args.dec_lr)
+    dec_optimizer = AdamW(dec_param_optimizer, lr=args.dec_lr, eps=args.adam_epsilon)
     dec_scheduler = get_linear_schedule_with_warmup(
         optimizer=dec_optimizer,
         num_warmup_steps=int(num_train_steps * args.dec_warmup),
@@ -151,6 +152,7 @@ def train(args):
     criterion = nn.CrossEntropyLoss()
     rng = random.Random(args.seed)
 
+    # save experiment settings
     json.dump(
         vars(args),
         open(f"{args.model_dir}/{args.model_fold}/exp_config.json", "w"),
@@ -164,12 +166,20 @@ def train(args):
         ensure_ascii=False,
     )
 
-    best_score = {"epoch": 0, "joint_acc": 0, "op_acc": 0, "slot_acc": 0, "slot_f1":0, 'op_acc': 0, 'op_f1': 0}
+    best_score = {
+        "epoch": 0,
+        "joint_acc": 0, # 
+        "op_acc": 0,
+        "slot_acc": 0,
+        "slot_f1": 0,
+        "op_acc": 0,
+        "op_f1": 0,
+    }
 
     for epoch in range(args.epochs):
         batch_loss = []
         model.train()
-        
+
         for step, batch in enumerate(train_dataloader):
             batch = [b.to(device) if not isinstance(b, int) else b for b in batch]
             (
@@ -184,10 +194,8 @@ def train(args):
                 max_update,
             ) = batch
 
-            if rng.random() < args.teacher_forcing_ratio:  # decoder teacher forcing
-                teacher = gen_ids
-            else:
-                teacher = None
+            # teacher forcing for generation(decoder)
+            teacher = gen_ids if rng.random() < args.teacher_forcing_ratio else None
 
             domain_scores, state_scores, gen_scores = model(
                 input_ids=input_ids,
@@ -216,6 +224,7 @@ def train(args):
             batch_loss.append(loss.item())
 
             loss.backward()
+            nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             enc_optimizer.step()
             enc_scheduler.step()
             dec_optimizer.step()
@@ -228,62 +237,72 @@ def train(args):
             for learning_rate in dec_scheduler.get_lr():
                 wandb.log({"decoder_learning_rate": learning_rate})
 
-            
-
             if step % 100 == 0:
                 if args.exclude_domain is not True:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}, dom_loss : {loss_d.item():.3f}"
                     )
-                    wandb.log({
-                        "epoch": epoch,
-                        "Train epoch loss": np.mean(batch_loss),
-                        "Train epoch state loss": loss_s.item(),
-                        "Train epoch generation loss": loss_g.item(),
-                        "Train epoch domain loss": loss_d.item(),
+                    wandb.log(
+                        {
+                            "epoch": epoch,
+                            "Train epoch loss": np.mean(batch_loss),
+                            "Train epoch state loss": loss_s.item(),
+                            "Train epoch generation loss": loss_g.item(),
+                            "Train epoch domain loss": loss_d.item(),
                         }
                     )
                 else:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}"
                     )
-                    wandb.log({
-                        "epoch": epoch,
-                        "Train epoch loss": np.mean(batch_loss),
-                        "Train epoch state loss": loss_s.item(),
-                        "Train epoch generation loss": loss_g.item()
+                    wandb.log(
+                        {
+                            "epoch": epoch,
+                            "Train epoch loss": np.mean(batch_loss),
+                            "Train epoch state loss": loss_s.item(),
+                            "Train epoch generation loss": loss_g.item(),
                         }
                     )
-                
+
                 batch_loss = []
 
+        # evaluation for each epoch
         eval_res = model_evaluation(
-            model, dev_features, tokenizer, slot_meta, args.domain2id, epoch + 1, args.op_code
+            model,
+            dev_features,
+            tokenizer,
+            slot_meta,
+            args.domain2id,
+            epoch + 1,
+            args.op_code,
         )
 
         if eval_res["joint_acc"] > best_score["joint_acc"]:
             print("Update Best checkpoint!")
             best_score = eval_res
-            best_checkpoint = best_score['epoch']
-            wandb.log({
-                "epoch": best_score['epoch'], 
-                "Best joint goal accuracy": best_score['joint_acc'], 
-                "Best turn slot accuracy": best_score['slot_acc'],
-                "Best turn slot f1": best_score['slot_f1'],
-                "Best operation accucay": best_score['op_acc'],
-                "Best operation f1": best_score['op_f1'],
-            })
-        
+            best_checkpoint = best_score["epoch"]
+            wandb.log(
+                {
+                    "epoch": best_score["epoch"],
+                    "Best joint goal accuracy": best_score["joint_acc"],
+                    "Best turn slot accuracy": best_score["slot_acc"],
+                    "Best turn slot f1": best_score["slot_f1"],
+                    "Best operation accucay": best_score["op_acc"],
+                    "Best operation f1": best_score["op_f1"],
+                }
+            )
+
         # save phase
         model_to_save = model.module if hasattr(model, "module") else model
         torch.save(
-            model_to_save.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
+            model_to_save.state_dict(),
+            f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin",
         )
         print("Best Score : ", best_score)
         print("\n")
 
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
-    wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
+    # wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
 
 
 if __name__ == "__main__":
@@ -317,9 +336,9 @@ if __name__ == "__main__":
     config.exclude_domain = False
     config.op_code = "4"
 
-    config.model_fold = 'som-dst'
-    config.model_dir = './sketches' 
-    config.save_dir = './sketches'
+    config.model_fold = "som-dst"
+    config.model_dir = "./sketches"
+    config.save_dir = "./sketches"
 
     os.makedirs(f"{config.model_dir}/{config.model_fold}", exist_ok=True)
 

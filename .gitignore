@@ -19,6 +19,7 @@ input/**
 sketches/**
 code/results/**
 *.csv
+preprocessed/**
 
 # MoonJaeHoon
 README_MJH.md
