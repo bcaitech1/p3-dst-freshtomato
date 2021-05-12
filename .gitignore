@@ -17,6 +17,7 @@ code/results/**
 README_MJH.md
 models_mjh/**
 train_mjh.py
+trade_solution.ipynb
 # CustomizedModule/**
 
 # Byte-compiled / optimized / DLL files
