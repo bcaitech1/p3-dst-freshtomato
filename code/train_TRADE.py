@@ -6,6 +6,7 @@ import random
 import numpy as np
 from importlib import import_module
 from sklearn.model_selection import StratifiedKFold, train_test_split
+from collections import defaultdict
 
 sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
@@ -69,30 +70,32 @@ def get_informations(args):
 
 def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
     domain_group = {
-        '관광&식당':0,
+        '관광_식당':0,
         '관광':1,
         '지하철':2,
         '택시':3,
-        '식당&택시':4,
-        '숙소&택시':5,
+        '식당_택시':4,
+        '숙소_택시':5,
         '식당':6,
-        '숙소&식당':7,
+        '숙소_식당':7,
         '숙소':8,
-        '관광&택시':9,
-        '관광&숙소&식당':10,
-        '관광&숙소':11,
-        '숙소&식당&택시':12,
-        '관광&식당&택시':13,
-        '관광&숙소&택시':14
+        '관광_택시':9,
+        '관광_숙소_식당':10,
+        '관광_숙소':11,
+        '숙소_식당_택시':12,
+        '관광_식당_택시':13,
+        '관광_숙소_택시':14
     }
 
     features = np.array(features)
-    domain_labels = []
+    dialogue_labels, domain_labels = defaultdict(list), []
     for f in features:
-        feature_domain = '&'.join(sorted(f.domain))
+        feature_domain = '_'.join(sorted(f.domain))
         if '지하철' in feature_domain:
             feature_domain = '지하철'
         domain_labels.append(domain_group[feature_domain])
+    for k, v in labels.items():
+        dialogue_labels['_'.join(k.split('_')[:-1])].append([k, v])
 
     if args.isKfold:
         kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
@@ -102,8 +105,10 @@ def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
             os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
 
             train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
-            dev_labels = dict(np.array(list(labels.items()))[dev_index.astype(int)])
-
+            dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
+        
+            dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
+            
             train_loader = get_data_loader(processor, train_features, args.train_batch_size)
             dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
@@ -115,7 +120,9 @@ def select_kfold_ro_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
         train_index, dev_index = train_test_split(np.array(range(len(features))), test_size=0.1, random_state=args.seed, stratify=domain_labels)
 
         train_features, dev_features = features[train_index.astype(int)], features[dev_index.astype(int)]
-        dev_labels = dict(np.array(list((labels.items())))[dev_index.astype(int)])
+        dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
+        
+        dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
         
         train_loader = get_data_loader(processor, train_features, args.train_batch_size)
         dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
