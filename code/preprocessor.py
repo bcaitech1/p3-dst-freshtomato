@@ -278,6 +278,8 @@ class SomDSTPreprocessor(DSTPreprocessor):
         self.domain2id = DOMAIN2ID if domain2id is None else domain2id
         self.op_code = op_code
         self.op2id = OP_SET[op_code]
+
+        assert self.src_tokenizer.eos_token_id is not None
         return
 
     def convert_examples_to_features(
@@ -309,8 +311,8 @@ class SomDSTPreprocessor(DSTPreprocessor):
         for bid, b in enumerate(gen_ids):
             n_update = len(b)
             for idx, v in enumerate(b):
-                b[idx] = v + [0] * (max_value - len(v))
-            gen_ids[bid] = b + [[0] * max_value] * (max_update - n_update)
+                b[idx] = v + [self.src_tokenizer.pad_token_id] * (max_value - len(v))
+            gen_ids[bid] = b + [[self.src_tokenizer.pad_token_id] * max_value] * (max_update - n_update)
         gen_ids = torch.LongTensor(gen_ids)
         return (
             input_ids,
@@ -526,50 +528,3 @@ class SomDSTPreprocessor(DSTPreprocessor):
             op_labels = [self.op2id[i] for i in op_labels]
 
         return op_labels, generate_y, gold_state  # operation GT, value GT, 도메인-슬릇-밸류 GT
-
-
-if __name__ == "__main__":
-    import json
-    from torch.utils.data import DataLoader, RandomSampler
-    from transformers import BertTokenizer
-    from data_utils import load_dataset, WOSDataset
-    from som_dst_utils import get_somdst_examples_from_dialogues
-
-    train_data_file = "./input/data/train_dataset/train_dials.json"
-    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
-    train_data, dev_data, dev_labels = load_dataset(train_data_file)
-
-    tokenizer = BertTokenizer.from_pretrained("dsksd/bert-ko-small-minimal")
-    tokenizer.add_special_tokens(
-        {"additional_special_tokens": [NULL_TOKEN, SLOT_TOKEN]}
-    )
-
-    train_examples = get_somdst_examples_from_dialogues(
-        train_data, slot_meta, tokenizer
-    )
-
-    dev_examples = get_somdst_examples_from_dialogues(dev_data, slot_meta, tokenizer)
-
-    preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer)
-    preprocessor._convert_example_to_feature(train_examples[0])
-
-    train_features = [
-        preprocessor._convert_example_to_feature(train_examples[i])
-        for i in range(10000)
-    ]
-    dev_features = [
-        preprocessor._convert_example_to_feature(dev_examples[i])
-        for i in range(len(dev_examples))
-    ]
-
-    dataset = WOSDataset(features=train_features)
-    sampler = RandomSampler(dataset)
-
-    loader = DataLoader(
-        dataset, batch_size=11, sampler=sampler, collate_fn=preprocessor.collate_fn
-    )
-
-    for batch in loader:
-        break
-
-    print(batch)
