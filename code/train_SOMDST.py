@@ -23,8 +23,9 @@ from som_dst_utils import (
     get_somdst_examples_from_dialogues,
     load_somdst_dataset,
     NULL_TOKEN,
-    OP_SET,
     SLOT_TOKEN,
+    EOS_TOKEN,
+    OP_SET,
     DOMAIN2ID,
     get_domain_nums,
     model_evaluation,
@@ -51,19 +52,19 @@ def train(args):
     )
     tokenizer = tokenizer_module.from_pretrained(args.pretrained_name_or_path)
     tokenizer.add_special_tokens(
-        {"additional_special_tokens": [NULL_TOKEN, SLOT_TOKEN]}
+        {"additional_special_tokens": [NULL_TOKEN, SLOT_TOKEN], 'eos_token': EOS_TOKEN}
     )
     args.vocab_size = len(tokenizer)
 
     # load data
     slot_meta = json.load(open(os.path.join(args.data_dir, "slot_meta.json")))
-    # train_data, dev_data, dev_labels = load_somdst_dataset(
-    #     os.path.join(args.data_dir, "train_dials.json")
-    # )
-
     train_data, dev_data, dev_labels = load_somdst_dataset(
-        'preprocessed/valid_dials.json'
+        os.path.join(args.data_dir, "train_dials.json")
     )
+
+    # train_data, dev_data, dev_labels = load_somdst_dataset(
+    #     'preprocessed/valid_dials.json'
+    # )
 
     train_examples = get_somdst_examples_from_dialogues(
         data=train_data, n_history=args.n_history
@@ -77,7 +78,7 @@ def train(args):
     preprocessor = SomDSTPreprocessor(
         slot_meta=slot_meta, 
         src_tokenizer=tokenizer,
-        max_seq_length=512,
+        max_seq_length=args.max_seq_length,
         word_dropout=0.1,
         domain2id=domain2id
     )
@@ -297,46 +298,3 @@ def train(args):
         print("\n")
 
     print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
-    # wandb.log({"Best checkpoint": f"{args.model_dir}/model-{best_checkpoint}.bin"})
-
-
-if __name__ == "__main__":
-    from transformers import BertConfig
-
-    op_code = "4"
-    n_op = len(OP_SET[op_code])
-    domain2id = DOMAIN2ID
-    n_domain = get_domain_nums(domain2id)
-    update_id = OP_SET[op_code]["update"]
-
-    config = BertConfig.from_pretrained("dsksd/bert-ko-small-minimal")
-    config.dropout = 0.1
-    config.op_code = "4"
-    config.n_op = n_op
-    config.domain2id = domain2id
-    config.n_domain = n_domain
-    config.update_id = update_id
-    config.model_name = "Bert"
-    config.pretrained_name_or_path = "dsksd/bert-ko-small-minimal"
-    config.data_dir = "./input/data/train_dataset"
-    config.batch_size = 32
-    config.num_workers = 1
-    config.epochs = 1
-    config.enc_lr = 4e-5
-    config.dec_lr = 1e-4
-    config.enc_warmup = 0.1
-    config.dec_warmup = 0.1
-    config.teacher_forcing_ratio = 0.5
-    config.seed = 42
-    config.exclude_domain = False
-    config.op_code = "4"
-
-    config.model_fold = "som-dst"
-    config.model_dir = "./sketches"
-    config.save_dir = "./sketches"
-
-    os.makedirs(f"{config.model_dir}/{config.model_fold}", exist_ok=True)
-
-    print(config)
-
-    train(config)

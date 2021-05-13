@@ -26,7 +26,7 @@ if __name__ == "__main__":
         )
     parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
     parser.add_argument("--model_dir", type=str, default="./models")
-    parser.add_argument("--train_batch_size", type=int, default=32)
+    parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--seed", type=int, default=42)
@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     # SOM-DST
     parser.add_argument("--n_history", type=int, default=1)
-    parser.add_argument("--enc_lr", type=float, default=4e-5)
+    parser.add_argument("--enc_lr", type=float, default=1e-4)
     parser.add_argument("--dec_lr", type=float, default=1e-4)
     parser.add_argument("--enc_warmup", type=float, default=0.1)
     parser.add_argument("--dec_warmup", type=float, default=0.1)

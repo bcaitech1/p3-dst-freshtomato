@@ -66,6 +66,7 @@ DOMAIN2ID = {i: idx for idx, i in enumerate(EXPERIMENT_DOMAINS)}
 UTTR_SPLITTER = " ; "
 SLOT_TOKEN = '[SLOT]'
 NULL_TOKEN = '[NULL]'
+EOS_TOKEN = '[EOS]'
 flatten = lambda x: [i for s in x for i in s]
 
 
@@ -74,11 +75,11 @@ class SomDSTInputExample(DSTInputExample):
     turn_id: int = None # 턴 번호
     turn_utter: str = None # 턴 내 발화: 시스템발화 ; 유저발화
     turn_domain: str = None
-    last_dialog_state: dict = None
-    current_dialog_state: dict = None
-    dialog_history: str = None
-    dial_domains: list = None
-    turn_domain: str = None
+    last_dialog_state: dict = None # {'도메인-슬릇': 밸류}
+    current_dialog_state: dict = None # {'도메인-슬릇': 밸류}
+    dialog_history: str = None # 시스템발화 ; 유저발화 시스템발화 ; 유저발화
+    dial_domains: list = None # []
+    turn_domain: str = None # '식당'
     is_last_turn: bool = None
 
 @dataclass
@@ -214,15 +215,15 @@ def get_somdst_examples_from_dialogue(dialogue: dict, n_history: int=1) -> List[
             SomDSTInputExample(
                 guid=f"{guid}-{turn_id}",
                 current_turn=current_turn,
-                context_turns=context_turns,
-                turn_id=turn_id,
-                turn_domain=turn_domain, 
-                turn_utter=turn_utter,
-                last_dialog_state=last_dialog_state,
-                current_dialog_state=current_dialog_state,
+                context_turns=deepcopy(context_turns),
+                turn_id=deepcopy(turn_id),
+                turn_domain=deepcopy(turn_domain), 
+                turn_utter=deepcopy(turn_utter),
+                last_dialog_state=deepcopy(last_dialog_state),
+                current_dialog_state=deepcopy(current_dialog_state),
                 dialog_history=' '.join(dialog_history[-n_history:]),
-                dial_domains=dial_domains,
-                is_last_turn=is_last_turn
+                dial_domains=deepcopy(dial_domains),
+                is_last_turn=deepcopy(is_last_turn)
             )
         )
 

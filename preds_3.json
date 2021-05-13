@@ -806,7 +806,9 @@
     ]
   ],
   "cool-bread-4224:식당_관광_숙소_11-6_6": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -828,7 +830,9 @@
     ]
   ],
   "cool-bread-4224:식당_관광_숙소_11-7_7": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -850,7 +854,9 @@
     ]
   ],
   "cool-bread-4224:식당_관광_숙소_11-8_8": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -1096,14 +1102,20 @@
     []
   ],
   "black-truth-7871:관광_식당_택시_13-1_1": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare"
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-2_2": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1111,7 +1123,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-3_3": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1123,7 +1138,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-4_4": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1139,7 +1157,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-5_5": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1155,7 +1176,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-6_6": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1171,7 +1195,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-7_7": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1190,7 +1217,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-8_8": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1210,7 +1240,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-9_9": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1230,7 +1263,10 @@
     ]
   ],
   "black-truth-7871:관광_식당_택시_13-10_10": [
-    [],
+    [
+      "관광-문화 예술-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -1250,14 +1286,22 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-0_0": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-지역-서울 북쪽",
       "관광-주차 가능-yes"
     ]
   ],
   "black-grass-9511:관광_식당_8-1_1": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1265,7 +1309,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-2_2": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1274,7 +1322,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-3_3": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1284,7 +1336,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-4_4": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1295,7 +1351,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-5_5": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1307,7 +1367,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-6_6": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -1323,7 +1387,11 @@
     ]
   ],
   "black-grass-9511:관광_식당_8-7_7": [
-    [],
+    [
+      "관광-이름-적당 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]",
+      "관광-지역-서울 북쪽 [UNK] [UNK] [UNK] 북쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -2289,7 +2357,10 @@
     ]
   ],
   "cold-limit-2305:숙소_2-3_3": [
-    [],
+    [
+      "관광-문화 예술-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -2302,7 +2373,12 @@
     ]
   ],
   "cold-limit-2305:숙소_2-4_4": [
-    [],
+    [
+      "관광-문화 예술-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -2315,7 +2391,12 @@
     ]
   ],
   "cold-limit-2305:숙소_2-5_5": [
-    [],
+    [
+      "관광-문화 예술-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -2328,7 +2409,12 @@
     ]
   ],
   "cold-limit-2305:숙소_2-6_6": [
-    [],
+    [
+      "관광-문화 예술-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -4192,7 +4278,9 @@
     ]
   ],
   "tiny-wave-0544:관광_숙소_10-4_4": [
-    [],
+    [
+      "숙소-예약 요일-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -4209,7 +4297,9 @@
     ]
   ],
   "tiny-wave-0544:관광_숙소_10-5_5": [
-    [],
+    [
+      "숙소-예약 요일-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -4226,7 +4316,9 @@
     ]
   ],
   "tiny-wave-0544:관광_숙소_10-6_6": [
-    [],
+    [
+      "숙소-예약 요일-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -4247,14 +4339,18 @@
     []
   ],
   "billowing-wood-6103:관광_9-1_1": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙"
     ]
   ],
   "billowing-wood-6103:관광_9-2_2": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -4262,7 +4358,9 @@
     ]
   ],
   "billowing-wood-6103:관광_9-3_3": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -4270,7 +4368,9 @@
     ]
   ],
   "billowing-wood-6103:관광_9-4_4": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -4507,7 +4607,9 @@
     ]
   ],
   "throbbing-hill-2252:숙소_택시_11-0_0": [
-    [],
+    [
+      "숙소-지역-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-1",
@@ -4516,7 +4618,9 @@
     ]
   ],
   "throbbing-hill-2252:숙소_택시_11-1_1": [
-    [],
+    [
+      "숙소-지역-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-1",
@@ -4525,7 +4629,9 @@
     ]
   ],
   "throbbing-hill-2252:숙소_택시_11-2_2": [
-    [],
+    [
+      "숙소-지역-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-1",
@@ -4538,7 +4644,9 @@
     ]
   ],
   "throbbing-hill-2252:숙소_택시_11-3_3": [
-    [],
+    [
+      "숙소-지역-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-1",
@@ -4551,7 +4659,9 @@
     ]
   ],
   "throbbing-hill-2252:숙소_택시_11-4_4": [
-    [],
+    [
+      "숙소-지역-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-1",
@@ -4580,7 +4690,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-2_2": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -4592,7 +4704,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-3_3": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -4607,7 +4721,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-4_4": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -4626,7 +4742,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-5_5": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -4648,7 +4766,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-6_6": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -4671,7 +4791,9 @@
     ]
   ],
   "tight-sky-0988:숙소_식당_택시_10-7_7": [
-    [],
+    [
+      "관광-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -5303,7 +5425,11 @@
     ]
   ],
   "late-heart-3153:식당_숙소_7-4_4": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호텔",
@@ -5322,7 +5448,11 @@
     ]
   ],
   "late-heart-3153:식당_숙소_7-5_5": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호텔",
@@ -5341,7 +5471,11 @@
     ]
   ],
   "late-heart-3153:식당_숙소_7-6_6": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호텔",
@@ -5615,7 +5749,9 @@
     ]
   ],
   "weathered-brook-0614:식당_숙소_8-5_5": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 명수-9",
@@ -5631,7 +5767,9 @@
     ]
   ],
   "weathered-brook-0614:식당_숙소_8-6_6": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 명수-9",
@@ -7600,7 +7738,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-2_2": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -7612,7 +7754,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-3_3": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -7624,7 +7770,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-4_4": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -7639,7 +7789,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-5_5": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -7658,7 +7812,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-6_6": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -7677,7 +7835,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-7_7": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-교통편",
       "관광-지역-서울 중앙",
@@ -7698,7 +7860,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-8_8": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-교통편",
       "관광-지역-서울 중앙",
@@ -7720,7 +7886,11 @@
     ]
   ],
   "delicate-king-0074:숙소_식당_관광_14-9_9": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-일요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-교통편",
       "관광-지역-서울 중앙",
@@ -8239,21 +8409,30 @@
     ]
   ],
   "divine-river-6286:관광_9-0_0": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽"
     ]
   ],
   "divine-river-6286:관광_9-1_1": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽"
     ]
   ],
   "divine-river-6286:관광_9-2_2": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -8261,7 +8440,10 @@
     ]
   ],
   "divine-river-6286:관광_9-3_3": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -9576,7 +9758,11 @@
     ]
   ],
   "red-wildflower-2609:숙소_택시_11-1_1": [
-    [],
+    [
+      "숙소-예약 요일-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -9585,7 +9771,11 @@
     ]
   ],
   "red-wildflower-2609:숙소_택시_11-2_2": [
-    [],
+    [
+      "숙소-예약 요일-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -9594,7 +9784,11 @@
     ]
   ],
   "red-wildflower-2609:숙소_택시_11-3_3": [
-    [],
+    [
+      "숙소-예약 요일-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -9606,7 +9800,11 @@
     ]
   ],
   "red-wildflower-2609:숙소_택시_11-4_4": [
-    [],
+    [
+      "숙소-예약 요일-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -9620,7 +9818,11 @@
     ]
   ],
   "red-wildflower-2609:숙소_택시_11-5_5": [
-    [],
+    [
+      "숙소-예약 요일-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -10035,14 +10237,18 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-0_0": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 기간-3"
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-1_1": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -10052,7 +10258,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-2_2": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -10062,7 +10270,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-3_3": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -10074,7 +10284,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-4_4": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-주차 가능-yes",
       "숙소-가격대-비싼",
@@ -10087,7 +10299,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-5_5": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10102,7 +10316,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-6_6": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10118,7 +10334,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-7_7": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10134,7 +10352,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-8_8": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10153,7 +10373,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-9_9": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10176,7 +10398,9 @@
     ]
   ],
   "autumn-boat-5836:숙소_관광_식당_11-10_10": [
-    [],
+    [
+      "숙소-지역-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -10483,14 +10707,24 @@
     ]
   ],
   "muddy-recipe-7518:관광_13-0_0": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽"
     ]
   ],
   "muddy-recipe-7518:관광_13-1_1": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -10498,7 +10732,12 @@
     ]
   ],
   "muddy-recipe-7518:관광_13-2_2": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-쇼핑 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -10923,14 +11162,20 @@
     ]
   ],
   "lingering-star-3640:관광_1-0_0": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙"
     ]
   ],
   "lingering-star-3640:관광_1-1_1": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -10938,7 +11183,10 @@
     ]
   ],
   "lingering-star-3640:관광_1-2_2": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -10946,7 +11194,10 @@
     ]
   ],
   "lingering-star-3640:관광_1-3_3": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -11542,7 +11793,9 @@
     ]
   ],
   "late-water-8273:식당_14-1_1": [
-    [],
+    [
+      "식당-이름-1 [UNK] 30 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-적당",
       "식당-지역-서울 서쪽",
@@ -11555,7 +11808,9 @@
     ]
   ],
   "late-water-8273:식당_14-2_2": [
-    [],
+    [
+      "식당-이름-1 [UNK] 30 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-적당",
       "식당-지역-서울 서쪽",
@@ -11568,7 +11823,9 @@
     ]
   ],
   "late-water-8273:식당_14-3_3": [
-    [],
+    [
+      "식당-이름-1 [UNK] 30 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-적당",
       "식당-지역-서울 서쪽",
@@ -11926,7 +12183,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-2_2": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11936,7 +12196,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-3_3": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11947,7 +12210,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-4_4": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11959,7 +12225,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-5_5": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11971,7 +12240,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-6_6": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11983,7 +12255,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-7_7": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -11995,7 +12270,10 @@
     ]
   ],
   "fancy-sky-0823:숙소_4-8_8": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호스텔",
@@ -12149,7 +12427,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-2_2": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12161,7 +12443,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-3_3": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12173,7 +12459,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-4_4": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12187,7 +12477,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-5_5": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12202,7 +12496,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-6_6": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12221,7 +12519,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-7_7": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -12242,7 +12544,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-8_8": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -12263,7 +12569,11 @@
     ]
   ],
   "steep-hall-7411:숙소_식당_관광_14-9_9": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-토요일 [UNK]게 [UNK] [UNK] 호스 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -12573,7 +12883,9 @@
     ]
   ],
   "dark-violet-3805:관광_택시_10-0_0": [
-    [],
+    [
+      "관광-지역-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -12581,7 +12893,9 @@
     ]
   ],
   "dark-violet-3805:관광_택시_10-1_1": [
-    [],
+    [
+      "관광-지역-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -12589,7 +12903,9 @@
     ]
   ],
   "dark-violet-3805:관광_택시_10-2_2": [
-    [],
+    [
+      "관광-지역-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -12602,7 +12918,9 @@
     ]
   ],
   "dark-violet-3805:관광_택시_10-3_3": [
-    [],
+    [
+      "관광-지역-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -12615,7 +12933,9 @@
     ]
   ],
   "dark-violet-3805:관광_택시_10-4_4": [
-    [],
+    [
+      "관광-지역-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -12715,7 +13035,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-0_0": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -12723,7 +13045,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-1_1": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -12732,7 +13056,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-2_2": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -12744,7 +13070,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-3_3": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -12757,7 +13085,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-4_4": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -12774,7 +13104,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-5_5": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-사당역",
       "지하철-도착지-신촌역",
@@ -12793,7 +13125,9 @@
     ]
   ],
   "lingering-moon-6490:관광_숙소_지하철_12-6_6": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-사당역",
       "지하철-도착지-신촌역",
@@ -12812,7 +13146,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-0_0": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12823,7 +13160,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-1_1": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -12835,7 +13175,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-2_2": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-신세계 백화점 본점",
       "숙소-가격대-저렴",
@@ -12848,7 +13191,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-3_3": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-신세계 백화점 본점",
       "숙소-가격대-저렴",
@@ -12867,7 +13213,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-4_4": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-신세계 백화점 본점",
       "숙소-가격대-저렴",
@@ -12887,7 +13236,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-5_5": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-신세계 백화점 본점",
       "숙소-가격대-저렴",
@@ -12907,7 +13259,10 @@
     ]
   ],
   "polished-wind-2869:숙소_관광_식당_12-6_6": [
-    [],
+    [
+      "숙소-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-신세계 백화점 본점",
       "숙소-가격대-저렴",
@@ -13144,7 +13499,11 @@
     ]
   ],
   "super-moon-4857:관광_식당_택시_15-0_0": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -13152,7 +13511,11 @@
     ]
   ],
   "super-moon-4857:관광_식당_택시_15-1_1": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -13161,7 +13524,11 @@
     ]
   ],
   "super-moon-4857:관광_식당_택시_15-2_2": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -13174,7 +13541,11 @@
     ]
   ],
   "super-moon-4857:관광_식당_택시_15-3_3": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -13191,7 +13562,11 @@
     ]
   ],
   "super-moon-4857:관광_식당_택시_15-4_4": [
-    [],
+    [
+      "관광-이름-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -13389,7 +13764,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-3_3": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -13402,7 +13780,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-4_4": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -13417,7 +13798,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-5_5": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -13433,7 +13817,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-6_6": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -13453,7 +13840,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-7_7": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -13473,7 +13863,10 @@
     ]
   ],
   "divine-breeze-3623:숙소_식당_2-8_8": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-모텔",
@@ -15173,7 +15566,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-2_2": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15186,7 +15581,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-3_3": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15199,7 +15596,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-4_4": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15214,7 +15613,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-5_5": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15230,7 +15631,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-6_6": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15250,7 +15653,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-7_7": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -15270,7 +15675,9 @@
     ]
   ],
   "plain-band-3195:숙소_식당_2-8_8": [
-    [],
+    [
+      "숙소-이름-5 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -16934,7 +17341,9 @@
     ]
   ],
   "wild-firefly-7625:관광_숙소_9-0_0": [
-    [],
+    [
+      "관광-종류-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 동쪽",
@@ -16942,7 +17351,9 @@
     ]
   ],
   "wild-firefly-7625:관광_숙소_9-1_1": [
-    [],
+    [
+      "관광-종류-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 동쪽",
@@ -16955,7 +17366,11 @@
     ]
   ],
   "wild-firefly-7625:관광_숙소_9-2_2": [
-    [],
+    [
+      "관광-종류-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 동쪽",
@@ -16973,7 +17388,11 @@
     ]
   ],
   "wild-firefly-7625:관광_숙소_9-3_3": [
-    [],
+    [
+      "관광-종류-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 동쪽",
@@ -16992,7 +17411,11 @@
     ]
   ],
   "wild-firefly-7625:관광_숙소_9-4_4": [
-    [],
+    [
+      "관광-종류-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 동쪽",
@@ -18563,7 +18986,9 @@
     ]
   ],
   "lingering-sunset-8152:숙소_27-1_1": [
-    [],
+    [
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호텔",
@@ -18576,7 +19001,9 @@
     ]
   ],
   "lingering-sunset-8152:숙소_27-2_2": [
-    [],
+    [
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호텔",
@@ -18589,7 +19016,9 @@
     ]
   ],
   "lingering-sunset-8152:숙소_27-3_3": [
-    [],
+    [
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호텔",
@@ -19230,14 +19659,18 @@
     ]
   ],
   "aged-band-6073:관광_3-0_0": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-경치 좋은-yes"
     ]
   ],
   "aged-band-6073:관광_3-1_1": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -19245,7 +19678,9 @@
     ]
   ],
   "aged-band-6073:관광_3-2_2": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -19253,7 +19688,9 @@
     ]
   ],
   "aged-band-6073:관광_3-3_3": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -19262,7 +19699,9 @@
     ]
   ],
   "aged-band-6073:관광_3-4_4": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -19271,7 +19710,9 @@
     ]
   ],
   "aged-band-6073:관광_3-5_5": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -19280,7 +19721,9 @@
     ]
   ],
   "aged-band-6073:관광_3-6_6": [
-    [],
+    [
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -21559,7 +22002,10 @@
     ]
   ],
   "sweet-dew-9081:숙소_택시_10-2_2": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -21573,7 +22019,10 @@
     ]
   ],
   "sweet-dew-9081:숙소_택시_10-3_3": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -21587,7 +22036,10 @@
     ]
   ],
   "sweet-dew-9081:숙소_택시_10-4_4": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -21605,7 +22057,10 @@
     ]
   ],
   "sweet-dew-9081:숙소_택시_10-5_5": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -21623,7 +22078,10 @@
     ]
   ],
   "sweet-dew-9081:숙소_택시_10-6_6": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -21810,7 +22268,9 @@
     ]
   ],
   "silent-moon-3762:숙소_택시_7-3_3": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -21823,7 +22283,9 @@
     ]
   ],
   "silent-moon-3762:숙소_택시_7-4_4": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -21838,7 +22300,9 @@
     ]
   ],
   "silent-moon-3762:숙소_택시_7-5_5": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -21856,7 +22320,9 @@
     ]
   ],
   "silent-moon-3762:숙소_택시_7-6_6": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22325,7 +22791,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-1_1": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22337,7 +22806,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-2_2": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22349,7 +22821,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-3_3": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22364,7 +22839,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-4_4": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22383,7 +22861,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-5_5": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22402,7 +22883,10 @@
     ]
   ],
   "lucky-snow-7718:숙소_식당_12-6_6": [
-    [],
+    [
+      "관광-종류-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -22868,7 +23352,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-2_2": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -22881,7 +23367,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-3_3": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -22894,7 +23382,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-4_4": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -22910,7 +23400,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-5_5": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -22927,7 +23419,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-6_6": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -22948,7 +23442,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-7_7": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -22970,7 +23466,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-8_8": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -22992,7 +23490,9 @@
     ]
   ],
   "dark-waterfall-5512:숙소_관광_택시_13-9_9": [
-    [],
+    [
+      "숙소-스파 유무-3 [UNK] 한옥일 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -23413,7 +23913,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-2_2": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호스텔",
@@ -23426,7 +23929,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-3_3": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호스텔",
@@ -23439,7 +23945,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-4_4": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -23455,7 +23964,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-5_5": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -23472,7 +23984,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-6_6": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-강남역",
       "지하철-도착지-이태원역",
@@ -23491,7 +24006,10 @@
     ]
   ],
   "wandering-cell-6616:숙소_관광_지하철_10-7_7": [
-    [],
+    [
+      "숙소-예약 요일-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-2 [UNK] 스위스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-강남역",
       "지하철-도착지-이태원역",
@@ -23744,7 +24262,10 @@
     ]
   ],
   "rapid-river-3541:관광_숙소_8-3_3": [
-    [],
+    [
+      "숙소-수영장 유무-5 [UNK]원성원 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK]원 [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -23757,7 +24278,10 @@
     ]
   ],
   "rapid-river-3541:관광_숙소_8-4_4": [
-    [],
+    [
+      "숙소-수영장 유무-5 [UNK]원성원 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK]원 [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -23770,7 +24294,10 @@
     ]
   ],
   "rapid-river-3541:관광_숙소_8-5_5": [
-    [],
+    [
+      "숙소-수영장 유무-5 [UNK]원성원 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK]원 [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -24308,7 +24835,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-1_1": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24320,7 +24850,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-2_2": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24332,7 +24865,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-3_3": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24347,7 +24883,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-4_4": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24366,7 +24905,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-5_5": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24385,7 +24927,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-6_6": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24409,7 +24954,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-7_7": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -24433,7 +24981,10 @@
     ]
   ],
   "rapid-band-5341:숙소_식당_택시_1-8_8": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-호스텔",
@@ -26085,7 +26636,10 @@
     ]
   ],
   "holy-paper-3981:관광_식당_택시_15-0_0": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -26093,7 +26647,10 @@
     ]
   ],
   "holy-paper-3981:관광_식당_택시_15-1_1": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -26102,7 +26659,10 @@
     ]
   ],
   "holy-paper-3981:관광_식당_택시_15-2_2": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -26115,7 +26675,11 @@
     ]
   ],
   "holy-paper-3981:관광_식당_택시_15-3_3": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "택시-출발지-고급 :철 [UNK]식식 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -26132,7 +26696,11 @@
     ]
   ],
   "holy-paper-3981:관광_식당_택시_15-4_4": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "택시-출발지-고급 :철 [UNK]식식 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -27085,7 +27653,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-0_0": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -27093,7 +27666,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-1_1": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -27102,7 +27680,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-2_2": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -27115,7 +27698,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-3_3": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -27132,7 +27720,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-4_4": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-서울숲역",
       "지하철-도착지-용산역",
@@ -27151,7 +27744,12 @@
     ]
   ],
   "autumn-frog-6821:관광_식당_지하철_12-5_5": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-서울숲역",
       "지하철-도착지-용산역",
@@ -28304,7 +28902,9 @@
     ]
   ],
   "nameless-glitter-9288:식당_관광_택시_15-3_3": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -28315,7 +28915,9 @@
     ]
   ],
   "nameless-glitter-9288:식당_관광_택시_15-4_4": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -28327,7 +28929,9 @@
     ]
   ],
   "nameless-glitter-9288:식당_관광_택시_15-5_5": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -28342,7 +28946,9 @@
     ]
   ],
   "nameless-glitter-9288:식당_관광_택시_15-6_6": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -28358,7 +28964,9 @@
     ]
   ],
   "nameless-glitter-9288:식당_관광_택시_15-7_7": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 중앙",
@@ -28902,7 +29510,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-2_2": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -28916,7 +29527,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-3_3": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -28930,7 +29544,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-4_4": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -28946,7 +29563,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-5_5": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -28965,7 +29585,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-6_6": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -28984,7 +29607,10 @@
     ]
   ],
   "falling-feather-0024:숙소_택시_12-7_7": [
-    [],
+    [
+      "숙소-가격대-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-모텔",
@@ -30940,7 +31566,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-1_1": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -30952,7 +31583,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-2_2": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -30965,7 +31601,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-3_3": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -30981,7 +31622,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-4_4": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -31001,7 +31647,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-5_5": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -31021,7 +31672,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-6_6": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -31041,7 +31697,12 @@
     ]
   ],
   "dry-glade-7762:숙소_관광_식당_12-7_7": [
-    [],
+    [
+      "숙소-도보 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-목요일 [UNK] [UNK] [UNK] [UNK] 파크 [UNK] [UNK] [UNK]",
+      "숙소-이름-파크 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-남산 공원",
       "숙소-가격대-비싼",
@@ -31323,7 +31984,9 @@
     ]
   ],
   "floral-boat-7599:식당_관광_지하철_15-3_3": [
-    [],
+    [
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -31337,7 +32000,9 @@
     ]
   ],
   "floral-boat-7599:식당_관광_지하철_15-4_4": [
-    [],
+    [
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -31352,7 +32017,9 @@
     ]
   ],
   "floral-boat-7599:식당_관광_지하철_15-5_5": [
-    [],
+    [
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-잠실역",
       "지하철-도착지-용산역",
@@ -31369,7 +32036,9 @@
     ]
   ],
   "floral-boat-7599:식당_관광_지하철_15-6_6": [
-    [],
+    [
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-잠실역",
       "지하철-도착지-용산역",
@@ -31585,7 +32254,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-5_5": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -31605,7 +32276,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-6_6": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 서쪽",
@@ -31627,7 +32300,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-7_7": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -31650,7 +32325,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-8_8": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -31674,7 +32351,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-9_9": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -31698,7 +32377,9 @@
     ]
   ],
   "noisy-forest-7792:식당_숙소_관광_21-10_10": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK]엔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -32126,7 +32807,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-0_0": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32134,7 +32817,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-1_1": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32146,7 +32831,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-2_2": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32162,7 +32849,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-3_3": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32182,7 +32871,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-4_4": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32206,7 +32897,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-5_5": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32230,7 +32923,9 @@
     ]
   ],
   "spring-leaf-1959:관광_숙소_식당_10-6_6": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -32449,7 +33144,10 @@
     ]
   ],
   "still-leaf-0261:숙소_6-2_2": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -32462,7 +33160,10 @@
     ]
   ],
   "still-leaf-0261:숙소_6-3_3": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -32475,7 +33176,10 @@
     ]
   ],
   "still-leaf-0261:숙소_6-4_4": [
-    [],
+    [
+      "숙소-예약 기간-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-8 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -32520,7 +33224,10 @@
     ]
   ],
   "purple-fog-2799:숙소_30-4_4": [
-    [],
+    [
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -32535,7 +33242,10 @@
     ]
   ],
   "purple-fog-2799:숙소_30-5_5": [
-    [],
+    [
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -32550,7 +33260,10 @@
     ]
   ],
   "purple-fog-2799:숙소_30-6_6": [
-    [],
+    [
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -32565,7 +33278,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-0_0": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 명수-3",
@@ -32574,7 +33290,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-1_1": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 명수-3",
@@ -32583,7 +33302,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-2_2": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-일요일",
       "숙소-예약 명수-3",
@@ -32592,7 +33314,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-3_3": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-지역-서울 북쪽",
       "숙소-예약 요일-일요일",
@@ -32602,7 +33327,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-4_4": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -32613,7 +33341,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-5_5": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -32625,7 +33356,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-6_6": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-경희대학교 서울캠퍼스",
       "숙소-예약 요일-일요일",
@@ -32635,7 +33369,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-7_7": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-경희대학교 서울캠퍼스",
       "숙소-예약 요일-일요일",
@@ -32645,7 +33382,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-8_8": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-경희대학교 서울캠퍼스",
       "숙소-예약 요일-일요일",
@@ -32655,7 +33395,10 @@
     ]
   ],
   "red-paper-5475:숙소_관광_13-9_9": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-경희대학교 서울캠퍼스",
       "숙소-예약 요일-일요일",
@@ -33854,7 +34597,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-2_2": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33867,7 +34613,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-3_3": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33880,7 +34629,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-4_4": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33894,7 +34646,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-5_5": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33910,7 +34665,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-6_6": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33930,7 +34688,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-7_7": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33950,7 +34711,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-8_8": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33970,7 +34734,10 @@
     ]
   ],
   "raspy-morning-9806:숙소_식당_1-9_9": [
-    [],
+    [
+      "숙소-도보 가능-3 [UNK] 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -33990,7 +34757,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-0_0": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-지역-서울 중앙",
       "숙소-예약 요일-월요일",
@@ -33998,7 +34767,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-1_1": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34009,7 +34780,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-2_2": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34021,7 +34794,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-3_3": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-지역-서울 북쪽",
       "숙소-가격대-dontcare",
@@ -34034,7 +34809,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-4_4": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -34049,7 +34826,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-5_5": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -34064,7 +34843,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-6_6": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -34080,7 +34861,9 @@
     ]
   ],
   "cool-poetry-5599:숙소_관광_9-7_7": [
-    [],
+    [
+      "숙소-주차 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 북쪽",
@@ -34363,14 +35146,24 @@
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-0_0": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙"
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-1_1": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -34378,7 +35171,12 @@
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-2_2": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -34390,7 +35188,13 @@
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-3_3": [
-    [],
+    [
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -34406,7 +35210,13 @@
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-4_4": [
-    [],
+    [
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -34422,7 +35232,13 @@
     ]
   ],
   "quiet-bar-8255:관광_숙소_지하철_14-5_5": [
-    [],
+    [
+      "관광-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-이촌역",
       "지하철-도착지-명동역",
@@ -34552,7 +35368,14 @@
     ]
   ],
   "withered-brook-1406:숙소_33-3_3": [
-    [],
+    [
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-9 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-토요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34566,7 +35389,14 @@
     ]
   ],
   "withered-brook-1406:숙소_33-4_4": [
-    [],
+    [
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-9 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-토요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34580,7 +35410,14 @@
     ]
   ],
   "withered-brook-1406:숙소_33-5_5": [
-    [],
+    [
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-9 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-토요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34594,7 +35431,14 @@
     ]
   ],
   "withered-brook-1406:숙소_33-6_6": [
-    [],
+    [
+      "관광-역사적-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-9 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-토요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-정모여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -34626,7 +35470,11 @@
     ]
   ],
   "floral-sea-3295:식당_관광_숙소_12-2_2": [
-    [],
+    [
+      "관광-도보 가능-놀이공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-문화 예술-놀이 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-서울 동쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-놀이공원",
       "관광-지역-dontcare",
@@ -34637,7 +35485,11 @@
     ]
   ],
   "floral-sea-3295:식당_관광_숙소_12-3_3": [
-    [],
+    [
+      "관광-도보 가능-놀이공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-문화 예술-놀이 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-서울 동쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-놀이공원",
       "관광-지역-dontcare",
@@ -34649,7 +35501,11 @@
     ]
   ],
   "floral-sea-3295:식당_관광_숙소_12-4_4": [
-    [],
+    [
+      "관광-도보 가능-놀이공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-문화 예술-놀이 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-서울 동쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-놀이공원",
       "관광-지역-dontcare",
@@ -34665,7 +35521,11 @@
     ]
   ],
   "floral-sea-3295:식당_관광_숙소_12-5_5": [
-    [],
+    [
+      "관광-도보 가능-놀이공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-문화 예술-놀이 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-서울 동쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-놀이공원",
       "관광-지역-dontcare",
@@ -35052,7 +35912,10 @@
     ]
   ],
   "royal-meadow-9360:관광_12-0_0": [
-    [],
+    [
+      "관광-이름-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-랜드마크 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -35060,7 +35923,10 @@
     ]
   ],
   "royal-meadow-9360:관광_12-1_1": [
-    [],
+    [
+      "관광-이름-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-랜드마크 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -35069,7 +35935,10 @@
     ]
   ],
   "royal-meadow-9360:관광_12-2_2": [
-    [],
+    [
+      "관광-이름-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-랜드마크 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36028,7 +36897,9 @@
     ]
   ],
   "broad-forest-9166:식당_관광_숙소_10-8_8": [
-    [],
+    [
+      "관광-주차 가능-3 [UNK]크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -36053,7 +36924,9 @@
     ]
   ],
   "broad-forest-9166:식당_관광_숙소_10-9_9": [
-    [],
+    [
+      "관광-주차 가능-3 [UNK]크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -36078,7 +36951,9 @@
     ]
   ],
   "broad-forest-9166:식당_관광_숙소_10-10_10": [
-    [],
+    [
+      "관광-주차 가능-3 [UNK]크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -36158,7 +37033,11 @@
     ]
   ],
   "soft-sunset-7050:숙소_관광_1-2_2": [
-    [],
+    [
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -36170,7 +37049,11 @@
     ]
   ],
   "soft-sunset-7050:숙소_관광_1-3_3": [
-    [],
+    [
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-에어비엔비",
@@ -36182,7 +37065,11 @@
     ]
   ],
   "soft-sunset-7050:숙소_관광_1-4_4": [
-    [],
+    [
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-롯데월드",
       "숙소-가격대-저렴",
@@ -36195,7 +37082,11 @@
     ]
   ],
   "soft-sunset-7050:숙소_관광_1-5_5": [
-    [],
+    [
+      "숙소-예약 명수-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-이름-롯데월드",
       "숙소-가격대-저렴",
@@ -36718,7 +37609,9 @@
     []
   ],
   "weathered-mode-4026:관광_숙소_10-1_1": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36726,7 +37619,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-2_2": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36735,7 +37630,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-3_3": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36747,7 +37644,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-4_4": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36760,7 +37659,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-5_5": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36777,7 +37678,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-6_6": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -36794,7 +37697,9 @@
     ]
   ],
   "weathered-mode-4026:관광_숙소_10-7_7": [
-    [],
+    [
+      "관광-종류-랜드마크es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -37509,7 +38414,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-5_5": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37525,7 +38432,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-6_6": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37544,7 +38453,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-7_7": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37564,7 +38475,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-8_8": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37584,7 +38497,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-9_9": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37604,7 +38519,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-10_10": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37624,7 +38541,9 @@
     ]
   ],
   "old-grass-2222:관광_숙소_택시_9-11_11": [
-    [],
+    [
+      "숙소-예약 기간-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 남쪽",
@@ -37644,14 +38563,24 @@
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-0_0": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-경치 좋은-yes"
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-1_1": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -37659,7 +38588,12 @@
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-2_2": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -37671,7 +38605,12 @@
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-3_3": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -37684,7 +38623,12 @@
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-4_4": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-명동역",
       "지하철-도착지-이태원역",
@@ -37703,7 +38647,12 @@
     ]
   ],
   "blue-wood-1191:관광_숙소_지하철_12-5_5": [
-    [],
+    [
+      "관광-종류-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-명동역",
       "지하철-도착지-이태원역",
@@ -37974,7 +38923,10 @@
     ]
   ],
   "fragrant-violet-2325:관광_숙소_식당_10-0_0": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -37982,7 +38934,10 @@
     ]
   ],
   "fragrant-violet-2325:관광_숙소_식당_10-1_1": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -37994,7 +38949,10 @@
     ]
   ],
   "fragrant-violet-2325:관광_숙소_식당_10-2_2": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -38014,7 +38972,10 @@
     ]
   ],
   "fragrant-violet-2325:관광_숙소_식당_10-3_3": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -38038,7 +38999,10 @@
     ]
   ],
   "fragrant-violet-2325:관광_숙소_식당_10-4_4": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 서쪽",
@@ -38513,7 +39477,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-2_2": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -38525,7 +39492,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-3_3": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -38540,7 +39510,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-4_4": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -38559,7 +39532,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-5_5": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -38580,7 +39556,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-6_6": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -38602,7 +39581,10 @@
     ]
   ],
   "calm-field-5134:숙소_식당_관광_15-7_7": [
-    [],
+    [
+      "숙소-예약 요일-4 [UNK]게일 [UNK]일 [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -40043,7 +41025,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-0_0": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40051,7 +41035,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-1_1": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40060,7 +41046,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-2_2": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40072,7 +41060,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-3_3": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40085,7 +41075,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-4_4": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40102,7 +41094,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-5_5": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40119,7 +41113,9 @@
     ]
   ],
   "wild-dream-1285:관광_숙소_10-6_6": [
-    [],
+    [
+      "관광-주차 가능-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 북쪽",
@@ -40634,14 +41630,18 @@
     []
   ],
   "polished-credit-1800:관광_9-1_1": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙"
     ]
   ],
   "polished-credit-1800:관광_9-2_2": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -40649,7 +41649,9 @@
     ]
   ],
   "polished-credit-1800:관광_9-3_3": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -40657,7 +41659,9 @@
     ]
   ],
   "polished-credit-1800:관광_9-4_4": [
-    [],
+    [
+      "관광-역사적-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -40825,7 +41829,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-0_0": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40833,7 +41843,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-1_1": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40842,7 +41858,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-2_2": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40854,7 +41876,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-3_3": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40870,7 +41898,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-4_4": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40890,7 +41924,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-5_5": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40914,7 +41954,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-6_6": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40938,7 +41984,13 @@
     ]
   ],
   "wild-water-8390:관광_식당_숙소_14-7_7": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -40977,7 +42029,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-2_2": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -40989,7 +42044,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-3_3": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -41001,7 +42059,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-4_4": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -41015,7 +42076,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-5_5": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -41030,7 +42094,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-6_6": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -41049,7 +42116,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-7_7": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -41068,7 +42138,10 @@
     ]
   ],
   "quiet-wildflower-0674:숙소_식당_12-8_8": [
-    [],
+    [
+      "숙소-예약 명수-5 [UNK]게 [UNK]일 [UNK] [UNK] [UNK] [UNK]",
+      "숙소-이름-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -42462,7 +43535,11 @@
     ]
   ],
   "noisy-flower-2650:숙소_31-3_3": [
-    [],
+    [
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-조식 가능-목요일 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -42475,7 +43552,11 @@
     ]
   ],
   "noisy-flower-2650:숙소_31-4_4": [
-    [],
+    [
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-조식 가능-목요일 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -42488,7 +43569,11 @@
     ]
   ],
   "noisy-flower-2650:숙소_31-5_5": [
-    [],
+    [
+      "숙소-이름-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-조식 가능-목요일 [UNK]여 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -42543,7 +43628,11 @@
     ]
   ],
   "dawn-recipe-6796:식당_관광_10-4_4": [
-    [],
+    [
+      "관광-역사적-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]",
+      "관광-종류-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -42558,7 +43647,11 @@
     ]
   ],
   "dawn-recipe-6796:식당_관광_10-5_5": [
-    [],
+    [
+      "관광-역사적-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]",
+      "관광-종류-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -42574,7 +43667,11 @@
     ]
   ],
   "dawn-recipe-6796:식당_관광_10-6_6": [
-    [],
+    [
+      "관광-역사적-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]",
+      "관광-종류-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -42590,7 +43687,11 @@
     ]
   ],
   "dawn-recipe-6796:식당_관광_10-7_7": [
-    [],
+    [
+      "관광-역사적-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]",
+      "관광-종류-공원 동쪽 [UNK] [UNK] [UNK] 동쪽 [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 동쪽",
@@ -43684,14 +44785,20 @@
     []
   ],
   "dry-heart-8710:관광_숙소_지하철_14-1_1": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽"
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-2_2": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -43699,7 +44806,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-3_3": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -43708,7 +44818,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-4_4": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -43719,7 +44832,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-5_5": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -43731,7 +44847,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-6_6": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 북쪽",
@@ -43747,7 +44866,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-7_7": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-종각역",
       "지하철-도착지-사당역",
@@ -43765,7 +44887,10 @@
     ]
   ],
   "dry-heart-8710:관광_숙소_지하철_14-8_8": [
-    [],
+    [
+      "관광-문화 예술-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-역사적-공원 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-종각역",
       "지하철-도착지-사당역",
@@ -45667,14 +46792,18 @@
     ]
   ],
   "soft-wind-0672:관광_9-0_0": [
-    [],
+    [
+      "숙소-가격대-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙"
     ]
   ],
   "soft-wind-0672:관광_9-1_1": [
-    [],
+    [
+      "숙소-가격대-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -45682,7 +46811,9 @@
     ]
   ],
   "soft-wind-0672:관광_9-2_2": [
-    [],
+    [
+      "숙소-가격대-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -45690,7 +46821,9 @@
     ]
   ],
   "soft-wind-0672:관광_9-3_3": [
-    [],
+    [
+      "숙소-가격대-랜드마크 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 중앙",
@@ -45958,7 +47091,11 @@
     ]
   ],
   "noisy-frost-8441:숙소_27-2_2": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-포레스트 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -45971,7 +47108,11 @@
     ]
   ],
   "noisy-frost-8441:숙소_27-3_3": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-포레스트 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -45984,7 +47125,11 @@
     ]
   ],
   "noisy-frost-8441:숙소_27-4_4": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-포레스트 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -45997,14 +47142,20 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-0_0": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽"
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-1_1": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽",
@@ -46012,7 +47163,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-2_2": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽",
@@ -46020,7 +47174,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-3_3": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽",
@@ -46032,7 +47189,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-4_4": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽",
@@ -46045,7 +47205,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-5_5": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 북쪽",
@@ -46061,7 +47224,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-6_6": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-종로5가역",
       "지하철-도착지-노량진역",
@@ -46079,7 +47245,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-7_7": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-종로5가역",
       "지하철-도착지-노량진역",
@@ -46097,7 +47266,10 @@
     ]
   ],
   "shrill-band-4128:관광_숙소_지하철_15-8_8": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-종로5가역",
       "지하철-도착지-노량진역",
@@ -47479,7 +48651,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-1_1": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -47491,7 +48666,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-2_2": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -47505,7 +48683,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-3_3": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -47520,7 +48701,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-4_4": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -47539,7 +48723,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-5_5": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -47558,7 +48745,10 @@
     ]
   ],
   "frosty-morning-1142:숙소_식당_12-6_6": [
-    [],
+    [
+      "숙소-예약 명수-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-저렴",
       "숙소-종류-dontcare",
@@ -49184,7 +50374,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-0_0": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49192,7 +50388,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-1_1": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49201,7 +50403,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-2_2": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49213,7 +50421,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-3_3": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49229,7 +50443,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-4_4": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49245,7 +50465,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-5_5": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49265,7 +50491,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-6_6": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -49289,7 +50521,13 @@
     ]
   ],
   "divine-shape-1322:관광_식당_숙소_14-7_7": [
-    [],
+    [
+      "관광-역사적-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-박물관 북쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -50214,7 +51452,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-3_3": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -50228,7 +51469,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-4_4": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -50247,7 +51491,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-5_5": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -50268,7 +51515,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-6_6": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-경치 좋은-yes",
       "숙소-가격대-적당",
@@ -50290,7 +51540,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-7_7": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -50314,7 +51567,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-8_8": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -50339,7 +51595,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-9_9": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -50364,7 +51623,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-10_10": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -50389,7 +51651,10 @@
     ]
   ],
   "spring-violet-5171:숙소_식당_관광_11-11_11": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-dontcare",
@@ -50987,14 +52252,18 @@
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-0_0": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽"
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-1_1": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -51002,7 +52271,9 @@
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-2_2": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 북쪽",
@@ -51010,7 +52281,9 @@
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-3_3": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-잠실역",
       "지하철-도착지-경복궁역",
@@ -51020,7 +52293,9 @@
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-4_4": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-잠실역",
       "지하철-도착지-경복궁역",
@@ -51031,7 +52306,9 @@
     ]
   ],
   "cool-cherry-5398:관광_지하철_4-5_5": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-잠실역",
       "지하철-도착지-경복궁역",
@@ -52377,7 +53654,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-4_4": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52396,7 +53678,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-5_5": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52415,7 +53702,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-6_6": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52435,7 +53727,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-7_7": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52459,7 +53756,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-8_8": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52483,7 +53785,12 @@
     ]
   ],
   "still-river-8746:관광_숙소_식당_11-9_9": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-화요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 요일-서운정 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -52667,7 +53974,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-0_0": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-2",
@@ -52676,7 +53985,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-1_1": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-토요일",
       "숙소-예약 명수-2",
@@ -52685,7 +53996,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-2_2": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52696,7 +54009,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-3_3": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52708,7 +54023,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-4_4": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52723,7 +54040,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-5_5": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52742,7 +54061,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-6_6": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52761,7 +54082,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-7_7": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -52780,7 +54103,9 @@
     ]
   ],
   "raspy-art-9630:숙소_관광_식당_13-8_8": [
-    [],
+    [
+      "숙소-인터넷 가능-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -54229,7 +55554,10 @@
     ]
   ],
   "orange-wave-4894:숙소_31-3_3": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -54242,7 +55570,10 @@
     ]
   ],
   "orange-wave-4894:숙소_31-4_4": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -54255,7 +55586,10 @@
     ]
   ],
   "orange-wave-4894:숙소_31-5_5": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -54268,7 +55602,10 @@
     ]
   ],
   "orange-wave-4894:숙소_31-6_6": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-dontcare",
@@ -54319,7 +55656,11 @@
     ]
   ],
   "restless-glitter-2821:관광_숙소_식당_12-4_4": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-프리미어 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -54336,7 +55677,11 @@
     ]
   ],
   "restless-glitter-2821:관광_숙소_식당_12-5_5": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-프리미어 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -54357,7 +55702,11 @@
     ]
   ],
   "restless-glitter-2821:관광_숙소_식당_12-6_6": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-프리미어 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -54382,7 +55731,11 @@
     ]
   ],
   "restless-glitter-2821:관광_숙소_식당_12-7_7": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-프리미어 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -54407,7 +55760,11 @@
     ]
   ],
   "restless-glitter-2821:관광_숙소_식당_12-8_8": [
-    [],
+    [
+      "숙소-스파 유무-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-프리미어 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-dontcare",
       "관광-지역-서울 중앙",
@@ -54488,7 +55845,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-0_0": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54496,7 +55855,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-1_1": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54505,7 +55866,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-2_2": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54519,7 +55882,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-3_3": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54533,7 +55898,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-4_4": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54547,7 +55914,9 @@
     ]
   ],
   "shy-glitter-0477:관광_택시_12-5_5": [
-    [],
+    [
+      "관광-이름-박물관 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-dontcare",
@@ -54586,7 +55955,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-3_3": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -54599,7 +55974,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-4_4": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -54613,7 +55994,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-5_5": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -54630,7 +56017,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-6_6": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -54648,7 +56041,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-7_7": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -54666,7 +56065,13 @@
     ]
   ],
   "little-sun-2786:숙소_택시_8-8_8": [
-    [],
+    [
+      "관광-주차 가능-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-6 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-수요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-나이스 호텔 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-나이스 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -55505,7 +56910,13 @@
     ]
   ],
   "wispy-snow-4660:관광_숙소_식당_11-4_4": [
-    [],
+    [
+      "숙소-가격대-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-스노우 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-스노우 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -55521,7 +56932,13 @@
     ]
   ],
   "wispy-snow-4660:관광_숙소_식당_11-5_5": [
-    [],
+    [
+      "숙소-가격대-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-스노우 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-스노우 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -55540,7 +56957,13 @@
     ]
   ],
   "wispy-snow-4660:관광_숙소_식당_11-6_6": [
-    [],
+    [
+      "숙소-가격대-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-스노우 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-스노우 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -55562,7 +56985,13 @@
     ]
   ],
   "wispy-snow-4660:관광_숙소_식당_11-7_7": [
-    [],
+    [
+      "숙소-가격대-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-스노우 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-스노우 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -55586,7 +57015,13 @@
     ]
   ],
   "wispy-snow-4660:관광_숙소_식당_11-8_8": [
-    [],
+    [
+      "숙소-가격대-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-도보 가능-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-수영장 유무-금요일 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-스노우 서울 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-스노우 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-dontcare",
@@ -55675,7 +57110,9 @@
     ]
   ],
   "snowy-sunset-8927:식당_숙소_지하철_11-5_5": [
-    [],
+    [
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-에어비엔비",
@@ -55696,7 +57133,9 @@
     ]
   ],
   "snowy-sunset-8927:식당_숙소_지하철_11-6_6": [
-    [],
+    [
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-에어비엔비",
@@ -55717,7 +57156,9 @@
     ]
   ],
   "snowy-sunset-8927:식당_숙소_지하철_11-7_7": [
-    [],
+    [
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-올림픽공원역",
       "지하철-도착지-월드컵경기장역",
@@ -55740,7 +57181,9 @@
     ]
   ],
   "snowy-sunset-8927:식당_숙소_지하철_11-8_8": [
-    [],
+    [
+      "숙소-예약 명수-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-올림픽공원역",
       "지하철-도착지-월드컵경기장역",
@@ -56591,7 +58034,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-0_0": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -56600,7 +58045,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-1_1": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-예약 요일-금요일",
       "숙소-예약 명수-5",
@@ -56609,7 +58056,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-2_2": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -56620,7 +58069,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-3_3": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -56632,7 +58083,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-4_4": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -56647,7 +58100,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-5_5": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -56666,7 +58121,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-6_6": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -56685,7 +58142,9 @@
     ]
   ],
   "aged-dew-4868:숙소_관광_식당_15-7_7": [
-    [],
+    [
+      "숙소-흡연 가능-5 [UNK]경 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 남쪽",
@@ -58235,7 +59694,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-2_2": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-호텔",
@@ -58248,7 +59710,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-3_3": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58263,7 +59728,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-4_4": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58279,7 +59747,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-5_5": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58298,7 +59769,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-6_6": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58318,7 +59792,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-7_7": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58338,7 +59815,10 @@
     ]
   ],
   "mute-smoke-0484:숙소_관광_택시_14-8_8": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-박물관",
       "관광-지역-서울 중앙",
@@ -58358,14 +59838,22 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-0_0": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽"
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-1_1": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -58373,7 +59861,11 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-2_2": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -58384,7 +59876,11 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-3_3": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -58396,7 +59892,11 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-4_4": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 서쪽",
@@ -58412,7 +59912,11 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-5_5": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-노량진역",
       "지하철-도착지-월드컵경기장역",
@@ -58430,7 +59934,11 @@
     ]
   ],
   "orange-bird-9875:관광_숙소_지하철_15-6_6": [
-    [],
+    [
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-서울 서쪽 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-노량진역",
       "지하철-도착지-월드컵경기장역",
@@ -58573,7 +60081,11 @@
     ]
   ],
   "calm-mouse-5563:숙소_31-3_3": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-5 [UNK]탑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-월요일 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -58586,7 +60098,11 @@
     ]
   ],
   "calm-mouse-5563:숙소_31-4_4": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-5 [UNK]탑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-월요일 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -58599,7 +60115,11 @@
     ]
   ],
   "calm-mouse-5563:숙소_31-5_5": [
-    [],
+    [
+      "숙소-스파 유무-5 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 기간-5 [UNK]탑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-예약 명수-월요일 [UNK]탑방 [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -59668,28 +61188,40 @@
     []
   ],
   "small-math-4393:관광_식당_10-1_1": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 중앙"
     ]
   ],
   "small-math-4393:관광_식당_10-2_2": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽"
     ]
   ],
   "small-math-4393:관광_식당_10-3_3": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽"
     ]
   ],
   "small-math-4393:관광_식당_10-4_4": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽",
@@ -59698,7 +61230,10 @@
     ]
   ],
   "small-math-4393:관광_식당_10-5_5": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽",
@@ -59708,7 +61243,10 @@
     ]
   ],
   "small-math-4393:관광_식당_10-6_6": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽",
@@ -59722,7 +61260,10 @@
     ]
   ],
   "small-math-4393:관광_식당_10-7_7": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽",
@@ -59736,7 +61277,10 @@
     ]
   ],
   "small-math-4393:관광_식당_10-8_8": [
-    [],
+    [
+      "관광-역사적-yes [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-서울 자료 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-여행자 자료",
       "관광-지역-서울 남쪽",
@@ -60598,7 +62142,9 @@
     ]
   ],
   "bitter-disk-9928:식당_택시_11-4_4": [
-    [],
+    [
+      "택시-출발 시간-06:00 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-dontcare",
       "식당-지역-서울 서쪽",
@@ -60614,7 +62160,9 @@
     ]
   ],
   "bitter-disk-9928:식당_택시_11-5_5": [
-    [],
+    [
+      "택시-출발 시간-06:00 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-dontcare",
       "식당-지역-서울 서쪽",
@@ -60630,7 +62178,9 @@
     ]
   ],
   "bitter-disk-9928:식당_택시_11-6_6": [
-    [],
+    [
+      "택시-출발 시간-06:00 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "식당-가격대-dontcare",
       "식당-지역-서울 서쪽",
@@ -61390,7 +62940,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-2_2": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-에어비엔비",
@@ -61402,7 +62954,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-3_3": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-에어비엔비",
@@ -61417,7 +62971,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-4_4": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-에어비엔비",
@@ -61436,7 +62992,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-5_5": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -61457,7 +63015,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-6_6": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -61479,7 +63039,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-7_7": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -61501,7 +63063,9 @@
     ]
   ],
   "patient-bush-2932:숙소_식당_관광_14-8_8": [
-    [],
+    [
+      "숙소-수영장 유무-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-랜드마크",
       "관광-지역-서울 서쪽",
@@ -61672,14 +63236,24 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-0_0": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙"
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-1_1": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -61687,7 +63261,12 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-2_2": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -61698,7 +63277,12 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-3_3": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -61712,7 +63296,12 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-4_4": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 중앙",
@@ -61728,7 +63317,12 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-5_5": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-신답역",
       "지하철-도착지-노원역",
@@ -61746,7 +63340,12 @@
     ]
   ],
   "ancient-limit-0740:관광_숙소_지하철_15-6_6": [
-    [],
+    [
+      "관광-이름-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-종류-쇼핑 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-지역-서울 중앙 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "지하철-출발지-신답역",
       "지하철-도착지-노원역",
@@ -62448,7 +64047,10 @@
     ]
   ],
   "shiny-grass-0151:숙소_택시_7-3_3": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -62461,7 +64063,10 @@
     ]
   ],
   "shiny-grass-0151:숙소_택시_7-4_4": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -62474,7 +64079,10 @@
     ]
   ],
   "shiny-grass-0151:숙소_택시_7-5_5": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -62492,7 +64100,10 @@
     ]
   ],
   "shiny-grass-0151:숙소_택시_7-6_6": [
-    [],
+    [
+      "관광-종류-3 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-주차 가능-2 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-dontcare",
@@ -62839,7 +64450,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-2_2": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62852,7 +64466,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-3_3": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62865,7 +64482,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-4_4": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62878,7 +64498,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-5_5": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62895,7 +64518,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-6_6": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62912,7 +64538,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-7_7": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-비싼",
       "숙소-종류-호텔",
@@ -62929,7 +64558,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-8_8": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 서쪽",
@@ -62949,7 +64581,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-9_9": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 서쪽",
@@ -62970,7 +64605,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-10_10": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 서쪽",
@@ -62991,7 +64629,10 @@
     ]
   ],
   "noisy-dust-3924:숙소_식당_관광_13-11_11": [
-    [],
+    [
+      "숙소-수영장 유무-4 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-스파 유무-1 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-서울 서쪽",
@@ -63200,7 +64841,10 @@
     ]
   ],
   "billowing-bird-1168:식당_관광_10-3_3": [
-    [],
+    [
+      "관광-종류-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-기타",
       "관광-지역-서울 북쪽",
@@ -63215,7 +64859,10 @@
     ]
   ],
   "billowing-bird-1168:식당_관광_10-4_4": [
-    [],
+    [
+      "관광-종류-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-기타",
       "관광-지역-서울 북쪽",
@@ -63231,7 +64878,10 @@
     ]
   ],
   "billowing-bird-1168:식당_관광_10-5_5": [
-    [],
+    [
+      "관광-종류-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-가격대-기타 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-기타",
       "관광-지역-서울 북쪽",
@@ -64619,7 +66269,10 @@
     ]
   ],
   "divine-haze-3551:숙소_식당_10-3_3": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-3 [UNK] 10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-지역-서울 서쪽",
       "숙소-예약 요일-토요일",
@@ -64635,7 +66288,10 @@
     ]
   ],
   "divine-haze-3551:숙소_식당_10-4_4": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-3 [UNK] 10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -64653,7 +66309,10 @@
     ]
   ],
   "divine-haze-3551:숙소_식당_10-5_5": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-3 [UNK] 10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -64672,7 +66331,10 @@
     ]
   ],
   "divine-haze-3551:숙소_식당_10-6_6": [
-    [],
+    [
+      "숙소-이름-3 [UNK] [UNK]일 [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "숙소-인터넷 가능-3 [UNK] 10 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-dontcare",
       "숙소-종류-dontcare",
@@ -65375,7 +67037,9 @@
     ]
   ],
   "misty-heart-2685:식당_숙소_관광_19-5_5": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -65391,7 +67055,9 @@
     ]
   ],
   "misty-heart-2685:식당_숙소_관광_19-6_6": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "숙소-가격대-적당",
       "숙소-종류-호텔",
@@ -65407,7 +67073,9 @@
     ]
   ],
   "misty-heart-2685:식당_숙소_관광_19-7_7": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -65425,7 +67093,9 @@
     ]
   ],
   "misty-heart-2685:식당_숙소_관광_19-8_8": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -65444,7 +67114,9 @@
     ]
   ],
   "misty-heart-2685:식당_숙소_관광_19-9_9": [
-    [],
+    [
+      "숙소-가격대-5 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-쇼핑",
       "관광-지역-서울 남쪽",
@@ -65588,7 +67260,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-0_0": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65596,7 +67271,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-1_1": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65605,7 +67283,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-2_2": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65617,7 +67298,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-3_3": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65630,7 +67314,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-4_4": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65647,7 +67334,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-5_5": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65664,7 +67354,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-6_6": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65684,7 +67377,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-7_7": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
@@ -65705,7 +67401,10 @@
     ]
   ],
   "nameless-bird-2324:관광_식당_택시_13-8_8": [
-    [],
+    [
+      "관광-역사적-공원es [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]",
+      "관광-이름-공원 [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK] [UNK]"
+    ],
     [
       "관광-종류-공원",
       "관광-지역-dontcare",
