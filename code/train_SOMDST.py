@@ -83,8 +83,8 @@ def train(args):
         domain2id=domain2id
     )
 
-    train_features = preprocessor.convert_examples_to_features(train_examples)
-    dev_features = preprocessor.convert_examples_to_features(dev_examples)
+    train_features = preprocessor.convert_examples_to_features(train_examples, word_dropout=args.word_dropout)
+    dev_features = preprocessor.convert_examples_to_features(dev_examples, word_dropout=0.0)
 
     train_dataset = WOSDataset(features=train_features)
 
@@ -233,7 +233,7 @@ def train(args):
             for learning_rate in dec_scheduler.get_lr():
                 wandb.log({"decoder_learning_rate": learning_rate})
 
-            if step % 20 == 0:
+            if step % 100 == 0:
                 if args.exclude_domain is not True:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}, dom_loss : {loss_d.item():.3f}"

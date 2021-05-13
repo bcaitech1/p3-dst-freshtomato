@@ -306,8 +306,8 @@ class SomDSTPreprocessor(DSTPreprocessor):
         op_ids = torch.LongTensor([f.op_ids for f in batch])
         domain_ids = torch.LongTensor([f.domain_id for f in batch])
         gen_ids = [b.generate_ids for b in batch]
-        max_update = max([len(b) for b in gen_ids])
-        max_value = max([len(b) for b in flatten(gen_ids)])
+        max_update = max([len(b) for b in gen_ids]) # 최대 업데이트 수
+        max_value = max([len(b) for b in flatten(gen_ids)]) # value의 최대 길이
         for bid, b in enumerate(gen_ids):
             n_update = len(b)
             for idx, v in enumerate(b):

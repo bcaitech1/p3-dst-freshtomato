@@ -13,7 +13,7 @@ if __name__ == "__main__":
         type=str,
         # required=True,
         # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
-        default='DST-DEBUG-iloveslowfood',
+        default='DST-iloveslowfood',
         # default='DST-iloveslowfood'
     )
     parser.add_argument(
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         default=1e-4
         )
 
-    parser.add_argument("--adam_epsilon", type=float, default=1e-4)
+    parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--weight_decay", type=float, default=0.01)
@@ -112,10 +112,11 @@ if __name__ == "__main__":
 
     # SOM-DST
     parser.add_argument("--n_history", type=int, default=1)
-    parser.add_argument("--enc_lr", type=float, default=1e-4)
+    parser.add_argument("--enc_lr", type=float, default=4e-5)
     parser.add_argument("--dec_lr", type=float, default=1e-4)
     parser.add_argument("--enc_warmup", type=float, default=0.1)
     parser.add_argument("--dec_warmup", type=float, default=0.1)
+    parser.add_argument("--word_dropout", type=float, default=0.1)
     parser.add_argument("--dropout", type=float, default=0.1)
     parser.add_argument("--op_code", type=str, default='4')
     parser.add_argument("--num_workers", type=int, default=4)
