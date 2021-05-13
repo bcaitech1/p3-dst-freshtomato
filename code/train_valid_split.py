@@ -94,7 +94,7 @@ if __name__ == "__main__":
         help="표본추출할 Dialogue 데이터 경로",
         default="./input/data/train_dataset/train_dials.json",
     )
-    parser.add_argument("--test_size", help="표본추출 비율 설정", default=0.15)
+    parser.add_argument("--test_size", help="표본추출 비율 설정", default=0.1)
     parser.add_argument("--save_dir", help="저장할 디렉토리", default="./preprocessed")
     parser.add_argument("--seed", help="추출 시 고정할 시드값", default=42)
 

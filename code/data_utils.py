@@ -247,8 +247,8 @@ class DSTInputExample:
     """
 
     guid: str
-    context_turns: List[str]
     current_turn: List[str]
+    context_turns: List[str] = None
     label: Optional[List[str]] = None
 
     def to_dict(self):

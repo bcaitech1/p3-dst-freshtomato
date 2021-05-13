@@ -319,7 +319,6 @@ class SUMBT(nn.Module):
             torch.nn.init.constant_(module.bias_hh_l0, 0.0)
 
 
-# class SomDST(ElectraPreTrainedModel):
 class SomDST(BertPreTrainedModel):
     def __init__(
         self,
@@ -400,7 +399,6 @@ class SomDSTEncoder(nn.Module):
         super(SomDSTEncoder, self).__init__()
         self.hidden_size = config.hidden_size  # 인코딩 결과 얻을 hidden size
         self.exclude_domain = exclude_domain  # 제외할 도메인 목록
-        # self.bert = ElectraModel(config) # 인코더로 활용할 pre-trained BERT
         self.bert = BertModel(config)  # 인코더로 활용할 pre-trained BERT
         self.dropout = nn.Dropout(config.dropout)
         self.action_cls = nn.Linear(config.hidden_size, n_op)  # operation clf
@@ -426,11 +424,6 @@ class SomDSTEncoder(nn.Module):
             input_ids, token_type_ids, attention_mask
         )  # 인코딩 결과, |X_t| x hidden_dim
         sequence_output, pooled_output = bert_outputs[:2]  # [?] Sequence_ouptut이 뭐지
-
-        # use electra
-        # sequence_output = bert_outputs[0][:, :, :]
-        # pooled_output = bert_outputs[0][:, 0, :].squeeze()
-
         state_pos = state_positions[:, :, np.newaxis].expand(
             -1, -1, sequence_output.size(-1)
         )  # [?] exand
