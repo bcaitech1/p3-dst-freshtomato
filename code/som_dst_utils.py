@@ -437,7 +437,7 @@ def make_turn_label(slot_meta, last_dialog_state, turn_dialog_state,
                     op_labels[idx] = 'no'
                 else:
                     op_labels[idx] = 'update'
-                    generate_y.append([tokenizer.tokenize(v) + ['[EOS]'], idx])
+                    generate_y.append([tokenizer.tokenize(v) + [tokenizer.eos_token], idx])
             elif vv == v:
                 op_labels[idx] = 'carryover'
         except ValueError:
@@ -452,7 +452,7 @@ def make_turn_label(slot_meta, last_dialog_state, turn_dialog_state,
                     op_labels[idx] = 'delete'
                 else:
                     op_labels[idx] = 'update'
-                    generate_y.append([['[NULL]', '[EOS]'], idx])
+                    generate_y.append([[NULL_TOKEN, tokenizer.eos_token], idx])
         except ValueError:
             continue
     gold_state = [str(k) + '-' + str(v) for k, v in turn_dialog_state.items()]
@@ -483,7 +483,7 @@ def postprocessing(slot_meta, ops, last_dialog_state,
             g = tokenizer.convert_ids_to_tokens(generated[gid])
             gen = []
             for gg in g:
-                if gg == '[EOS]':
+                if gg == tokenizer.eos_token:
                     break
                 gen.append(gg)
             gen = ' '.join(gen).replace(' ##', '')
@@ -492,7 +492,7 @@ def postprocessing(slot_meta, ops, last_dialog_state,
             if gold_gen and gold_gen.get(st) and gold_gen[st] not in ['dontcare']:
                 gen = gold_gen[st]
 
-            if gen == '[NULL]' and last_dialog_state.get(st) and not OP_SET[op_code].get('delete') is not None:
+            if gen == NULL_TOKEN and last_dialog_state.get(st) and not OP_SET[op_code].get('delete') is not None:
                 last_dialog_state.pop(st)
             else:
                 last_dialog_state[st] = gen
