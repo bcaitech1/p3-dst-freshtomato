@@ -251,7 +251,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     id2domain = {v: k for k, v in domain2id.items()}
 
     slot_turn_acc, joint_acc, slot_F1_pred, slot_F1_count = 0, 0, 0, 0
-    # final_joint_acc, final_count, final_slot_F1_pred, final_slot_F1_count = 0, 0, 0, 0
+    final_joint_acc, final_count, final_slot_F1_pred, final_slot_F1_count = 0, 0, 0, 0
     op_acc, op_F1, op_F1_count = 0, {k: 0 for k in op2id}, {k: 0 for k in op2id}
     all_op_F1_count = {k: 0 for k in op2id}
 
@@ -262,7 +262,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     results = {}
     last_dialog_state = {}
     wall_times = []
-    for feature in tqdm(test_features, desc='[Inferencing for evaluation]'):
+    for feature in tqdm(test_features, desc='[Evaluation]'):
         if feature.turn_id == 0:
             last_dialog_state = {}
 
@@ -273,13 +273,19 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
             last_dialog_state = deepcopy(feature.gold_p_state)
             feature.last_dialog_state = deepcopy(last_dialog_state)
 
-        input_ids = torch.LongTensor([feature.input_ids]).to(device)
-        input_mask = torch.LongTensor([feature.input_masks]).to(device)
-        segment_ids = torch.LongTensor([feature.segment_ids]).to(device)
-        state_position_ids = torch.LongTensor([feature.slot_positions]).to(device)
+        input_ids = torch.LongTensor([feature.input_id]).to(device)
+        input_mask = torch.LongTensor([feature.input_mask]).to(device)
+        segment_ids = torch.LongTensor([feature.segment_id]).to(device)
+        state_position_ids = torch.LongTensor([feature.slot_position]).to(device)
 
-        d_gold_op, _, _ = make_turn_label(slot_meta, last_dialog_state, feature.gold_state,
-                                          tokenizer, op_code, dynamic=True)
+        d_gold_op, _, _ = make_turn_label(
+            slot_meta=slot_meta, 
+            last_dialog_state=last_dialog_state,
+            turn_dialog_state=feature.gold_state,
+            tokenizer=tokenizer, 
+            op_code=op_code, 
+            dynamic=True
+            )
         gold_op_ids = torch.LongTensor([d_gold_op]).to(device) # operation 레이블
 
         start = time.perf_counter()
@@ -342,12 +348,12 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
         temp_acc = sum([1 if p == g else 0 for p, g in zip(pred_ops, gold_ops)]) / len(pred_ops)
         op_acc += temp_acc
 
-        # if feature.is_last_turn:
-        #     final_count += 1
-        #     if set(pred_state) == set(feature.gold_state):
-        #         final_joint_acc += 1
-        #     final_slot_F1_pred += temp_f1
-        #     final_slot_F1_count += count
+        if feature.is_last_turn:
+            final_count += 1
+            if set(pred_state) == set(feature.gold_state):
+                final_joint_acc += 1
+            final_slot_F1_pred += temp_f1
+            final_slot_F1_count += count
 
         # Compute operation F1 score
         for p, g in zip(pred_ops, gold_ops):
@@ -363,8 +369,8 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     turn_acc_score = slot_turn_acc / len(test_features)
     slot_F1_score = slot_F1_pred / slot_F1_count
     op_acc_score = op_acc / len(test_features)
-    # final_joint_acc_score = final_joint_acc / final_count
-    # final_slot_F1_score = final_slot_F1_pred / final_slot_F1_count
+    final_joint_acc_score = final_joint_acc / final_count
+    final_slot_F1_score = final_slot_F1_pred / final_slot_F1_count
     latency = np.mean(wall_times) * 1000
     op_F1_score = {}
     for k in op2id.keys():
@@ -377,7 +383,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
         op_F1_score[k] = F1
 
     print("------------------------------")
-    # print(f'op_code: {op_code}, is_gt_op: {str(is_gt_op)}, is_gt_p_state: {str(is_gt_p_state)}, is_gt_gen: {str(is_gt_gen)}')
+    print(f'op_code: {op_code}, is_gt_op: {str(is_gt_op)}, is_gt_p_state: {str(is_gt_p_state)}, is_gt_gen: {str(is_gt_gen)}')
     print(f"Epoch {epoch} joint accuracy : {joint_acc_score:.4f}")
     print(f"Epoch {epoch} slot turn accuracy : {turn_acc_score:.4f}")
     print(f"Epoch {epoch} slot turn F1: {slot_F1_score:.4f}")
@@ -385,8 +391,8 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     print(f"Epoch {epoch} op F1 : {op_F1_score}")
     print(f"Epoch {epoch} op hit count : {op_F1_count}")
     print(f"Epoch {epoch} op all count : {all_op_F1_count}")
-    # print("Final Joint Accuracy : ", final_joint_acc_score)
-    # print("Final slot turn F1 : ", final_slot_F1_score)
+    print("Final Joint Accuracy : ", final_joint_acc_score)
+    print("Final slot turn F1 : ", final_slot_F1_score)
     print(f"Latency Per Prediction : {latency:.4f} ms")
     print("-----------------------------\n")
     save_json(f'preds_{epoch}.json', results)
@@ -400,65 +406,58 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
     return scores
 
 
-def make_turn_label(
-    slot_meta,
-    last_dialog_state,
-    turn_dialog_state, # {'hotel-area': 'east', 'hotel-stars': '4'}의 {'도메인-슬릇': '밸류'} 꼴
-    tokenizer,
-    op_code="4",
-    dynamic=False,
-):
-    last_dialog_state_dict = convert_state_dict(last_dialog_state)
-    turn_dialog_state_dict = convert_state_dict(turn_dialog_state)
+def make_turn_label(slot_meta, last_dialog_state, turn_dialog_state,
+                    tokenizer, op_code='4', dynamic=False):
+    if dynamic:
+        gold_state = turn_dialog_state
+        turn_dialog_state = {}
+        for x in gold_state:
+            s = x.split('-')
+            k = '-'.join(s[:2])
+            turn_dialog_state[k] = s[2]
 
-    op_labels = ["carryover"] * len(slot_meta)  # 일단 carryover이 디폴트
+    op_labels = ['carryover'] * len(slot_meta)
     generate_y = []
-
-    keys = list(turn_dialog_state_dict.keys())
-
-    # turn 내 DS의 각 '도메인-슬릇'에 대해 iterate
+    keys = list(turn_dialog_state.keys())
     for k in keys:
-        v = turn_dialog_state_dict[k]  # value(ground truth)
-
-        # value가 none인 경우, operation 레이블링에서 제외
-        if v == "none":
-            turn_dialog_state_dict.pop(k)
+        v = turn_dialog_state[k]
+        if v == 'none':
+            turn_dialog_state.pop(k)
             continue
-        vv = last_dialog_state_dict.get(k)
+        vv = last_dialog_state.get(k)
         try:
             idx = slot_meta.index(k)
             if vv != v:
-                if v == "dontcare" and OP_SET[op_code].get("dontcare") is not None:
-                    op_labels[idx] = "dontcare"
-                elif v == "yes" and OP_SET[op_code].get("yes") is not None:
-                    op_labels[idx] = "yes"
-                elif v == "no" and OP_SET[op_code].get("no") is not None:
-                    op_labels[idx] = "no"
+                if v == 'dontcare' and OP_SET[op_code].get('dontcare') is not None:
+                    op_labels[idx] = 'dontcare'
+                elif v == 'yes' and OP_SET[op_code].get('yes') is not None:
+                    op_labels[idx] = 'yes'
+                elif v == 'no' and OP_SET[op_code].get('no') is not None:
+                    op_labels[idx] = 'no'
                 else:
-                    op_labels[idx] = "update"
-                    generate_y.append([tokenizer.tokenize(v) + ["[EOS]"], idx])
+                    op_labels[idx] = 'update'
+                    generate_y.append([tokenizer.tokenize(v) + ['[EOS]'], idx])
             elif vv == v:
-                op_labels[idx] = "carryover"
+                op_labels[idx] = 'carryover'
         except ValueError:
             continue
 
-    for k, v in last_dialog_state_dict.items():
-        vv = turn_dialog_state_dict.get(k)
+    for k, v in last_dialog_state.items():
+        vv = turn_dialog_state.get(k)
         try:
             idx = slot_meta.index(k)
             if vv is None:
-                if OP_SET[op_code].get("delete") is not None:
-                    op_labels[idx] = "delete"
+                if OP_SET[op_code].get('delete') is not None:
+                    op_labels[idx] = 'delete'
                 else:
-                    op_labels[idx] = "update"
-                    generate_y.append([["[NULL]", "[EOS]"], idx])
+                    op_labels[idx] = 'update'
+                    generate_y.append([['[NULL]', '[EOS]'], idx])
         except ValueError:
             continue
-
-    gold_state = [str(k) + "-" + str(v) for k, v in turn_dialog_state_dict.items()]
+    gold_state = [str(k) + '-' + str(v) for k, v in turn_dialog_state.items()]
     if len(generate_y) > 0:
         generate_y = sorted(generate_y, key=lambda lst: lst[1])
-        generate_y, _ = [list(e) for e in list(zip(*generate_y))] # squeeze
+        generate_y, _ = [list(e) for e in list(zip(*generate_y))]
 
     if dynamic:
         op2id = OP_SET[op_code]
@@ -515,6 +514,7 @@ def compute_acc(gold, pred, slot_temp):
     ACC = ACC / float(ACC_TOTAL)
     return ACC
 
+
 def compute_prf(gold, pred):
     TP, FP, FN = 0, 0, 0
     if len(gold) != 0:
@@ -540,8 +540,8 @@ def compute_prf(gold, pred):
 def per_domain_join_accuracy(data, slot_temp):
     for dom in EXPERIMENT_DOMAINS:
         count = 0
-        jt = 0 # jga
-        acc = 0 # slot accuracy
+        jt = 0
+        acc = 0
         for k, d in data.items():
             p, g = d
             gg = [r for r in g if r.startswith(dom)]
@@ -552,7 +552,7 @@ def per_domain_join_accuracy(data, slot_temp):
                     jt += 1
                 temp_acc = compute_acc(set(gg), set(pp), slot_temp)
                 acc += temp_acc
-        print(f"[{dom}]\tjoint accuracy: {jt / count:.4f}\tslot turn accuracy: {acc / count:.4f}")
+        print(dom, jt / count, acc / count)
 
 
 def get_turn_uttr(sys_uttr, user_uttr, splitter=UTTR_SPLITTER):
@@ -574,56 +574,3 @@ def get_turn_domain_id(domain):
 
 def get_domain_nums(domain2id):
     return len(set(domain2id.values()))
-
-
-if __name__ == '__main__':
-    import sys
-    import json
-    from typing import *
-    from dataclasses import dataclass
-    import numpy as np
-    import pandas as pd
-    import torch
-    from torch.utils.data import DataLoader, RandomSampler
-    from transformers import BertTokenizer, BertConfig
-
-    from data_utils import load_dataset, WOSDataset
-    from model import SomDST
-    from preprocessor import SomDSTPreprocessor
-
-    train_data_file = './input/data/train_dataset/train_dials.json'
-    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
-    train_data, dev_data, dev_labels = load_somdst_dataset(train_data_file)
-
-    pretrained_bert = 'dsksd/bert-ko-small-minimal'
-    tokenizer = BertTokenizer.from_pretrained(pretrained_bert)
-    tokenizer.add_special_tokens({'additional_special_tokens': ['[NULL]', '[SLOT]']})
-
-    dev_examples = get_somdst_examples_from_dialogues(
-        dev_data, slot_meta, tokenizer
-    )
-
-    preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer, word_dropout=0.0)
-
-    features = [preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(100)]
-
-    domain2id = DOMAIN2ID
-    op_code = '4'
-    n_op = len(OP_SET[op_code])
-    n_domain = 26
-    update_id = OP_SET[op_code]['update']
-    config = BertConfig.from_pretrained(pretrained_bert)
-    config.dropout = 0.1
-
-    model = SomDST(config, n_op=n_op, n_domain=n_domain, update_id=update_id)
-    model.resize_token_embeddings(len(tokenizer))
-
-    model_evaluation(
-        model=model, 
-        test_features=features, 
-        tokenizer=tokenizer,
-        slot_meta=slot_meta, 
-        domain2id=domain2id, 
-        epoch=1,
-        device='cpu'
-    )

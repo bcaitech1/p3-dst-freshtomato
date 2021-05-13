@@ -19,7 +19,7 @@ from som_dst_utils import (
     OP_SET,
     SomDSTFeature,
     SomDSTInputExample,
-    flatten
+    flatten,
 )
 
 
@@ -259,16 +259,16 @@ class SUMBTPreprocessor(DSTPreprocessor):
 
 class SomDSTPreprocessor(DSTPreprocessor):
     def __init__(
-        self, 
+        self,
         slot_meta: dict,
         src_tokenizer: PreTrainedTokenizer,
-        trg_tokenizer: PreTrainedTokenizer=None,
-        max_seq_length: int=512,
-        word_dropout: float=0.1,
-        slot_token: str='[SLOT]',
-        domain2id: dict=None,
-        op_code: str='4'
-        ):
+        trg_tokenizer: PreTrainedTokenizer = None,
+        max_seq_length: int = 512,
+        word_dropout: float = 0.1,
+        slot_token: str = "[SLOT]",
+        domain2id: dict = None,
+        op_code: str = "4",
+    ):
         self.slot_meta = slot_meta
         self.src_tokenizer = src_tokenizer
         self.trg_tokenizer = src_tokenizer if trg_tokenizer is None else trg_tokenizer
@@ -280,9 +280,18 @@ class SomDSTPreprocessor(DSTPreprocessor):
         self.op2id = OP_SET[op_code]
         return
 
-    def convert_examples_to_features(self, examples: List[SomDSTInputExample]) -> List[SomDSTFeature]:
+    def convert_examples_to_features(
+        self,
+        examples: List[SomDSTInputExample],
+        dynamic: bool = False,
+        word_dropout: float = None,
+    ) -> List[SomDSTFeature]:
+        if word_dropout is None:
+            word_dropout = self.word_dropout
         features = [
-            self._convert_example_to_feature(example)
+            self._convert_example_to_feature(
+                example, dynamic=dynamic, word_dropout=word_dropout
+            )
             for example in tqdm(examples, desc="[Examples>>>Features]")
         ]
         return features
@@ -303,18 +312,40 @@ class SomDSTPreprocessor(DSTPreprocessor):
                 b[idx] = v + [0] * (max_value - len(v))
             gen_ids[bid] = b + [[0] * max_value] * (max_update - n_update)
         gen_ids = torch.LongTensor(gen_ids)
-        return input_ids, input_mask, segment_ids, state_position_ids, op_ids, domain_ids, gen_ids, max_value, max_update
+        return (
+            input_ids,
+            input_mask,
+            segment_ids,
+            state_position_ids,
+            op_ids,
+            domain_ids,
+            gen_ids,
+            max_value,
+            max_update,
+        )
 
-    def _convert_example_to_feature(self, example, dynamic: bool=False):
-        op_labels, generate_y, gold_state = self._make_turn_label(example, dynamic=dynamic)
-        input_, input_id, segment_id, input_mask, \
-            slot_position, domain_id, op_ids, generate_ids = self._get_features(
-                example=example,
-                op_labels=op_labels,
-                generate_y=generate_y,
-                word_dropout=self.word_dropout
-                )
-        
+    def _convert_example_to_feature(
+        self, example, dynamic: bool = False, word_dropout: float = None
+    ):
+        op_labels, generate_y, gold_state = self._make_turn_label(
+            example, dynamic=dynamic
+        )
+        (
+            input_,
+            input_id,
+            segment_id,
+            input_mask,
+            slot_position,
+            domain_id,
+            op_ids,
+            generate_ids,
+        ) = self._get_features(
+            example=example,
+            op_labels=op_labels,
+            generate_y=generate_y,
+            word_dropout=word_dropout,
+        )
+
         feature = SomDSTFeature(
             guid=example.guid,
             turn_domain=example.turn_domain,
@@ -334,25 +365,22 @@ class SomDSTPreprocessor(DSTPreprocessor):
             slot_position=slot_position,
             domain_id=domain_id,
             op_ids=op_ids,
-            generate_ids=generate_ids
+            generate_ids=generate_ids,
         )
         return feature
-        
-    def _get_features(self, example, op_labels, generate_y, word_dropout: float=None):
-        if word_dropout is None:
-            word_dropout = self.word_dropout
 
+    def _get_features(self, example, op_labels, generate_y, word_dropout):
         state = []
         for s in self.slot_meta:
             state.append(self.slot_token)
-            k = s.split('-') # [도메인, 밸류]
+            k = s.split("-")  # [도메인, 밸류]
             v = example.last_dialog_state.get(s)
             if v is not None:
-                k.extend(['-', v])
-                t = self.src_tokenizer.tokenize(' '.join(k))
+                k.extend(["-", v])
+                t = self.src_tokenizer.tokenize(" ".join(k))
             else:
-                t = self.src_tokenizer.tokenize(' '.join(k))
-                t.extend(['-', '[NULL]']) # 이전 값이 없으면 value를 [NULL] 처리
+                t = self.src_tokenizer.tokenize(" ".join(k))
+                t.extend(["-", "[NULL]"])  # 이전 값이 없으면 value를 [NULL] 처리
             state.extend(t)
 
         avail_length_1 = self.max_seq_length - len(state) - 3
@@ -370,20 +398,25 @@ class SomDSTPreprocessor(DSTPreprocessor):
             diag_2 = diag_2[avail_length:]
 
         drop_mask = [0] + [1] * len(diag_1) + [0] + [1] * len(diag_2) + [0]
-        diag_1 = [self.src_tokenizer.cls_token] + diag_1 + [self.src_tokenizer.sep_token]
+        diag_1 = (
+            [self.src_tokenizer.cls_token] + diag_1 + [self.src_tokenizer.sep_token]
+        )
         diag_2 = diag_2 + [self.src_tokenizer.sep_token]
         segment = [0] * len(diag_1) + [1] * len(diag_2)
 
         diag = diag_1 + diag_2
 
         # word dropout
-        if word_dropout > 0.:
+        if word_dropout > 0.0:
             drop_mask = np.array(drop_mask)
-            word_drop = np.random.binomial(drop_mask.astype('int64'), word_dropout)
-            diag = [w if word_drop[i] == 0 else self.src_tokenizer.unk_token for i, w in enumerate(diag)]
+            word_drop = np.random.binomial(drop_mask.astype("int64"), word_dropout)
+            diag = [
+                w if word_drop[i] == 0 else self.src_tokenizer.unk_token
+                for i, w in enumerate(diag)
+            ]
         input_ = diag + state
-        segment = segment + [1]*len(state)
-        input_ = input_ # X_t
+        segment = segment + [1] * len(state)
+        input_ = input_  # X_t
 
         segment_id = segment
         slot_position = []
@@ -391,11 +424,13 @@ class SomDSTPreprocessor(DSTPreprocessor):
             if t == self.slot_token:
                 slot_position.append(i)
 
-        input_mask = [1] * len(input_) # 어디까지가 input이고, 어디부터가 패딩인지 표시하는거 같은데
+        input_mask = [1] * len(input_)  # 어디까지가 input이고, 어디부터가 패딩인지 표시하는거 같은데
         input_id = self.src_tokenizer.convert_tokens_to_ids(input_)
-        
+
         if len(input_mask) < self.max_seq_length:
-            additional_paddings = [self.src_tokenizer.pad_token_id] * (self.max_seq_length-len(input_id))
+            additional_paddings = [self.src_tokenizer.pad_token_id] * (
+                self.max_seq_length - len(input_id)
+            )
             input_id += additional_paddings
             segment_id += additional_paddings
             input_mask += additional_paddings
@@ -404,113 +439,137 @@ class SomDSTPreprocessor(DSTPreprocessor):
         op_ids = [self.op2id[a] for a in op_labels]
         generate_ids = [self.src_tokenizer.convert_tokens_to_ids(y) for y in generate_y]
 
-        return input_, input_id, segment_id, input_mask, slot_position, domain_id, op_ids, generate_ids
+        return (
+            input_,
+            input_id,
+            segment_id,
+            input_mask,
+            slot_position,
+            domain_id,
+            op_ids,
+            generate_ids,
+        )
 
-    def _make_turn_label(self, example, dynamic=False) -> Tuple[List[str], List[List[str]], List[str]]:
+    def _make_turn_label(
+        self, example, dynamic=False
+    ) -> Tuple[List[str], List[List[str]], List[str]]:
 
         if dynamic:
             gold_state = example.current_dialog_state
             example.current_dialog_state = {}
             for x in gold_state:
-                s = x.split('-')
-                k = '-'.join(s[:2])
+                s = x.split("-")
+                k = "-".join(s[:2])
                 example.current_dialog_state[k] = s[2]
 
-        op_labels = ['carryover'] * len(self.slot_meta) # 일단 carryover이 디폴트
+        op_labels = ["carryover"] * len(self.slot_meta)  # 일단 carryover이 디폴트
         generate_y = []
-        keys = list(example.current_dialog_state.keys()) # 이번 turn의 slot에 대한 '도메인-슬릇' 목록
+        keys = list(
+            example.current_dialog_state.keys()
+        )  # 이번 turn의 slot에 대한 '도메인-슬릇' 목록
 
         # turn 내 DS의 각 '도메인-슬릇'에 대해 iterate
         for k in keys:
-            v = example.current_dialog_state[k] # v: 이번 turn의 한 slot에 대한 value,
+            v = example.current_dialog_state[k]  # v: 이번 turn의 한 slot에 대한 value,
 
             # value가 none인 경우, operation 레이블링에서 제외
-            if v == 'none':
+            if v == "none":
                 example.current_dialog_state.pop(k)
                 continue
-            vv = example.last_dialog_state.get(k) # vv: 현재까지의 한 slot에 대한 value
-            try: 
+            vv = example.last_dialog_state.get(k)  # vv: 현재까지의 한 slot에 대한 value
+            try:
                 idx = self.slot_meta.index(k)
-                if vv != v: # abstract value 또는 특정 value로 맵핑
-                    if v == 'dontcare' and self.op2id.get('dontcare') is not None:
-                        op_labels[idx] = 'dontcare'
-                    elif v == 'yes' and self.op2id.get('yes') is not None:
-                        op_labels[idx] = 'yes'
-                    elif v == 'no' and self.op2id.get('no') is not None:
-                        op_labels[idx] = 'no'
+                if vv != v:  # abstract value 또는 특정 value로 맵핑
+                    if v == "dontcare" and self.op2id.get("dontcare") is not None:
+                        op_labels[idx] = "dontcare"
+                    elif v == "yes" and self.op2id.get("yes") is not None:
+                        op_labels[idx] = "yes"
+                    elif v == "no" and self.op2id.get("no") is not None:
+                        op_labels[idx] = "no"
                     else:
-                        op_labels[idx] = 'update'
-                        generate_y.append([self.src_tokenizer.tokenize(v) + ['[EOS]'], idx])
-                elif vv == v: # 같으면 그대로
-                    op_labels[idx] = 'carryover'
+                        op_labels[idx] = "update"
+                        generate_y.append(
+                            [self.src_tokenizer.tokenize(v) + ["[EOS]"], idx]
+                        )
+                elif vv == v:  # 같으면 그대로
+                    op_labels[idx] = "carryover"
             except ValueError:
                 continue
 
         # last_dialog_state: {'도메인-슬릇': '밸류', '''}
-        for k, v in example.last_dialog_state.items(): # 이전 turn까지의 모든 '도메인-슬릇' ,'밸류'를 확인
-            vv = example.current_dialog_state.get(k) # 현재 turn에서 도메인-슬릇에 대한 value
+        for (
+            k,
+            v,
+        ) in example.last_dialog_state.items():  # 이전 turn까지의 모든 '도메인-슬릇' ,'밸류'를 확인
+            vv = example.current_dialog_state.get(k)  # 현재 turn에서 도메인-슬릇에 대한 value
             try:
-                idx = self.slot_meta.index(k) # 해당 도메인-슬릇의 위치번호
-                if vv is None: # 현재 turn에서 존재하지 않을 경우
-                    if self.op2id.get('delete') is not None: # delete operation이 있을 경우
-                        op_labels[idx] = 'delete'
-                    else: # delete operation이 없을 경우
-                        op_labels[idx] = 'update' 
-                        generate_y.append([['[NULL]', '[EOS]'], idx])
+                idx = self.slot_meta.index(k)  # 해당 도메인-슬릇의 위치번호
+                if vv is None:  # 현재 turn에서 존재하지 않을 경우
+                    if self.op2id.get("delete") is not None:  # delete operation이 있을 경우
+                        op_labels[idx] = "delete"
+                    else:  # delete operation이 없을 경우
+                        op_labels[idx] = "update"
+                        generate_y.append([["[NULL]", "[EOS]"], idx])
             except ValueError:
                 continue
-        gold_state = [str(k) + '-' + str(v) for k, v in example.current_dialog_state.items()] # 도메인-슬릇-밸류
+        gold_state = [
+            str(k) + "-" + str(v) for k, v in example.current_dialog_state.items()
+        ]  # 도메인-슬릇-밸류
         if len(generate_y) > 0:
             generate_y = sorted(generate_y, key=lambda lst: lst[1])
-            generate_y, _ = [list(e) for e in list(zip(*generate_y))] # 생성해야할 것
+            generate_y, _ = [list(e) for e in list(zip(*generate_y))]  # 생성해야할 것
 
         if dynamic:
-            generate_y = [self.src_tokenizer.convert_tokens_to_ids(y) for y in generate_y]
+            generate_y = [
+                self.src_tokenizer.convert_tokens_to_ids(y) for y in generate_y
+            ]
             op_labels = [self.op2id[i] for i in op_labels]
 
-        return op_labels, generate_y, gold_state # operation GT, value GT, 도메인-슬릇-밸류 GT
+        return op_labels, generate_y, gold_state  # operation GT, value GT, 도메인-슬릇-밸류 GT
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import json
     from torch.utils.data import DataLoader, RandomSampler
     from transformers import BertTokenizer
     from data_utils import load_dataset, WOSDataset
     from som_dst_utils import get_somdst_examples_from_dialogues
 
-    train_data_file = './input/data/train_dataset/train_dials.json'
+    train_data_file = "./input/data/train_dataset/train_dials.json"
     slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
     train_data, dev_data, dev_labels = load_dataset(train_data_file)
 
-    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
-    tokenizer.add_special_tokens({'additional_special_tokens': [NULL_TOKEN, SLOT_TOKEN]})
+    tokenizer = BertTokenizer.from_pretrained("dsksd/bert-ko-small-minimal")
+    tokenizer.add_special_tokens(
+        {"additional_special_tokens": [NULL_TOKEN, SLOT_TOKEN]}
+    )
 
     train_examples = get_somdst_examples_from_dialogues(
         train_data, slot_meta, tokenizer
     )
 
-    dev_examples = get_somdst_examples_from_dialogues(
-        dev_data, slot_meta, tokenizer
-    )
+    dev_examples = get_somdst_examples_from_dialogues(dev_data, slot_meta, tokenizer)
 
     preprocessor = SomDSTPreprocessor(slot_meta=slot_meta, tokenizer=tokenizer)
     preprocessor._convert_example_to_feature(train_examples[0])
 
-    train_features = [preprocessor._convert_example_to_feature(train_examples[i]) for i in range(10000)]
-    dev_features = [preprocessor._convert_example_to_feature(dev_examples[i]) for i in range(len(dev_examples))]
+    train_features = [
+        preprocessor._convert_example_to_feature(train_examples[i])
+        for i in range(10000)
+    ]
+    dev_features = [
+        preprocessor._convert_example_to_feature(dev_examples[i])
+        for i in range(len(dev_examples))
+    ]
 
     dataset = WOSDataset(features=train_features)
     sampler = RandomSampler(dataset)
 
     loader = DataLoader(
-        dataset, 
-        batch_size=11,
-        sampler=sampler,
-        collate_fn=preprocessor.collate_fn
+        dataset, batch_size=11, sampler=sampler, collate_fn=preprocessor.collate_fn
     )
 
     for batch in loader:
         break
 
     print(batch)
-    

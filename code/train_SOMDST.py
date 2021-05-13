@@ -57,33 +57,35 @@ def train(args):
 
     # load data
     slot_meta = json.load(open(os.path.join(args.data_dir, "slot_meta.json")))
+    # train_data, dev_data, dev_labels = load_somdst_dataset(
+    #     os.path.join(args.data_dir, "train_dials.json")
+    # )
+
     train_data, dev_data, dev_labels = load_somdst_dataset(
-        os.path.join(args.data_dir, "train_dials.json")
+        'preprocessed/valid_dials.json'
     )
 
     train_examples = get_somdst_examples_from_dialogues(
-        data=train_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
+        data=train_data, n_history=args.n_history
     )
 
-    # dev_examples = get_somdst_examples_from_dialogues(
-    #     data=dev_data, slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code
-    # )
+    dev_examples = get_somdst_examples_from_dialogues(
+        data=dev_data, n_history=args.n_history
+    )
 
     # preprocessing
     preprocessor = SomDSTPreprocessor(
-        slot_meta=slot_meta, tokenizer=tokenizer, op_code=args.op_code, max_seq_length=args.max_seq_length
+        slot_meta=slot_meta, 
+        src_tokenizer=tokenizer,
+        max_seq_length=512,
+        word_dropout=0.1,
+        domain2id=domain2id
     )
 
-    train_features = [
-        preprocessor._convert_example_to_feature(train_examples[i]) for i in tqdm(range(3000))
-    ]
-    # dev_features = preprocessor.convert_examples_to_features(dev_examples)
-
-    # train_features = preprocessor.convert_examples_to_features(train_examples)
-    # dev_features = preprocessor.convert_examples_to_features(dev_examples)
+    train_features = preprocessor.convert_examples_to_features(train_examples)
+    dev_features = preprocessor.convert_examples_to_features(dev_examples)
 
     train_dataset = WOSDataset(features=train_features)
-    # dev_dataset = WOSDataset(features=dev_features)
 
     train_sampler = RandomSampler(train_dataset)
     train_dataloader = DataLoader(
@@ -94,24 +96,16 @@ def train(args):
         num_workers=args.num_workers,
     )
 
-    for batch in train_dataloader:
-        break
-    
-
     # initialize model: update embedding size & initailize weights
     model_config = BertConfig.from_pretrained(args.pretrained_name_or_path)
-    model_config.attention_probs_dropout_prob = 0.1
-    model_config.hidden_dropout_prob = 0.1
     model_config.dropout = 0.1
-
+    model_config.vocab_size = len(tokenizer)
+    
     model = SomDST(model_config, n_op=args.n_op, n_domain=args.n_domain, update_id=args.update_id)
-    model.resize_token_embeddings(len(tokenizer))
     model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(mean=0.0, std=0.02)
     model.encoder.bert.embeddings.word_embeddings.weight.data[2].normal_(mean=0.0, std=0.02)
     model.encoder.bert.embeddings.word_embeddings.weight.data[3].normal_(mean=0.0, std=0.02)
     model.to(device)
-
-    torch.nn.utils.clip_grad_norm_(model.parameters(), MAX_GRAD_NORM) # CLIPPING
     print("Model is initialized")
 
     num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
@@ -177,10 +171,11 @@ def train(args):
     }
 
     for epoch in range(args.epochs):
+        print(f'Epoch #{epoch}')
         batch_loss = []
         model.train()
 
-        for step, batch in enumerate(train_dataloader):
+        for step, batch in tqdm(enumerate(train_dataloader), desc='[Step]'):
             batch = [b.to(device) if not isinstance(b, int) else b for b in batch]
             (
                 input_ids,
@@ -224,7 +219,7 @@ def train(args):
             batch_loss.append(loss.item())
 
             loss.backward()
-            nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
+            # nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             enc_optimizer.step()
             enc_scheduler.step()
             dec_optimizer.step()
@@ -237,7 +232,7 @@ def train(args):
             for learning_rate in dec_scheduler.get_lr():
                 wandb.log({"decoder_learning_rate": learning_rate})
 
-            if step % 100 == 0:
+            if step % 20 == 0:
                 if args.exclude_domain is not True:
                     print(
                         f"[{epoch+1}/{args.epochs}] [{step}/{len(train_dataloader)}] mean_loss : {np.mean(batch_loss):.3f}, state_loss : {loss_s.item():.3f}, gen_loss : {loss_g.item():.3f}, dom_loss : {loss_d.item():.3f}"
@@ -272,7 +267,7 @@ def train(args):
             dev_features,
             tokenizer,
             slot_meta,
-            args.domain2id,
+            domain2id,
             epoch + 1,
             args.op_code,
         )

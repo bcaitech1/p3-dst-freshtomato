@@ -2,7 +2,6 @@ import os
 import json
 import wandb
 import argparse
-
 from data_utils import set_seed
 from importlib import import_module
 
@@ -112,8 +111,9 @@ if __name__ == "__main__":
     parser.add_argument("--distance_metric", type=str, default="euclidean")
 
     # SOM-DST
-    parser.add_argument("--enc_lr", type=float, default=4e-7)
-    parser.add_argument("--dec_lr", type=float, default=1e-6)
+    parser.add_argument("--n_history", type=int, default=1)
+    parser.add_argument("--enc_lr", type=float, default=4e-5)
+    parser.add_argument("--dec_lr", type=float, default=1e-4)
     parser.add_argument("--enc_warmup", type=float, default=0.1)
     parser.add_argument("--dec_warmup", type=float, default=0.1)
     parser.add_argument("--dropout", type=float, default=0.1)
@@ -126,10 +126,10 @@ if __name__ == "__main__":
     args.dst = args.dst.upper()
     os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
-    # # wandb init
-    # wandb.init(project=args.project_name)
-    # wandb.run.name = f"{args.model_fold}"
-    # wandb.config.update(args)
+    # wandb init
+    wandb.init(project=args.project_name)
+    wandb.run.name = f"{args.model_fold}"
+    wandb.config.update(args)
 
     # random seed 고정
     set_seed(args.seed)
