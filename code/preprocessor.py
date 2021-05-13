@@ -491,7 +491,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
                     else:
                         op_labels[idx] = "update"
                         generate_y.append(
-                            [self.src_tokenizer.tokenize(v) + ["[EOS]"], idx]
+                            [self.src_tokenizer.tokenize(v) + [self.src_tokenizer.eos_token], idx]
                         )
                 elif vv == v:  # 같으면 그대로
                     op_labels[idx] = "carryover"
@@ -511,7 +511,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
                         op_labels[idx] = "delete"
                     else:  # delete operation이 없을 경우
                         op_labels[idx] = "update"
-                        generate_y.append([["[NULL]", "[EOS]"], idx])
+                        generate_y.append([[NULL_TOKEN, self.src_tokenizer.eos_token], idx])
             except ValueError:
                 continue
         gold_state = [
