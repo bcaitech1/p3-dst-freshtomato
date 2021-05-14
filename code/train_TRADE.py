@@ -6,7 +6,7 @@ import argparse
 import numpy as np
 from importlib import import_module
 
-sys.path.insert(0, "./CustomizedModule")
+sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
