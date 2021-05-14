@@ -8,7 +8,7 @@ from importlib import import_module
 
 from data_utils import tokenize_ontology
 
-sys.path.insert(0, "./CustomizedModule")
+sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -116,7 +116,7 @@ def train(args):
             optimizer.step()
             scheduler.step()
             for learning_rate in scheduler.get_lr():
-                    wandb.log({"learning_rate": learning_rate})
+                wandb.log({"learning_rate": learning_rate})
             
             optimizer.zero_grad()
 

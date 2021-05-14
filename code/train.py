@@ -2,7 +2,6 @@ import os
 import json
 import wandb
 import argparse
-
 from data_utils import set_seed
 from importlib import import_module
 
@@ -12,18 +11,20 @@ if __name__ == "__main__":
     parser.add_argument(
         "--project_name",
         type=str,
-        # required=True,
-        # help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
-        default='DST-iloveslowfood'
+        required=True,
+        help="wandb에 저장할 project name (본인 이름 or 닉네임으로 지정)",
+        # default='DST-iloveslowfood',
+        # default='DST-DEBUG-iloveslowfood'
     )
     parser.add_argument(
         "--model_fold", 
-        # type=str, 
-        # required=True, 
-        # help="model 폴더명",
-        default='trade-LSLOSS')
-    parser.add_argument("--data_dir", type=str, default="./input/data/train_dataset")
-    parser.add_argument("--model_dir", type=str, default="./models")
+        type=str, 
+        required=True, 
+        help="model 폴더명",
+        # default='som-dst',
+        )
+    parser.add_argument("--data_dir", type=str, default="../input/data/train_dataset")
+    parser.add_argument("--model_dir", type=str, default="../models")
     parser.add_argument("--train_batch_size", type=int, default=16)
     parser.add_argument("--eval_batch_size", type=int, default=32)
     parser.add_argument("--epochs", type=int, default=30)
@@ -36,10 +37,12 @@ if __name__ == "__main__":
         help="Using CustomizedCosineAnnealingWarmRestarts, Limit the maximum of lr", 
         default=1e-4
         )
+
     parser.add_argument("--adam_epsilon", type=float, default=1e-8)
     parser.add_argument("--max_grad_norm", type=float, default=1.0)
     parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--weight_decay", type=float, default=0.01)
+
    
     parser.add_argument("--optimizer", type=str, help="Name of Optimizer (AdamW, Adam, SGD, AdamP ...)", default="AdamW")
     parser.add_argument("--scheduler", type=str, help="Name of Scheduler (linear, custom, cosine, plateau ...)", default="custom")
@@ -60,12 +63,13 @@ if __name__ == "__main__":
         "--dst",
         type=str,
         help="Model Name For DST Task (EX. TRADE, SUMBT)",
-        default="TRADE",
+        default="SOMDST",
     )
     parser.add_argument(
         "--model_name",
         type=str,
         help="Pre-trained model name to load from HuggingFace. It also will be used for loading corresponding tokenizer.(EX. Bert, Electra, etc..)",
+        # default='Electra',
         default="Bert"
     )
     
@@ -73,7 +77,10 @@ if __name__ == "__main__":
         "--pretrained_name_or_path",
         type=str,
         help="Subword Vocab만을 위한 huggingface model",
+        # default="monologg/koelectra-base-v3-discriminator",
+        # default='bert-base-uncased'
         default="dsksd/bert-ko-small-minimal",
+        # default='bert-base-multilingual-cased'
     )
 
     # Model Specific Argument
@@ -96,18 +103,30 @@ if __name__ == "__main__":
 
     # SUMBT
     parser.add_argument("--zero_init_rnn", type=bool, default=False)
-    parser.add_argument("--max_seq_length", type=int, default=64)
+    parser.add_argument("--max_seq_length", type=int, default=512)
     parser.add_argument("--max_label_length", type=int, default=12)
     parser.add_argument("--attn_head", type=int, default=4)
     parser.add_argument("--fix_utterance_encoder", type=bool, default=False)
     parser.add_argument("--distance_metric", type=str, default="euclidean")
+
+    # SOM-DST
+    parser.add_argument("--n_history", type=int, default=1)
+    parser.add_argument("--enc_lr", type=float, default=4e-5)
+    parser.add_argument("--dec_lr", type=float, default=1e-4)
+    parser.add_argument("--enc_warmup", type=float, default=0.1)
+    parser.add_argument("--dec_warmup", type=float, default=0.1)
+    parser.add_argument("--word_dropout", type=float, default=0.1)
+    parser.add_argument("--dropout", type=float, default=0.1)
+    parser.add_argument("--op_code", type=str, default='4')
+    parser.add_argument("--num_workers", type=int, default=4)
+    parser.add_argument("--exclude_domain", type=bool, default=False)
+
 
     args = parser.parse_args()
     args.dst = args.dst.upper()
     os.makedirs(f"{args.model_dir}/{args.model_fold}", exist_ok=True)
 
     # wandb init
-
     wandb.init(project=args.project_name)
     wandb.run.name = f"{args.model_fold}"
     wandb.config.update(args)

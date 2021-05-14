@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
 from importlib import import_module
-from transformers import BertModel, BertPreTrainedModel
+from transformers import BertModel, BertPreTrainedModel, ElectraModel, ElectraPreTrainedModel
 
 
 class TRADE(nn.Module):
@@ -329,6 +329,7 @@ class SomDST(BertPreTrainedModel):
         exclude_domain: bool = False,
     ):
         super(SomDST, self).__init__(config)
+        self.config = config
         self.hidden_size = config.hidden_size
         self.encoder = SomDSTEncoder(config, n_op, n_domain, update_id, exclude_domain)
         self.decoder = SomDSTDecoder(
@@ -378,7 +379,7 @@ class SomDST(BertPreTrainedModel):
 
         return domain_scores, state_scores, gen_scores
 
-
+# SOP
 class SomDSTEncoder(nn.Module):
     """State Operation Predictor + Domain Predictor
 
@@ -475,7 +476,7 @@ class SomDSTEncoder(nn.Module):
                 )
             gathered.append(v)
 
-        decoder_inputs = torch.cat(gathered)
+        decoder_inputs = torch.cat(gathered) # 업데이트할 4개의 슬릇에 대한 hidden state
         return (
             domain_scores,
             state_scores,
@@ -484,7 +485,7 @@ class SomDSTEncoder(nn.Module):
             pooled_output.unsqueeze(0),
         )
 
-
+# SVG
 class SomDSTDecoder(nn.Module):
     def __init__(self, config, bert_model_embedding_weights):
         super(SomDSTDecoder, self).__init__()
@@ -515,9 +516,10 @@ class SomDSTDecoder(nn.Module):
         for j in range(n_update):
             w = state_in[:, j].unsqueeze(1)  # B,1,D
             slot_value = []
-            for k in range(max_len):
+            for k in range(max_len): # 최대 길이
                 w = self.dropout(w)
-                _, hidden = self.gru(w, hidden)  # 1,B,D
+                # _, hidden = self.gru(w, hidden)  # 1,B,D
+                _, hidden = self.gru(w, hidden.contiguous())  # 1,B,D
                 # B,T,D * B,D,1 => B,T
                 attn_e = torch.bmm(encoder_output, hidden.permute(1, 2, 0))  # B,T,1
                 attn_e = attn_e.squeeze(-1).masked_fill(mask, -1e9)
@@ -549,6 +551,8 @@ class SomDSTDecoder(nn.Module):
                 all_point_outputs[j, :, k, :] = p_final
 
         return all_point_outputs.transpose(0, 1)
+
+
 
 
 class GRUEncoder(nn.Module):

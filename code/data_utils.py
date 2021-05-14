@@ -117,6 +117,7 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
 
     return train_data, dev_data, dev_labels
 
+
 def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
@@ -225,11 +226,14 @@ def convert_state_dict(state):
     Returns:
         dict: {도메인슬릇:밸류} 꼴의 state dict
     """
-    dic = {}
-    for slot in state:
-        s, v = split_slot(slot, get_domain_slot=True)
-        dic[s] = v
-    return dic
+    if state:
+        dic = {}
+        for slot in state:
+            s, v = split_slot(slot, get_domain_slot=True)
+            dic[s] = v
+        return dic
+    else:
+        return dict()
 
 
 @dataclass
@@ -243,8 +247,8 @@ class DSTInputExample:
     """
 
     guid: str
-    context_turns: List[str]
     current_turn: List[str]
+    context_turns: List[str] = None
     label: Optional[List[str]] = None
 
     def to_dict(self):
@@ -292,7 +296,6 @@ def get_examples_from_dialogue(
     examples = []
     history = []
     d_idx = 0
-
 
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
