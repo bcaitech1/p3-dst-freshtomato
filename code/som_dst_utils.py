@@ -91,16 +91,16 @@ class SomDSTFeature:
     dialog_history: str # '시스템발화 ; 유저발화'
     last_dialog_state: Dict[str, str] # {'도메인-슬릇': 밸류}
     op_labels: List[str] # ['carryover', ...]
-    generate_y: List[List[str]]
+    generate_y: List[List[str]] # ['밸류']
     gold_state: List[str] # ['도메인-슬릇-밸류']
     gold_p_state: Dict[str, str] # {'도메인-슬릇': 밸류}
     is_last_turn: bool
 
-    input_: str
-    input_id: List[int]
-    segment_id: List[int]
-    input_mask: List[int]
-    slot_position: List[int]
+    input_: str # D_{t-1} [SEP] D_{t} [SLOT] 
+    input_id: List[int] # [CLS] tokenize(input_)
+    segment_id: List[int] # 011111111 0000000
+    input_mask: List[int] # 111111111 0000000
+    slot_position: List[int] # [86, 112]
     domain_id: int
     op_ids: List[int]
     generate_ids: List[int]
@@ -213,17 +213,17 @@ def get_somdst_examples_from_dialogue(dialogue: dict, n_history: int=1) -> List[
 
         examples.append(
             SomDSTInputExample(
-                guid=f"{guid}-{turn_id}",
+                guid=guid,
                 current_turn=current_turn,
                 context_turns=deepcopy(context_turns),
-                turn_id=deepcopy(turn_id),
-                turn_domain=deepcopy(turn_domain), 
+                turn_id=turn_id,
+                turn_domain=turn_domain, 
                 turn_utter=deepcopy(turn_utter),
                 last_dialog_state=deepcopy(last_dialog_state),
                 current_dialog_state=deepcopy(current_dialog_state),
                 dialog_history=' '.join(dialog_history[-n_history:]),
                 dial_domains=deepcopy(dial_domains),
-                is_last_turn=deepcopy(is_last_turn)
+                is_last_turn=is_last_turn
             )
         )
 
@@ -320,11 +320,23 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
 
         if is_gt_gen:
             # ground_truth generation
-            gold_gen = {'-'.join(dom_slot_val.split('-')[:2]): dom_slot_val.split('-')[-1] for dom_slot_val in feature.gold_state}
+            gold_gen = {
+                '-'.join(dom_slot_val.split('-')[:2]): dom_slot_val.split('-')[-1] 
+                for dom_slot_val in feature.gold_state
+                }
         else:
             gold_gen = {}
-        generated, last_dialog_state = postprocessing(slot_meta, pred_ops, last_dialog_state,
-                                                      generated, tokenizer, op_code, gold_gen)
+
+        generated, last_dialog_state = postprocessing(
+            slot_meta=slot_meta, 
+            ops=pred_ops, 
+            last_dialog_state=last_dialog_state,
+            generated=generated,
+            tokenizer=tokenizer,
+            op_code=op_code,
+            gold_gen=gold_gen
+            )
+
         end = time.perf_counter()
         wall_times.append(end - start)
         pred_state = []
@@ -334,6 +346,7 @@ def model_evaluation(model, test_features, tokenizer, slot_meta, domain2id, epoc
         if set(pred_state) == set(feature.gold_state):
             joint_acc += 1
         key = str(feature.guid) + '_' + str(feature.turn_id)
+        # key = str(feature.guid)
         results[key] = [pred_state, feature.gold_state]
 
         # Compute prediction slot accuracy

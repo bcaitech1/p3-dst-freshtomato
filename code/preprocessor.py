@@ -326,6 +326,9 @@ class SomDSTPreprocessor(DSTPreprocessor):
             max_update,
         )
 
+    def recover_state(self, last_dialog_state):
+        return
+
     def _convert_example_to_feature(
         self, example, dynamic: bool = False, word_dropout: float = None
     ):
@@ -517,6 +520,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
         gold_state = [
             str(k) + "-" + str(v) for k, v in example.current_dialog_state.items()
         ]  # 도메인-슬릇-밸류
+
         if len(generate_y) > 0:
             generate_y = sorted(generate_y, key=lambda lst: lst[1])
             generate_y, _ = [list(e) for e in list(zip(*generate_y))]  # 생성해야할 것
@@ -528,3 +532,29 @@ class SomDSTPreprocessor(DSTPreprocessor):
             op_labels = [self.op2id[i] for i in op_labels]
 
         return op_labels, generate_y, gold_state  # operation GT, value GT, 도메인-슬릇-밸류 GT
+
+
+if __name__ == '__main__':
+    import json
+    from transformers import BertTokenizer
+    from som_dst_utils import DOMAIN2ID, get_somdst_examples_from_dialogues
+
+    train_data = json.load(open('./preprocessed/valid_dials.json'))
+    tokenizer = BertTokenizer.from_pretrained('dsksd/bert-ko-small-minimal')
+    tokenizer.add_special_tokens(
+        {"additional_special_tokens": ['[NULL]', '[SLOT]'], 'eos_token': '[EOS]'}
+        )
+
+    slot_meta = json.load(open("./input/data/train_dataset/slot_meta.json"))
+    domain2id = DOMAIN2ID
+    id2domain = {idx: value for value, idx in domain2id.items()}
+
+    train_examples = get_somdst_examples_from_dialogues(train_data, n_history=1)
+
+    preprocessor = SomDSTPreprocessor(
+        slot_meta=slot_meta,
+        src_tokenizer=tokenizer,
+        max_seq_length=512,
+        word_dropout=0.0
+    )
+    train_features = preprocessor.convert_examples_to_features(train_examples)

@@ -62,10 +62,6 @@ def train(args):
         os.path.join(args.data_dir, "train_dials.json")
     )
 
-    # train_data, dev_data, dev_labels = load_somdst_dataset(
-    #     'preprocessed/valid_dials.json'
-    # )
-
     train_examples = get_somdst_examples_from_dialogues(
         data=train_data, n_history=args.n_history
     )
@@ -101,39 +97,40 @@ def train(args):
     model_config = BertConfig.from_pretrained(args.pretrained_name_or_path)
     model_config.dropout = 0.1
     model_config.vocab_size = len(tokenizer)
-    
+  
     model = SomDST(model_config, n_op=args.n_op, n_domain=args.n_domain, update_id=args.update_id)
-    model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(mean=0.0, std=0.02)
-    model.encoder.bert.embeddings.word_embeddings.weight.data[2].normal_(mean=0.0, std=0.02)
-    model.encoder.bert.embeddings.word_embeddings.weight.data[3].normal_(mean=0.0, std=0.02)
+    # model.encoder.bert.embeddings.word_embeddings.weight.data[1].normal_(mean=0.0, std=0.02)
+    # model.encoder.bert.embeddings.word_embeddings.weight.data[2].normal_(mean=0.0, std=0.02)
+    # model.encoder.bert.embeddings.word_embeddings.weight.data[3].normal_(mean=0.0, std=0.02)
     model.to(device)
     print("Model is initialized")
 
     num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
 
-    no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
-    enc_param_optimizer = list(model.encoder.named_parameters())
-    enc_optimizer_grouped_parameters = [
-        {
-            "params": [
-                p for n, p in enc_param_optimizer if not any(nd in n for nd in no_decay)
-            ],
-            "weight_decay": 0.01,
-        },
-        {
-            "params": [
-                p for n, p in enc_param_optimizer if any(nd in n for nd in no_decay)
-            ],
-            "weight_decay": 0.0,
-        },
-    ]
+    # no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
+    # enc_param_optimizer = list(model.encoder.named_parameters())
+    # enc_optimizer_grouped_parameters = [
+    #     {
+    #         "params": [
+    #             p for n, p in enc_param_optimizer if not any(nd in n for nd in no_decay)
+    #         ],
+    #         "weight_decay": 0.01,
+    #     },
+    #     {
+    #         "params": [
+    #             p for n, p in enc_param_optimizer if any(nd in n for nd in no_decay)
+    #         ],
+    #         "weight_decay": 0.0,
+    #     },
+    # ]
 
     # initialize optimizer & scheduler
-    enc_optimizer = AdamW(enc_optimizer_grouped_parameters, lr=args.enc_lr, eps=args.adam_epsilon)
+    # enc_optimizer = AdamW(enc_optimizer_grouped_parameters, lr=args.enc_lr, eps=args.adam_epsilon)
+    enc_optimizer = AdamW(model.encoder.parameters(), lr=args.enc_lr, eps=args.adam_epsilon)
     enc_scheduler = get_linear_schedule_with_warmup(
         optimizer=enc_optimizer,
         num_warmup_steps=int(num_train_steps * args.enc_warmup),
-        num_training_steps=num_train_steps,
+        num_training_steps=num_train_steps
     )
 
     dec_param_optimizer = list(model.decoder.parameters())
@@ -141,7 +138,7 @@ def train(args):
     dec_scheduler = get_linear_schedule_with_warmup(
         optimizer=dec_optimizer,
         num_warmup_steps=int(num_train_steps * args.dec_warmup),
-        num_training_steps=num_train_steps,
+        num_training_steps=num_train_steps
     )
 
     criterion = nn.CrossEntropyLoss()
@@ -220,7 +217,6 @@ def train(args):
             batch_loss.append(loss.item())
 
             loss.backward()
-            # nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
             enc_optimizer.step()
             enc_scheduler.step()
             dec_optimizer.step()
