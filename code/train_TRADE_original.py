@@ -20,7 +20,7 @@ from inference import inference_TRADE
 from data_utils import train_data_loading, get_data_loader
 
 from preprocessor import TRADEPreprocessor
-from model import TRADE
+from model import TRADE_original
 from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -54,7 +54,7 @@ def train(args):
         )
 
     # Model 선언
-    model = TRADE(args, tokenized_slot_meta)
+    model = TRADE_original(args, tokenized_slot_meta)
     model.set_subword_embedding(args)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.pretrained_name_or_path}")
     model.to(device)

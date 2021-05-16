@@ -35,7 +35,7 @@ def train(args):
 
     slot_meta, train_examples, dev_examples, dev_labels = train_data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
-    processor = TRADEPreprocessor(slot_meta, tokenizer)
+    processor = TRADEPreprocessor(slot_meta, tokenizer, max_seq_length=args.max_seq_length, use_n_gate=args.use_n_gate)
 
     train_features = processor.convert_examples_to_features(train_examples)
     dev_features = processor.convert_examples_to_features(dev_examples)
@@ -44,7 +44,7 @@ def train(args):
     dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
     args.vocab_size = len(tokenizer)
-    args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
+    args.n_gate = len(processor.gating2id)  # gating 갯수 : (none, dontcare, ptr) or (none, yes, no, dontcare, ptr)
     
     # Slot Meta tokenizing for the decoder initial inputs
     tokenized_slot_meta = []
@@ -55,7 +55,7 @@ def train(args):
 
     # Model 선언
     model = TRADE(args, tokenized_slot_meta)
-    model.set_subword_embedding(args)  # Subword Embedding 초기화
+    # model.set_subword_embedding(args)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.pretrained_name_or_path}")
     model.to(device)
     print("Model is initialized")
@@ -65,6 +65,8 @@ def train(args):
     t_total = len(train_loader) * n_epochs
     # get_optimizer 부분에서 자동으로 warmup_steps를 계산할 수 있도록 바꿨음 (아래가 원래의 code)
     # warmup_steps = int(t_total * args.warmup_ratio)
+
+
     optimizer = get_optimizer(model, args)  # get optimizer (Adam, sgd, AdamP, ..)
 
     scheduler = get_scheduler(
@@ -73,6 +75,7 @@ def train(args):
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
     loss_fnc_2 = nn.CrossEntropyLoss()
+    # loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate,smoothing=args.smoothing_factor)
 
     json.dump(
         vars(args),
