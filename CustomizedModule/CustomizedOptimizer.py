@@ -122,8 +122,23 @@ class AdamP(Optimizer):
 
 
 def get_optimizer(model, args):
-    model_param = model if type(model) == list else model.parameters()
+    if not args.apply_no_decay:
+        model_param = model if type(model) == list else model.parameters()
     
+    ## 특정 wieght들에 대해서는 weight decay를 적용하지 않는다. (wieght decay의 본래 목적에 부합하지 않음)
+    else:
+        no_decay = ["bias", "LayerNorm.weight"]
+        model_param = [
+                {
+                    "params": [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
+                    "weight_decay": args.weight_decay,
+                },
+                {
+                    "params": [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)],
+                    "weight_decay": 0.0,
+                },
+            ]
+
     if args.optimizer == "AdamW":
         optimizer = AdamW(model_param, lr=args.lr, eps=args.adam_epsilon, weight_decay=args.weight_decay)
     elif args.optimizer == "Adam":
