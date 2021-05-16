@@ -161,7 +161,9 @@ def train(args):
                 "Best turn slot accuracy": eval_result['turn_slot_accuracy'],
                 "Best turn slot f1": eval_result['turn_slot_f1']
             })
-
+        if args.logging_accuracy_per_domain_slot:
+            wandb.log({k:v for k,v in eval_result.items() if k not in ("joint_goal_accuracy",'turn_slot_accuracy','turn_slot_f1')})
+                 
         torch.save(
             model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
         )
