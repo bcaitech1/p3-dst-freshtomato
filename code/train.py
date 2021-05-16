@@ -84,6 +84,12 @@ if __name__ == "__main__":
 
     # Model Specific Argument
     parser.add_argument(
+        "--logging_accuracy_per_domain_slot",
+        type=bool, 
+        help="In Evaluation, Logging Accuracy per domain-slot on Wandb", 
+        default=False,
+    )
+    parser.add_argument(
         "--apply_no_decay",
         type=bool, 
         help="In TRADER_solution, no_weight_decay on (bias&LayerNorm)", 
