@@ -100,7 +100,7 @@ if __name__ == "__main__":
         type=int, 
         help="5 or 3 (Determine Using Which gate in TRADE_PLM)", 
         default=5,   # 3
-    ) # TRADER_PLM  # {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
+    ) # TRADER_PLM  # (none, dontcare, ptr) or {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
     parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
     parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
     parser.add_argument(
