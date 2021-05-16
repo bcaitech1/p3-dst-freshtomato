@@ -20,7 +20,7 @@ from inference import inference_TRADE
 from data_utils import train_data_loading, get_data_loader
 
 from preprocessor import TRADEPreprocessor
-from model import TRADE
+from model import TRADE_original
 from criterions import LabelSmoothingLoss, masked_cross_entropy_for_value
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -35,7 +35,7 @@ def train(args):
 
     slot_meta, train_examples, dev_examples, dev_labels = train_data_loading(args, isUserFirst=False, isDialogueLevel=False)
     # Define Preprocessor
-    processor = TRADEPreprocessor(slot_meta, tokenizer, max_seq_length=args.max_seq_length, use_n_gate=args.use_n_gate)
+    processor = TRADEPreprocessor(slot_meta, tokenizer)
 
     train_features = processor.convert_examples_to_features(train_examples)
     dev_features = processor.convert_examples_to_features(dev_examples)
@@ -44,7 +44,7 @@ def train(args):
     dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
 
     args.vocab_size = len(tokenizer)
-    args.n_gate = len(processor.gating2id)  # gating 갯수 : (none, dontcare, ptr) or (none, yes, no, dontcare, ptr)
+    args.n_gate = len(processor.gating2id)  # gating 갯수 none, dontcare, ptr
     
     # Slot Meta tokenizing for the decoder initial inputs
     tokenized_slot_meta = []
@@ -54,8 +54,8 @@ def train(args):
         )
 
     # Model 선언
-    model = TRADE(args, tokenized_slot_meta)
-    # model.set_subword_embedding(args)  # Subword Embedding 초기화
+    model = TRADE_original(args, tokenized_slot_meta)
+    model.set_subword_embedding(args)  # Subword Embedding 초기화
     print(f"Subword Embeddings is loaded from {args.pretrained_name_or_path}")
     model.to(device)
     print("Model is initialized")
@@ -65,8 +65,6 @@ def train(args):
     t_total = len(train_loader) * n_epochs
     # get_optimizer 부분에서 자동으로 warmup_steps를 계산할 수 있도록 바꿨음 (아래가 원래의 code)
     # warmup_steps = int(t_total * args.warmup_ratio)
-
-
     optimizer = get_optimizer(model, args)  # get optimizer (Adam, sgd, AdamP, ..)
 
     scheduler = get_scheduler(
@@ -75,7 +73,6 @@ def train(args):
 
     loss_fnc_1 = masked_cross_entropy_for_value  # generation - # classes: vocab_size
     loss_fnc_2 = nn.CrossEntropyLoss()
-    # loss_fnc_2 = LabelSmoothingLoss(classes=model.decoder.n_gate,smoothing=args.smoothing_factor)
 
     json.dump(
         vars(args),
@@ -151,8 +148,7 @@ def train(args):
         predictions = inference_TRADE(model, dev_loader, processor, device)
         eval_result = _evaluation(predictions, dev_labels, slot_meta)
         for k, v in eval_result.items():
-            if k in ("joint_goal_accuracy",'turn_slot_accuracy','turn_slot_f1'):
-                print(f"{k}: {v}")
+            print(f"{k}: {v}")
 
         if best_score < eval_result["joint_goal_accuracy"]:
             print("Update Best checkpoint!")
@@ -165,10 +161,9 @@ def train(args):
                 "Best turn slot accuracy": eval_result['turn_slot_accuracy'],
                 "Best turn slot f1": eval_result['turn_slot_f1']
             })
-        
         if args.logging_accuracy_per_domain_slot:
             wandb.log({k:v for k,v in eval_result.items() if k not in ("joint_goal_accuracy",'turn_slot_accuracy','turn_slot_f1')})
-                    
+                 
         torch.save(
             model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
         )
