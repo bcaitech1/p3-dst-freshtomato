@@ -26,6 +26,7 @@ from som_dst_utils import (
 class TRADEPreprocessor(DSTPreprocessor):
     def __init__(
         self,
+        args,
         slot_meta,
         src_tokenizer,
         trg_tokenizer=None,
@@ -36,7 +37,10 @@ class TRADEPreprocessor(DSTPreprocessor):
         self.src_tokenizer = src_tokenizer
         self.trg_tokenizer = trg_tokenizer if trg_tokenizer else src_tokenizer
         self.ontology = ontology
-        self.gating2id = {"none": 0, "dontcare": 1, "ptr": 2}
+        if args.n_gate==3:
+            self.gating2id = {"none": 0, "dontcare": 1, "ptr": 2}
+        if args.n_gate==5:
+            self.gating2id = {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
         self.id2gating = {v: k for k, v in self.gating2id.items()}
         self.max_seq_length = max_seq_length
 
@@ -66,6 +70,10 @@ class TRADEPreprocessor(DSTPreprocessor):
             )
 
         input_id = self.src_tokenizer.encode(dialogue_context, add_special_tokens=False)
+        max_length = self.max_seq_length - 2
+        if len(input_id) > max_length:
+            gap = len(input_id) - max_length
+            input_id = input_id[gap:]
 
         input_id = (
             [self.src_tokenizer.cls_token_id]
@@ -118,8 +126,8 @@ class TRADEPreprocessor(DSTPreprocessor):
             if self.id2gating[gate] == "none":
                 continue
 
-            if self.id2gating[gate] == "dontcare":
-                recovered.append("%s-%s" % (slot, "dontcare"))
+            if self.id2gating[gate] in ["dontcare", "yes", "no"]:
+                recovered.append("%s-%s" % (slot, self.id2gating[gate]))
                 continue
 
             token_id_list = []
