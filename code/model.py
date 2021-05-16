@@ -10,7 +10,7 @@ from importlib import import_module
 from transformers import BertModel, BertPreTrainedModel, ElectraModel, ElectraPreTrainedModel
 
 
-class TRADE(nn.Module):
+class TRADE_original(nn.Module):
     def __init__(self, config, tokenized_slot_meta, pad_idx=0):
         super(TRADE, self).__init__()
         self.encoder = GRUEncoder(
@@ -34,7 +34,6 @@ class TRADE(nn.Module):
         self.decoder.set_slot_idx(tokenized_slot_meta)
         self.tie_weight()
 
-    # def set_subword_embedding(self, pretrained_name_or_path):
     def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
         model_module = getattr(
             import_module("transformers"), f"{config.model_name}Model"
@@ -47,6 +46,58 @@ class TRADE(nn.Module):
         self.decoder.embed.weight = self.encoder.embed.weight
         if self.decoder.proj_layer:
             self.decoder.proj_layer.weight = self.encoder.proj_layer.weight
+
+    def forward(
+        self, input_ids, token_type_ids, attention_mask=None, max_len=10, teacher=None
+    ):
+
+        encoder_outputs, pooled_output = self.encoder(input_ids=input_ids)
+        all_point_outputs, all_gate_outputs = self.decoder(
+            input_ids,
+            encoder_outputs,
+            pooled_output.unsqueeze(0),
+            attention_mask,
+            max_len,
+            teacher,
+        )
+
+        return all_point_outputs, all_gate_outputs
+
+class TRADE(nn.Module):
+    def __init__(self, config, tokenized_slot_meta, pad_idx=0):
+
+        super(TRADE, self).__init__()
+        if config.pretrained_name_or_path:
+            self.encoder = BertModel.from_pretrained(config.pretrained_name_or_path)
+        else:
+            self.encoder = BertModel(config)
+            
+        self.decoder = SlotGenerator(
+            config.vocab_size,
+            config.hidden_size,
+            config.hidden_dropout_prob,
+            config.n_gate,
+            config.proj_dim,
+            pad_idx,
+        )
+
+        self.decoder.set_slot_idx(tokenized_slot_meta)
+        self.tie_weight()
+
+    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+        model_module = getattr(
+            import_module("transformers"), f"{config.model_name}Model"
+        )
+        model = model_module.from_pretrained(config.pretrained_name_or_path)
+        self.encoder.embed.weight = model.embeddings.word_embeddings.weight
+        self.tie_weight()
+
+    def tie_weight(self):
+        self.decoder.embed.weight = self.encoder.embeddings.word_embeddings.weight
+    # def tie_weight(self):
+    #     self.decoder.embed.weight = self.encoder.embed.weight
+    #     if self.decoder.proj_layer:
+    #         self.decoder.proj_layer.weight = self.encoder.proj_layer.weight
 
     def forward(
         self, input_ids, token_type_ids, attention_mask=None, max_len=10, teacher=None
