@@ -131,7 +131,8 @@ def train(args):
         eval_result = _evaluation(predictions, dev_labels, slot_meta)
         
         for k, v in eval_result.items():
-            print(f"{k}: {v}")
+            if k in ("joint_goal_accuracy",'turn_slot_accuracy','turn_slot_f1'):
+                print(f"{k}: {v}")
         
         if best_score < eval_result["joint_goal_accuracy"]:
             print("Update Best checkpoint!")
@@ -144,6 +145,10 @@ def train(args):
                 "Best turn slot accuracy": eval_result['turn_slot_accuracy'],
                 "Best turn slot f1": eval_result['turn_slot_f1']
             })
+            
+        if args.logging_accuracy_per_domain_slot:
+            wandb.log({k:v for k,v in eval_result.items() if k not in ("joint_goal_accuracy",'turn_slot_accuracy','turn_slot_f1')})
+                    
 
         torch.save(
             model.state_dict(), f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin"
