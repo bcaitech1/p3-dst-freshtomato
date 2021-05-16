@@ -43,7 +43,6 @@ if __name__ == "__main__":
     parser.add_argument("--warmup_ratio", type=float, default=0.1)
     parser.add_argument("--weight_decay", type=float, default=0.01)
 
-   
     parser.add_argument("--optimizer", type=str, help="Name of Optimizer (AdamW, Adam, SGD, AdamP ...)", default="AdamW")
     parser.add_argument("--scheduler", type=str, help="Name of Scheduler (linear, custom, cosine, plateau ...)", default="custom")
     parser.add_argument(
@@ -84,6 +83,18 @@ if __name__ == "__main__":
     )
 
     # Model Specific Argument
+    parser.add_argument(
+        "--apply_no_decay",
+        type=bool, 
+        help="In TRADER_solution, no_weight_decay on (bias&LayerNorm)", 
+        default=False,
+    ) # TRADER
+    parser.add_argument(
+        "--use_n_gate", 
+        type=int, 
+        help="5 or 3 (Determine Using Which gate in TRADE_PLM)", 
+        default=5,   # 3
+    ) # TRADER_PLM  # {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
     parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
     parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
     parser.add_argument(
