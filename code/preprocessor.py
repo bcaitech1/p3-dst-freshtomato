@@ -26,20 +26,20 @@ from som_dst_utils import (
 class TRADEPreprocessor(DSTPreprocessor):
     def __init__(
         self,
-        args,
         slot_meta,
         src_tokenizer,
         trg_tokenizer=None,
         ontology=None,
         max_seq_length=512,
+        use_n_gate=5,
     ):
         self.slot_meta = slot_meta
         self.src_tokenizer = src_tokenizer
         self.trg_tokenizer = trg_tokenizer if trg_tokenizer else src_tokenizer
         self.ontology = ontology
-        if args.n_gate==3:
+        if use_n_gate==3:
             self.gating2id = {"none": 0, "dontcare": 1, "ptr": 2}
-        if args.n_gate==5:
+        if use_n_gate==5:
             self.gating2id = {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
         self.id2gating = {v: k for k, v in self.gating2id.items()}
         self.max_seq_length = max_seq_length
