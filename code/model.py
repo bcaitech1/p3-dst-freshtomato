@@ -63,14 +63,28 @@ class TRADE_original(nn.Module):
 
         return all_point_outputs, all_gate_outputs
 
+
+class PLMEncoder(nn.Module):
+    def __init__(self, config):
+        super(PLMEncoder, self).__init__()
+        plm_module = getattr(
+                            import_module("transformers"), f"{config.model_name}Model"
+                        )
+        self.plm = plm_module.from_pretrained(config.pretrained_name_or_path)
+    
+    def forward(self, input_ids):
+        if self.plm.pooler: # Bert의 경우 pooler layer 존재
+            return self.plm(input_ids)
+        else:
+            output = self.plm(input_ids=input_ids)[0] # (B, T, D)
+            pooled_output = output[:, 0, :] # 0 번째 CLS 토큰에 대한 것들
+            return output, pooled_output
+
+
 class TRADE(nn.Module):
     def __init__(self, config, tokenized_slot_meta, pad_idx=0):
         super(TRADE, self).__init__()
-        if config.pretrained_name_or_path:
-            self.encoder = BertModel.from_pretrained(config.pretrained_name_or_path)
-        else:
-            self.encoder = BertModel(config)
-            
+        self.encoder = PLMEncoder(config)    
         self.decoder = SlotGenerator(
             config.vocab_size,
             config.hidden_size,
@@ -83,13 +97,13 @@ class TRADE(nn.Module):
         self.decoder.set_slot_idx(tokenized_slot_meta)
         self.tie_weight()
 
-    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
-        model_module = getattr(
-            import_module("transformers"), f"{config.model_name}Model"
-        )
-        model = model_module.from_pretrained(config.pretrained_name_or_path)
-        self.encoder.embed.weight = model.embeddings.word_embeddings.weight
-        self.tie_weight()
+    # def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+    #     model_module = getattr(
+    #         import_module("transformers"), f"{config.model_name}Model"
+    #     )
+    #     model = model_module.from_pretrained(config.pretrained_name_or_path)
+    #     self.encoder.embed.weight = model.embeddings.word_embeddings.weight
+    #     self.tie_weight()
 
     def tie_weight(self):
         self.decoder.embed.weight = self.encoder.embeddings.word_embeddings.weight
