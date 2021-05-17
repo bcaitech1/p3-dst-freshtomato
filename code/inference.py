@@ -69,6 +69,10 @@ def main_inference(args, config):
     slot_meta = json.load(open(f"{args.model_dir}/{args.model_fold}/slot_meta.json", "r"))
     ontology = json.load(open(f"{CFG.TrainOntology}", "r"))
 
+    if config.replace_word_data:
+        slot_meta = [meta.replace('택시','버스') for meta in slot_meta]        
+        ontology = {domain_slot_key.replace('택시','버스'):domain_slot_value for domain_slot_key,domain_slot_value in ontology.items()}
+
     # Define Tokenizer
     tokenizer_module = getattr(
         import_module("transformers"), f"{config.model_name}Tokenizer"
