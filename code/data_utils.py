@@ -159,7 +159,8 @@ def train_data_loading(args, isUserFirst, isDialogueLevel):
 
 def test_data_loading(args, isUserFirst, isDialogueLevel):
     eval_data = json.load(open(f"{args.data_dir}/eval_dials.json", "r"))
-
+    if args.replace_word_data:
+        eval_data = change_taxi_to_bus(eval_data)
     eval_examples = get_examples_from_dialogues(
         eval_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
     )
