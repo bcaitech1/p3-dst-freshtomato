@@ -12,7 +12,7 @@ from transformers import BertModel, BertPreTrainedModel, ElectraModel, ElectraPr
 
 class TRADE_original(nn.Module):
     def __init__(self, config, tokenized_slot_meta, pad_idx=0):
-        super(TRADE, self).__init__()
+        super(TRADE_original, self).__init__()
         self.encoder = GRUEncoder(
             config.vocab_size,
             config.hidden_size,
@@ -65,7 +65,6 @@ class TRADE_original(nn.Module):
 
 class TRADE(nn.Module):
     def __init__(self, config, tokenized_slot_meta, pad_idx=0):
-
         super(TRADE, self).__init__()
         if config.pretrained_name_or_path:
             self.encoder = BertModel.from_pretrained(config.pretrained_name_or_path)
