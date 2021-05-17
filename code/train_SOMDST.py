@@ -12,9 +12,6 @@ from transformers import AdamW, get_linear_schedule_with_warmup, BertConfig, Ber
 from importlib import import_module
 import wandb
 
-sys.path.insert(0, "./CustomizedModule")
-from CustomizedScheduler import get_scheduler
-from CustomizedOptimizer import get_optimizer
 from eval_utils import DSTEvaluator
 from evaluation import _evaluation
 from inference import inference_TRADE
@@ -105,7 +102,8 @@ def train(args):
     model.to(device)
     print("Model is initialized")
 
-    num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
+    # num_train_steps = int(len(train_features) / args.train_batch_size * args.epochs)
+    num_train_steps = len(train_dataloader) * args.epochs
 
     # no_decay = ["bias", "LayerNorm.bias", "LayerNorm.weight"]
     # enc_param_optimizer = list(model.encoder.named_parameters())
@@ -124,12 +122,15 @@ def train(args):
     #     },
     # ]
 
+
     # initialize optimizer & scheduler
     # enc_optimizer = AdamW(enc_optimizer_grouped_parameters, lr=args.enc_lr, eps=args.adam_epsilon)
-    enc_optimizer = AdamW(model.encoder.parameters(), lr=args.enc_lr, eps=args.adam_epsilon)
+    
+    enc_param_optimizer = list(model.encoder.parameters())
+    enc_optimizer = AdamW(enc_param_optimizer, lr=args.enc_lr, eps=args.adam_epsilon)
     enc_scheduler = get_linear_schedule_with_warmup(
         optimizer=enc_optimizer,
-        num_warmup_steps=int(num_train_steps * args.enc_warmup),
+        num_warmup_steps=0.1,
         num_training_steps=num_train_steps
     )
 
@@ -137,7 +138,7 @@ def train(args):
     dec_optimizer = AdamW(dec_param_optimizer, lr=args.dec_lr, eps=args.adam_epsilon)
     dec_scheduler = get_linear_schedule_with_warmup(
         optimizer=dec_optimizer,
-        num_warmup_steps=int(num_train_steps * args.dec_warmup),
+        num_warmup_steps=0.1,
         num_training_steps=num_train_steps
     )
 
@@ -284,13 +285,13 @@ def train(args):
                 }
             )
 
-        # save phase
-        model_to_save = model.module if hasattr(model, "module") else model
-        torch.save(
-            model_to_save.state_dict(),
-            f"{args.model_dir}/{args.model_fold}/model-{epoch}.bin",
-        )
-        print("Best Score : ", best_score)
-        print("\n")
+            # save phase
+            model_to_save = model.module if hasattr(model, "module") else model
+            torch.save(
+                model_to_save.state_dict(),
+                f"{args.model_dir}/{args.model_fold}/model-best.bin",
+            )
+            print("Best Score : ", best_score)
+            print("\n")
 
-    print(f"Best checkpoint: {args.model_dir}/model-{best_checkpoint}.bin")
+    print(f"Best checkpoint: {args.model_dir}/model-best.bin")
