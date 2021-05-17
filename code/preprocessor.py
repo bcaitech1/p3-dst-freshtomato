@@ -314,8 +314,18 @@ class SomDSTPreprocessor(DSTPreprocessor):
         op_ids = torch.LongTensor([f.op_ids for f in batch])
         domain_ids = torch.LongTensor([f.domain_id for f in batch])
         gen_ids = [b.generate_ids for b in batch]
-        max_update = max([len(b) for b in gen_ids]) # 최대 업데이트 수
-        max_value = max([len(b) for b in flatten(gen_ids)]) # value의 최대 길이
+        try:
+            max_update = max([len(b) for b in gen_ids]) # 최대 업데이트 수
+        except:
+            print('there is no slot to update')
+            max_update = 1
+
+        try:
+            max_value = max([len(b) for b in flatten(gen_ids)]) # value의 최대 길이
+        except:
+            print('value is empty')
+            max_value = 1
+            
         for bid, b in enumerate(gen_ids):
             n_update = len(b)
             for idx, v in enumerate(b):
@@ -518,6 +528,7 @@ class SomDSTPreprocessor(DSTPreprocessor):
             try:
                 idx = self.slot_meta.index(k)  # 해당 도메인-슬릇의 위치번호
                 if vv is None:  # 현재 turn에서 존재하지 않을 경우
+                    print('vv is None')
                     if self.op2id.get("delete") is not None:  # delete operation이 있을 경우
                         op_labels[idx] = "delete"
                     else:  # delete operation이 없을 경우
