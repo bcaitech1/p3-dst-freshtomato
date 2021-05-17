@@ -68,36 +68,16 @@ def get_informations(args):
     return tokenizer, processor, slot_meta, tokenized_slot_meta, train_features, train_labels
 
 
-def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
-    domain_group = {
-        '관광_식당':0,
-        '관광':1,
-        '지하철':2,
-        '택시':3,
-        '식당_택시':4,
-        '숙소_택시':5,
-        '식당':6,
-        '숙소_식당':7,
-        '숙소':8,
-        '관광_택시':9,
-        '관광_숙소_식당':10,
-        '관광_숙소':11,
-        '숙소_식당_택시':12,
-        '관광_식당_택시':13,
-        '관광_숙소_택시':14
-    }
+from collections import defaultdict
 
+def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_meta, features, labels):
     features = np.array(features)
     dialogue_features, dialogue_labels, domain_labels = defaultdict(list), defaultdict(list), []
     for f in features:
         dialogue = '-'.join(f.guid.split('-')[:-1])
         dialogue_features[dialogue].append(f)
 
-    for k, v in dialogue_features.items():
-        feature_domain = '_'.join(sorted(v[0].domain))
-        if '지하철' in feature_domain:
-            feature_domain = '지하철'
-        domain_labels.append(domain_group[feature_domain])
+    domain_labels = [len(v[0].domain)-1 for _, v in dialogue_features.items()]
 
     for k, v in labels.items():
         dialogue_labels['-'.join(k.split('-')[:-1])].append([k, v])
@@ -106,8 +86,8 @@ def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
         kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
         fold_idx = 1
         
-        for train_index, dev_index in kf.split(features, domain_labels):
-            os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
+        for train_index, dev_index in kf.split(dialogue_features, domain_labels):
+            os.makedirs(f"{args.model_dir}/{args.model_fold}/{fold_idx}-fold", exist_ok=True)
 
             train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
             
@@ -245,7 +225,7 @@ def train_model(args, tokenizer, processor, slot_meta, tokenized_slot_meta, fold
 
         if args.isKfold:
             torch.save(
-                model.state_dict(), f"{args.model_dir}/{args.model_fold}/{fold_idx}-fold'/model-{epoch}.bin"
+                model.state_dict(), f"{args.model_dir}/{args.model_fold}/{fold_idx}-fold/model-{epoch}.bin"
             )
         else:
             torch.save(

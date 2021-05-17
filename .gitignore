@@ -6,6 +6,8 @@ sketch/*
 models/**
 code/wandb/**
 code/ara/**
+code/ara-kfold/**
+git_repo/**
 
 # data
 input/**

@@ -67,34 +67,14 @@ def get_informations(args):
     return processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, train_features, train_labels
 
 
-def select_kfold_ro_full(args, processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, features, labels):
-    domain_group = {
-        '관광_식당':0,
-        '관광':1,
-        '지하철':2,
-        '택시':3,
-        '식당_택시':4,
-        '숙소_택시':5,
-        '식당':6,
-        '숙소_식당':7,
-        '숙소':8,
-        '관광_택시':9,
-        '관광_숙소_식당':10,
-        '관광_숙소':11,
-        '숙소_식당_택시':12,
-        '관광_식당_택시':13,
-        '관광_숙소_택시':14
-    }
-
+def select_kfold_or_full(args, processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, features, labels):
     features = np.array(features)
     dialogue_labels, domain_labels = defaultdict(list), []
-    for f in features:
-        feature_domain = '_'.join(sorted(f.domain))
-        if '지하철' in feature_domain:
-            feature_domain = '지하철'
-        domain_labels.append(domain_group[feature_domain])
+
+    domain_labels = [len(f.domain)-1 for f in features]
+
     for k, v in labels.items():
-        dialogue_labels['_'.join(k.split('_')[:-1])].append([k, v])
+        dialogue_labels['-'.join(k.split('-')[:-1])].append([k, v])
 
     if args.isKfold:
         kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
@@ -220,4 +200,4 @@ def train_model(args, processor, slot_meta, num_labels, slot_values_ids, slot_ty
 
 def train(args):
     processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, train_features, train_labels = get_informations(args)
-    select_kfold_ro_full(args, processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, train_features, train_labels)
+    select_kfold_or_full(args, processor, slot_meta, num_labels, slot_values_ids, slot_type_ids, train_features, train_labels)
