@@ -98,19 +98,10 @@ class TRADE(nn.Module):
         self.tie_weight()
 
     def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
-    #     model_module = getattr(
-    #         import_module("transformers"), f"{config.model_name}Model"
-    #     )
-    #     model = model_module.from_pretrained(config.pretrained_name_or_path)
-    #     self.encoder.embed.weight = model.embeddings.word_embeddings.weight
         self.tie_weight()
 
     def tie_weight(self):
-        self.decoder.embed.weight = self.encoder.embeddings.word_embeddings.weight
-    # def tie_weight(self):
-    #     self.decoder.embed.weight = self.encoder.embed.weight
-    #     if self.decoder.proj_layer:
-    #         self.decoder.proj_layer.weight = self.encoder.proj_layer.weight
+        self.decoder.embed.weight = self.encoder.plm.embeddings.word_embeddings.weight
 
     def forward(
         self, input_ids, token_type_ids, attention_mask=None, max_len=10, teacher=None
