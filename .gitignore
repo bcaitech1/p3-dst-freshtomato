@@ -9,8 +9,10 @@ code/inference_custom.py
 code/loss.py
 code/run.sh
 code/command_file.txt
+code/inference_command.txt
 code/wandb/**
 code/sumbt_solution.py
+code/trade_solution.py
 code/0504_train_backup.py
 
 
@@ -19,11 +21,14 @@ input/**
 sketches/**
 code/results/**
 *.csv
+preprocessed/**
+pred*
 
 # MoonJaeHoon
 README_MJH.md
 models_mjh/**
 train_mjh.py
+trade_solution.ipynb
 # CustomizedModule/**
 
 # Byte-compiled / optimized / DLL files

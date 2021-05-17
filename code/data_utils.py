@@ -13,6 +13,9 @@ from tqdm import tqdm
 
 from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 
+DOMAINS = ['관광', '숙소', '식당', '지하철', '택시']
+
+
 @dataclass
 class OntologyDSTFeature:
     guid: str
@@ -113,6 +116,7 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
             dev_labels[guid_t] = state
 
     return train_data, dev_data, dev_labels
+
 
 def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
@@ -222,26 +226,29 @@ def convert_state_dict(state):
     Returns:
         dict: {도메인슬릇:밸류} 꼴의 state dict
     """
-    dic = {}
-    for slot in state:
-        s, v = split_slot(slot, get_domain_slot=True)
-        dic[s] = v
-    return dic
+    if state:
+        dic = {}
+        for slot in state:
+            s, v = split_slot(slot, get_domain_slot=True)
+            dic[s] = v
+        return dic
+    else:
+        return dict()
 
 
 @dataclass
 class DSTInputExample:
     """Dialogue State Tracking 정보를 담는 데이터 클래스. Tracking 정보는 다음의 정보를 담고 있음
     - guid: dialogue_idx + turn_idx 형태의 인덱스
-    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1})
+    - context_turns: 현재 turn 이전까지의 dialogue context(=D_{t-1}). 현재까지의 누적 발화
     - current_turn: 현재 turn에서의 시스템/유저의 발화.
                     (system_{t}, user_{t}) 또는 (user_{t}, system_{t})의 형태
     - label: Turn t에서의 dialogue state(=B_{t})
     """
 
     guid: str
-    context_turns: List[str]
     current_turn: List[str]
+    context_turns: List[str] = None
     label: Optional[List[str]] = None
 
     def to_dict(self):
@@ -289,6 +296,7 @@ def get_examples_from_dialogue(
     examples = []
     history = []
     d_idx = 0
+
     for idx, turn in enumerate(dialogue["dialogue"]):
         if turn["role"] != "user":
             continue
@@ -305,6 +313,7 @@ def get_examples_from_dialogue(
             current_turn = [user_utter, sys_utter]
         else:
             current_turn = [sys_utter, user_utter]
+
         examples.append(
             DSTInputExample(
                 guid=f"{guid}-{d_idx}",
@@ -313,6 +322,7 @@ def get_examples_from_dialogue(
                 label=state,
             )
         )
+
         history.append(sys_utter)
         history.append(user_utter)
         d_idx += 1

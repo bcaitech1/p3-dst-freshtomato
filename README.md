@@ -6,13 +6,13 @@
 ## Command Line Interface
 ### Train Phase
 ```python
->>> python cd code
+>>> cd code
 >>> python train.py --project_name [PROJECT_NAME] --model_fold [MODEL_FOLD_NAME] --dst [DST_MODEL]
 ```
 
 ### Inference Phase
 ```python
->>> python cd code
+>>> cd code
 >>> python inference.py --model_fold [MODEL_FOLD_NAME] --chkpt_idx [CHECKPOINT INDEX]
 ```
 
