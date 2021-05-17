@@ -85,16 +85,18 @@ def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
     if args.isKfold:
         kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
         fold_idx = 1
-        
+
         for train_index, dev_index in kf.split(dialogue_features, domain_labels):
             os.makedirs(f"{args.model_dir}/{args.model_fold}/{fold_idx}-fold", exist_ok=True)
-
-            train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
+      
+            # train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
+            train_dialogue_keys, dev_dialogue_keys = np.array(list(dialogue_features.keys()))[train_index.astype(int)], np.array(list(dialogue_features.keys()))[dev_index.astype(int)]
             
             train_features, dev_features = [], []
-            [train_features.extend(t[1]) for t in train_dialogue_features]
-            [dev_features.extend(t[1]) for t in dev_dialogue_features]
+            [train_features.extend(dialogue_features[dialogue_id]) for dialogue_id in train_dialogue_keys]
+            [dev_features.extend(dialogue_features[dialogue_id]) for dialogue_id in dev_dialogue_keys]
 
+            dev_dialogue_labels = {k.guid: labels[k] for k in dev_features}
             dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
             dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
 
@@ -109,14 +111,13 @@ def select_kfold_or_full(args, tokenizer, processor, slot_meta, tokenized_slot_m
         fold_idx = None
         train_index, dev_index = train_test_split(np.array(range(len(dialogue_features))), test_size=0.1, random_state=args.seed, stratify=domain_labels)
         
-        train_dialogue_features, dev_dialogue_features = np.array(list(dialogue_features.items()))[train_index.astype(int)], np.array(list(dialogue_features.items()))[dev_index.astype(int)]
+        train_dialogue_ids, dev_dialogue_ids = np.array(list(dialogue_features.keys()))[train_index.astype(int)], np.array(list(dialogue_features.keys()))[dev_index.astype(int)]
 
         train_features, dev_features = [], []
-        [train_features.extend(t[1]) for t in train_dialogue_features]
-        [dev_features.extend(t[1]) for t in dev_dialogue_features]
+        [train_features.extend(did) for did in train_dialogue_ids]
+        [dev_features.extend(did) for did in dev_dialogue_ids]
 
-        dev_dialogue_labels = np.array(list(dialogue_labels.items()))[dev_index.astype(int)]
-        dev_labels = {t[0]:t[1] for turn in dev_dialogue_labels[:, 1] for t in turn}
+        dev_labels = {f.guid: labels[f.guid] for f in dev_features}
 
         train_loader = get_data_loader(processor, train_features, args.train_batch_size)
         dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
