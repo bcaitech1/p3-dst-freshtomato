@@ -82,6 +82,14 @@ if __name__ == "__main__":
         # default='bert-base-multilingual-cased'
     )
 
+    # Data Augmentation
+    parser.add_argument(
+        "--replace_word_data",
+        type=bool, 
+        help="replace word ('택시' -> '버스') on data", 
+        default=False,
+    )
+
     # Model Specific Argument
     parser.add_argument(
         "--logging_accuracy_per_domain_slot",
