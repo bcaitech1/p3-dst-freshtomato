@@ -49,7 +49,8 @@ def train(args):
 
     train_loader = get_data_loader(processor, train_features, args.train_batch_size)
     dev_loader = get_data_loader(processor, dev_features, args.eval_batch_size)
-    
+    if args.replace_word_data:
+        ontology = {domain_slot_key.replace('택시','버스'):domain_slot_value for domain_slot_key,domain_slot_value in ontology.items()}
     slot_type_ids, slot_values_ids = tokenize_ontology(ontology, tokenizer, args.max_label_length)
 
     # Model 선언

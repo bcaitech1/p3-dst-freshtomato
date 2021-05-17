@@ -45,8 +45,27 @@ class WOSDataset(Dataset):
     def __getitem__(self, idx):
         return self.features[idx]
 
+def change_taxi_to_bus(data):
+    need_process_label = '택시'   # '버스'로 바꾸기
+    new_data = []
+    for dialog in data:
+        if need_process_label in dialog['domains']: # 도메인에 택시가 존재할 경우 버스로 변경
+            dialog['dialogue_idx'] = dialog['dialogue_idx'].replace('택시','버스')
+            dialog['domains'] = [domain.replace('택시','버스') for domain in dialog['domains']]
+            new_dialogue = []
+            for turn_dict in dialog['dialogue']:
+                new_turn_dict = turn_dict.copy()
+                new_turn_dict['text'] = new_turn_dict['text'].replace('택시','버스')
+                if 'state' in new_turn_dict.keys():
+                    new_turn_dict['state'] = [state.replace('택시','버스') for state in new_turn_dict['state']]
+                new_dialogue.append(new_turn_dict)
+            dialog['dialogue'] = new_dialogue
+        else:   # 택시가 존재하지 않을 경우 그대로
+            dialog = dialog
+        new_data.append(dialog)
+    return new_data
 
-def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
+def load_dataset(args, dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list, dict]:
     """Dialogue 데이터 경로를 입력 받아 train/valid/groun truth 데이터를 리턴
 
     Args:
@@ -77,6 +96,8 @@ def load_dataset(dataset_path: str, dev_split: float = 0.1) -> Tuple[list, list,
             }
     """
     data = json.load(open(dataset_path))
+    if args.replace_word_data:
+        data = change_taxi_to_bus(data)
     num_data = len(data)
     num_dev = int(num_data * dev_split)
     if not num_dev:
@@ -122,7 +143,10 @@ def train_data_loading(args, isUserFirst, isDialogueLevel):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
-    train_data, dev_data, dev_labels = load_dataset(train_data_file)
+    if args.replace_word_data:
+        slot_meta = [meta.replace('택시','버스') for meta in slot_meta]
+
+    train_data, dev_data, dev_labels = load_dataset(args, train_data_file)
 
     train_examples = get_examples_from_dialogues(
         train_data, user_first=isUserFirst, dialogue_level=isDialogueLevel
