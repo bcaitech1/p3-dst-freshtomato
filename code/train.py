@@ -92,17 +92,17 @@ if __name__ == "__main__":
     parser.add_argument(
         "--apply_no_decay",
         type=bool, 
-        help="In TRADER_solution, no_weight_decay on (bias&LayerNorm)", 
+        help="In TRADE_solution, no_weight_decay on (bias&LayerNorm)", 
         default=False,
-    ) # TRADER
+    ) # TRADE
     parser.add_argument(
         "--use_n_gate", 
         type=int, 
         help="5 or 3 (Determine Using Which gate in TRADE_PLM)", 
         default=5,   # 3
-    ) # TRADER_PLM  # (none, dontcare, ptr) or {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
-    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADER, SUMBT
-    parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADER, SUMBT
+    ) # TRADE_PLM  # (none, dontcare, ptr) or {"none": 0, "dontcare": 1, "yes": 2, "no": 3, "ptr": 4}
+    parser.add_argument("--hidden_size", type=int, help="GRU의 hidden size", default=768) # TRADE, SUMBT
+    parser.add_argument("--num_rnn_layers", type=int, help="Number of GRU layers", default=1) # TRADE, SUMBT
     parser.add_argument(
         "--vocab_size",
         type=int,
