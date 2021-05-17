@@ -97,13 +97,13 @@ class TRADE(nn.Module):
         self.decoder.set_slot_idx(tokenized_slot_meta)
         self.tie_weight()
 
-    # def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
     #     model_module = getattr(
     #         import_module("transformers"), f"{config.model_name}Model"
     #     )
     #     model = model_module.from_pretrained(config.pretrained_name_or_path)
     #     self.encoder.embed.weight = model.embeddings.word_embeddings.weight
-    #     self.tie_weight()
+        self.tie_weight()
 
     def tie_weight(self):
         self.decoder.embed.weight = self.encoder.embeddings.word_embeddings.weight
