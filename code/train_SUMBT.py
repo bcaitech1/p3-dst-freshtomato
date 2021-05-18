@@ -8,7 +8,7 @@ from collections import defaultdict
 
 from data_utils import tokenize_ontology
 
-sys.path.insert(0, "../../CustomizedModule")
+sys.path.insert(0, "../CustomizedModule")
 from CustomizedScheduler import get_scheduler
 from CustomizedOptimizer import get_optimizer
 
@@ -30,21 +30,19 @@ def train(args):
     # Data Loading
     train_data_file = f"{args.data_dir}/train_dials.json"
     slot_meta = json.load(open(f"{args.data_dir}/slot_meta.json"))
-    ontology = json.load(open("../../input/data/train_dataset/ontology.json"))
+    ontology = json.load(open("../input/data/train_dataset/ontology.json"))
 
     data = json.load(open(train_data_file))
     domain_labels = [len(d['domains'])-1 for d in data]
     dialogue_idx = np.array([d['dialogue_idx'] for d in data])
 
-    print(len(domain_labels), domain_labels[:10])
     kf = StratifiedKFold(n_splits=args.fold_num, random_state=args.seed, shuffle=True)
     fold_idx = 1 
 
     for train_index, dev_index in kf.split(data, domain_labels):
         os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
         dev_idx = dialogue_idx[dev_index]
-        print(dev_idx[:10])
-
+        
         train_data, dev_data = [], []
         for d in data:
             if d["dialogue_idx"] in dev_idx:
@@ -98,7 +96,7 @@ def train(args):
 
         # Model 선언
         num_labels = [len(s) for s in slot_values_ids] # 각 Slot 별 후보 Values의 갯수
-        print('num_labels: ', num_labels)
+
         n_gpu = 1 if torch.cuda.device_count() < 2 else torch.cuda.device_count()
 
         model = SUMBT(args, num_labels, device)
