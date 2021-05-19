@@ -7,12 +7,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CosineEmbeddingLoss, CrossEntropyLoss
 from importlib import import_module
-from transformers import BertModel, BertPreTrainedModel
+from transformers import BertModel, BertPreTrainedModel, ElectraModel, ElectraPreTrainedModel
 
 
-class TRADE(nn.Module):
+class TRADE_original(nn.Module):
     def __init__(self, config, tokenized_slot_meta, pad_idx=0):
-        super(TRADE, self).__init__()
+        super(TRADE_original, self).__init__()
         self.encoder = GRUEncoder(
             config.vocab_size,
             config.hidden_size,
@@ -34,7 +34,6 @@ class TRADE(nn.Module):
         self.decoder.set_slot_idx(tokenized_slot_meta)
         self.tie_weight()
 
-    # def set_subword_embedding(self, pretrained_name_or_path):
     def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
         model_module = getattr(
             import_module("transformers"), f"{config.model_name}Model"
@@ -47,6 +46,62 @@ class TRADE(nn.Module):
         self.decoder.embed.weight = self.encoder.embed.weight
         if self.decoder.proj_layer:
             self.decoder.proj_layer.weight = self.encoder.proj_layer.weight
+
+    def forward(
+        self, input_ids, token_type_ids, attention_mask=None, max_len=10, teacher=None
+    ):
+
+        encoder_outputs, pooled_output = self.encoder(input_ids=input_ids)
+        all_point_outputs, all_gate_outputs = self.decoder(
+            input_ids,
+            encoder_outputs,
+            pooled_output.unsqueeze(0),
+            attention_mask,
+            max_len,
+            teacher,
+        )
+
+        return all_point_outputs, all_gate_outputs
+
+
+class PLMEncoder(nn.Module):
+    def __init__(self, config):
+        super(PLMEncoder, self).__init__()
+        plm_module = getattr(
+                            import_module("transformers"), f"{config.model_name}Model"
+                        )
+        self.plm = plm_module.from_pretrained(config.pretrained_name_or_path)
+    
+    def forward(self, input_ids):
+        if self.plm.pooler: # Bert의 경우 pooler layer 존재
+            return self.plm(input_ids)
+        else:
+            output = self.plm(input_ids=input_ids)[0] # (B, T, D)
+            pooled_output = output[:, 0, :] # 0 번째 CLS 토큰에 대한 것들
+            return output, pooled_output
+
+
+class TRADE(nn.Module):
+    def __init__(self, config, tokenized_slot_meta, pad_idx=0):
+        super(TRADE, self).__init__()
+        self.encoder = PLMEncoder(config)    
+        self.decoder = SlotGenerator(
+            config.vocab_size,
+            config.hidden_size,
+            config.hidden_dropout_prob,
+            config.n_gate,
+            config.proj_dim,
+            pad_idx,
+        )
+
+        self.decoder.set_slot_idx(tokenized_slot_meta)
+        self.tie_weight()
+
+    def set_subword_embedding(self, config):  # args 전체를 input으로 받는 것으로 바뀌었음
+        self.tie_weight()
+
+    def tie_weight(self):
+        self.decoder.embed.weight = self.encoder.plm.embeddings.word_embeddings.weight
 
     def forward(
         self, input_ids, token_type_ids, attention_mask=None, max_len=10, teacher=None
@@ -329,6 +384,7 @@ class SomDST(BertPreTrainedModel):
         exclude_domain: bool = False,
     ):
         super(SomDST, self).__init__(config)
+        self.config = config
         self.hidden_size = config.hidden_size
         self.encoder = SomDSTEncoder(config, n_op, n_domain, update_id, exclude_domain)
         self.decoder = SomDSTDecoder(
@@ -378,7 +434,7 @@ class SomDST(BertPreTrainedModel):
 
         return domain_scores, state_scores, gen_scores
 
-
+# SOP
 class SomDSTEncoder(nn.Module):
     """State Operation Predictor + Domain Predictor
 
@@ -386,131 +442,77 @@ class SomDSTEncoder(nn.Module):
         nn ([type]): [description]
     """
 
-    def __init__(
-        self, config, n_op: int, n_domain: int, update_id, exclude_domain: bool = False
-    ):
+    def __init__(self, config, n_op, n_domain, update_id, exclude_domain=False):
         super(SomDSTEncoder, self).__init__()
-        self.hidden_size = config.hidden_size  # 인코딩 결과 얻을 hidden size
-        self.exclude_domain = exclude_domain  # 제외할 도메인 목록
-        self.bert = BertModel(config)  # 인코더로 활용할 pre-trained BERT
+        self.hidden_size = config.hidden_size
+        self.exclude_domain = exclude_domain
+        self.bert = BertModel(config)
         self.dropout = nn.Dropout(config.dropout)
-        self.action_cls = nn.Linear(config.hidden_size, n_op)  # operation clf
+        self.action_cls = nn.Linear(config.hidden_size, n_op)
 
-        # 제외할 도메인
         if self.exclude_domain is not True:
             self.domain_cls = nn.Linear(config.hidden_size, n_domain)
 
-        self.n_op = n_op  # opertation 수
-        self.n_domain = n_domain  # domain 수
-        self.update_id = update_id  # update ID를 나타내는 scalar
+        self.n_op = n_op
+        self.n_domain = n_domain
+        self.update_id = update_id
 
-    def forward(
-        self,
-        input_ids,
-        token_type_ids,
-        state_positions,
-        attention_mask,
-        op_ids=None,
-        max_update=None,
-    ):
-        bert_outputs = self.bert(
-            input_ids, token_type_ids, attention_mask
-        )  # 인코딩 결과, |X_t| x hidden_dim
-        sequence_output, pooled_output = bert_outputs[:2]  # [?] Sequence_ouptut이 뭐지
-        state_pos = state_positions[:, :, np.newaxis].expand(
-            -1, -1, sequence_output.size(-1)
-        )  # [?] exand
-        state_output = torch.gather(
-            sequence_output, 1, state_pos
-        )  # memory를 얻는 듯? / torch.gather(t, dim, index): 텐서 t의 dim에 대하여 index 텐서를 바탕으로 값을 가져옴
-        state_scores = self.action_cls(
-            self.dropout(state_output)
-        )  # B,J,4 4가지 operation 각각에 대한 확률(CARRYOVER, DELETE, DONTCARE, UPDATE)
+    def forward(self, input_ids, token_type_ids, state_positions, attention_mask, op_ids=None, max_update=None):
+        bert_outputs = self.bert(input_ids, token_type_ids, attention_mask)
+        sequence_output, pooled_output = bert_outputs[:2]
+        state_pos = state_positions[:, :, None].expand(-1, -1, sequence_output.size(-1))
+        state_output = torch.gather(sequence_output, 1, state_pos)
+        state_scores = self.action_cls(self.dropout(state_output))  # B,J,4
 
-        # 도메인 label 분류
-        # [?] 도메인을 고려하지 않고 학습할 경우 <- single 도메인에 사용하려나
         if self.exclude_domain:
             domain_scores = torch.zeros(1, device=input_ids.device)  # dummy
-        # 도메인을 고려할 경우 <- multi 도메인이려나
         else:
             domain_scores = self.domain_cls(self.dropout(pooled_output))
 
         batch_size = state_scores.size(0)
         if op_ids is None:
-            op_ids = (
-                state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1)
-            )  # 샘플 각각에 대한 슬릇 각각의 operation을 결정
-
-        # update 한도 설정 - 따로 없으면 싹다 업데이트
+            op_ids = state_scores.view(-1, self.n_op).max(-1)[-1].view(batch_size, -1)
         if max_update is None:
             max_update = op_ids.eq(self.update_id).sum(-1).max().item()
 
         gathered = []
-        for b, a in zip(
-            state_output, op_ids.eq(self.update_id)
-        ):  # update할 슬릇에 대하여 / torch.eq(input, other): input과 other의 원소 단위 같은지 계산
-            # b: slot별 hidden_dim, a: operation id
-            # a: slot
-
-            # [?] update가 필요한 경우
-            if (
-                a.sum().item() != 0
-            ):  # [?] sum이라는 건 id의 equivalent (bool) 값을 합친다는 건데, 아직 모르겠음
-                v = b.masked_select(a.unsqueeze(-1)).view(
-                    1, -1, self.hidden_size
-                )  # 마스킹을 통해 update가 필요한 것만 남김(실제로 원소가 줄어듦)
-                n = v.size(1)  # update할 state 개수
-
-                # udpate 한도가 있을 떄
+        for b, a in zip(state_output, op_ids.eq(self.update_id)):  # update
+            if a.sum().item() != 0:
+                v = b.masked_select(a.unsqueeze(-1)).view(1, -1, self.hidden_size)
+                n = v.size(1)
                 gap = max_update - n
                 if gap > 0:
-                    zeros = torch.zeros(
-                        1, 1 * gap, self.hidden_size, device=input_ids.device
-                    )
+                    zeros = torch.zeros(1, 1*gap, self.hidden_size, device=input_ids.device)
                     v = torch.cat([v, zeros], 1)
-            # [?] update가 필요하지 않은 경우
             else:
-                v = torch.zeros(
-                    1, max_update, self.hidden_size, device=input_ids.device
-                )
+                v = torch.zeros(1, max_update, self.hidden_size, device=input_ids.device)
             gathered.append(v)
-
         decoder_inputs = torch.cat(gathered)
-        return (
-            domain_scores,
-            state_scores,
-            decoder_inputs,
-            sequence_output,
-            pooled_output.unsqueeze(0),
-        )
+        return domain_scores, state_scores, decoder_inputs, sequence_output, pooled_output.unsqueeze(0)
 
-
+# SVG
 class SomDSTDecoder(nn.Module):
     def __init__(self, config, bert_model_embedding_weights):
         super(SomDSTDecoder, self).__init__()
         self.pad_idx = 0
         self.hidden_size = config.hidden_size
         self.vocab_size = config.vocab_size
-        self.embed = nn.Embedding(
-            config.vocab_size, config.hidden_size, padding_idx=self.pad_idx
-        )
+        self.embed = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=self.pad_idx)
         self.embed.weight = bert_model_embedding_weights
         self.gru = nn.GRU(config.hidden_size, config.hidden_size, 1, batch_first=True)
-        self.w_gen = nn.Linear(config.hidden_size * 3, 1)
+        self.w_gen = nn.Linear(config.hidden_size*3, 1)
         self.sigmoid = nn.Sigmoid()
         self.dropout = nn.Dropout(config.dropout)
 
-        for n, p in self.gru.named_parameters():
-            if "weight" in n:
-                p.data.normal_(mean=0.0, std=config.initializer_range)
+        # for n, p in self.gru.named_parameters():
+        #     if 'weight' in n:
+        #         p.data.normal_(mean=0.0, std=config.initializer_range)
 
     def forward(self, x, decoder_input, encoder_output, hidden, max_len, teacher=None):
         mask = x.eq(self.pad_idx)
         batch_size, n_update, _ = decoder_input.size()  # B,J',5 # long
         state_in = decoder_input
-        all_point_outputs = torch.zeros(
-            n_update, batch_size, max_len, self.vocab_size
-        ).to(x.device)
+        all_point_outputs = torch.zeros(n_update, batch_size, max_len, self.vocab_size).to(x.device)
         result_dict = {}
         for j in range(n_update):
             w = state_in[:, j].unsqueeze(1)  # B,1,D
@@ -524,17 +526,13 @@ class SomDSTDecoder(nn.Module):
                 attn_history = nn.functional.softmax(attn_e, -1)  # B,T
 
                 # B,D * D,V => B,V
-                attn_v = torch.matmul(
-                    hidden.squeeze(0), self.embed.weight.transpose(0, 1)
-                )  # B,V
+                attn_v = torch.matmul(hidden.squeeze(0), self.embed.weight.transpose(0, 1))  # B,V
                 attn_vocab = nn.functional.softmax(attn_v, -1)
 
                 # B,1,T * B,T,D => B,1,D
                 context = torch.bmm(attn_history.unsqueeze(1), encoder_output)  # B,1,D
 
-                p_gen = self.sigmoid(
-                    self.w_gen(torch.cat([w, hidden.transpose(0, 1), context], -1))
-                )  # B,1
+                p_gen = self.sigmoid(self.w_gen(torch.cat([w, hidden.transpose(0, 1), context], -1)))  # B,1
                 p_gen = p_gen.squeeze(-1)
 
                 p_context_ptr = torch.zeros_like(attn_vocab).to(x.device)
@@ -542,13 +540,17 @@ class SomDSTDecoder(nn.Module):
                 p_final = p_gen * attn_vocab + (1 - p_gen) * p_context_ptr  # B,V
                 _, w_idx = p_final.max(-1)
                 slot_value.append([ww.tolist() for ww in w_idx])
+                
                 if teacher is not None:
                     w = self.embed(teacher[:, j, k]).unsqueeze(1)
                 else:
                     w = self.embed(w_idx).unsqueeze(1)  # B,1,D
+
                 all_point_outputs[j, :, k, :] = p_final
 
         return all_point_outputs.transpose(0, 1)
+
+
 
 
 class GRUEncoder(nn.Module):

@@ -14,6 +14,7 @@ def masked_cross_entropy_for_value(logits, target, pad_idx=0):
     loss = losses.sum() / (mask.sum().float())
     return loss
 
+
 class LabelSmoothingLoss(nn.Module):
     def __init__(self, classes, smoothing=0.2, dim=-1):
         super(LabelSmoothingLoss, self).__init__()
