@@ -164,19 +164,15 @@ def train(args):
         fold_idx = 1 
 
         for train_index, dev_index in kf.split(data, domain_labels):
-            noise_data = json.load(open(train_data_file))
-            
             os.makedirs(f'{args.model_dir}/{args.model_fold}/{fold_idx}-fold', exist_ok=True)
             dev_idx = dialogue_idx[dev_index]
             
             train_data, dev_data = [], []
-            for d in noise_data:
+            for d in data:
                 if d["dialogue_idx"] in dev_idx:
-                    dev_data.append(d)
-                    # dev_data.append(deepcopy(d))
+                    dev_data.append(deepcopy(d))
                 else:
-                    train_data.append(d)
-                    # train_data.append(deepcopy(d))
+                    train_data.append(deepcopy(d))
 
             dev_labels = {}
             for dialogue in dev_data:
