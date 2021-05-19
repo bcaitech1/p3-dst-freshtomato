@@ -230,7 +230,7 @@ def train(args):
                 dev_data, user_first=True, dialogue_level=True
             )
             run_train(args, slot_meta, train_examples, dev_examples, dev_labels, fold_idx)
-        fold_idx += 1
+            fold_idx += 1
     else:
         fold_idx = 'All'
         os.makedirs(f'{args.model_dir}/{args.model_fold}', exist_ok=True)
