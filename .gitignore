@@ -4,17 +4,10 @@ wandb/**
 # AraBae
 sketch/*
 models/**
-code/train_custom.py
-code/inference_custom.py
-code/loss.py
-code/run.sh
-code/command_file.txt
-code/inference_command.txt
 code/wandb/**
-code/sumbt_solution.py
-code/trade_solution.py
-code/0504_train_backup.py
-
+code/ara/**
+code/ara-kfold/**
+git_repo/**
 
 # data
 input/**

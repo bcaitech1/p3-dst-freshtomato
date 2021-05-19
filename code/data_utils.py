@@ -1,3 +1,4 @@
+import os
 import dataclasses
 import json
 import random
@@ -183,9 +184,14 @@ def get_data_loader(processor, features, batch_size):
 def set_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
+    
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    os.environ["PYTHONHASHSEED"] = str(seed)
+    
     torch.manual_seed(seed)
-    if torch.cuda.device_count() > 0:
-        torch.cuda.manual_seed_all(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 
 def split_slot(dom_slot_value: str, get_domain_slot=False) -> Tuple[str, str, str]:
