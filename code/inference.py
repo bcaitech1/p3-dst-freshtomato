@@ -115,7 +115,7 @@ def main_inference(args, config):
     eval_loader = get_data_loader(processor, eval_features, config.eval_batch_size)
     print("# eval:", len(eval_loader))
 
-    ckpt = torch.load(f'{args.model_dir}/{args.model_fold}/model-{args.chkpt_idx}.bin', map_location="cpu")
+    ckpt = torch.load(f'{args.model_dir}/{args.model_fold}/{args.load_model_name}.bin', map_location="cpu")
     model.load_state_dict(ckpt)
     model.to(device)
     print("Model is loaded")
@@ -134,13 +134,11 @@ def main_inference(args, config):
         ensure_ascii=False,
     )
 
-    
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_fold", type=str, required=True, help="model 폴더명")
-    parser.add_argument("--chkpt_idx", type=int, required=True, help="model check point")
+    parser.add_argument("--load_model_name", type=int, default="best_jga", help="model name used for inference")
 
     parser.add_argument("--data_dir", type=str, default=CFG.Test)
     parser.add_argument("--model_dir", type=str, default=CFG.Models)

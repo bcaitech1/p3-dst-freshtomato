@@ -13,10 +13,10 @@
 ### Inference Phase
 ```python
 >>> cd code
->>> python inference.py --model_fold [MODEL_FOLD_NAME] --chkpt_idx [CHECKPOINT INDEX]
+>>> python inference.py --model_fold [MODEL_FOLD_NAME] --load_model_name [MODEL_NAME]
 ```
 
-### Application: wandb
+## Application: wandb
 1. train.py파일을 수행하면 다음과 같은 화면에서 2번 선택
 
   ![image](https://user-images.githubusercontent.com/46676700/116401727-89628d80-a866-11eb-9069-5c7a947741ab.png)
@@ -27,7 +27,6 @@
   ![image](https://user-images.githubusercontent.com/46676700/116401752-91223200-a866-11eb-80e7-78af8acb2049.png)
 
 3. 아래와 같이 key값을 terminal 창에 복사 붙여 넣기
-
 
     <img src="https://user-images.githubusercontent.com/46676700/116401797-9f704e00-a866-11eb-91b3-1cb509c19c88.png" width="40%">
 
